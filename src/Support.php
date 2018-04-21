@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace Railt\Reflection;
 
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Str;
 use Railt\Reflection\Contracts\Behavior\AllowsTypeIndication;
 use Railt\Reflection\Contracts\Definitions\Definition;
 use Railt\Reflection\Contracts\Definitions\TypeDefinition;
@@ -107,7 +105,7 @@ trait Support
      */
     protected function valueWithType($value): string
     {
-        return Str::lower(\gettype($value)) . ' ' . $this->valueToString($value);
+        return \mb_strtolower(\gettype($value)) . ' ' . $this->valueToString($value);
     }
 
     /**
@@ -135,15 +133,19 @@ trait Support
             return $this->typeToString($value);
         }
 
-        if ($value instanceof Arrayable) {
+        if ($value instanceof \Illuminate\Contracts\Support\Arrayable) {
             return $this->valueToScalar($value->toArray());
+        }
+
+        if ($value instanceof \Illuminate\Contracts\Support\Jsonable) {
+            return $this->valueToScalar(\json_decode($value->toJson(), true));
         }
 
         if ($value instanceof \JsonSerializable) {
             return $this->valueToScalar(\json_encode($value->jsonSerialize(), true));
         }
 
-        return Str::studly(\gettype($value));
+        return \ucfirst(\strtolower(\gettype($value)));
     }
 
     /**
