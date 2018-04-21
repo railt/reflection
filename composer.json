@@ -3,7 +3,17 @@
     "type": "library",
     "description": "The Railt Reflection provides Reflection API to read and parse GraphQL SDL",
     "license": "MIT",
-    "keywords": [ "graphql", "idl", "otd", "ast", "reflection", "reader", "parser", "llk", "introspection" ],
+    "keywords": [
+        "graphql",
+        "idl",
+        "otd",
+        "ast",
+        "reflection",
+        "reader",
+        "parser",
+        "llk",
+        "introspection"
+    ],
     "homepage": "http://railt.org",
     "support": {
         "issues": "https://github.com/railt/railt/issues",
