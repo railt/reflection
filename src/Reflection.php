@@ -9,13 +9,11 @@ declare(strict_types=1);
 
 namespace Railt\Reflection;
 
-use Railt\Io\Exception\ExternalFileException;
 use Railt\Reflection\Common\Serializable;
-use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Document as DocumentInterface;
-use Railt\Reflection\Contracts\Definition\SchemaDefinition as SchemaInterface;
 use Railt\Reflection\Contracts\Reflection as ReflectionInterface;
+use Railt\Reflection\Contracts\Type;
 use Railt\Reflection\Exception\TypeConflictException;
 use Railt\Reflection\Exception\TypeNotFoundException;
 
@@ -37,12 +35,7 @@ class Reflection implements ReflectionInterface
     protected $documents = [];
 
     /**
-     * @var array|string[]
-     */
-    protected $schema = [];
-
-    /**
-     * @return iterable|DocumentInterface[]
+     * @return iterable
      */
     public function getDocuments(): iterable
     {
@@ -50,140 +43,86 @@ class Reflection implements ReflectionInterface
     }
 
     /**
-     * @param string|null $name
-     * @return null|SchemaInterface|TypeDefinition
+     * @param DocumentInterface $document
      */
-    public function getSchema(string $name = null): ?SchemaInterface
+    public function addDocument(DocumentInterface $document): void
     {
-        $name = $name ?? SchemaInterface::DEFAULT_SCHEMA_NAME;
+        $this->documents[$document->getName()] = $document;
+    }
 
-        if (! \in_array($name, $this->schema, true)) {
-            return null;
+    /**
+     * @param Type|null $of
+     * @return iterable|TypeDefinition[]
+     */
+    public function all(Type $of = null): iterable
+    {
+        foreach ($this->types as $definition) {
+            if ($of === null || $definition::typeOf($of)) {
+                yield $definition;
+            }
         }
-
-        return $this->getTypeDefinition($name);
     }
 
     /**
      * @param string $name
+     * @param TypeDefinition|null $from
      * @return TypeDefinition
+     * @throws TypeNotFoundException
      */
-    public function getTypeDefinition(string $name): ?TypeDefinition
+    public function get(string $name, TypeDefinition $from = null): TypeDefinition
+    {
+        if ($result = $this->find($name)) {
+            return $result;
+        }
+
+        throw $this->typeNotFound($name, $from);
+    }
+
+    /**
+     * @param string $name
+     * @return null|TypeDefinition
+     */
+    public function find(string $name): ?TypeDefinition
     {
         return $this->types[$name] ?? null;
     }
 
     /**
-     * @param string $type
-     * @param Definition $from
-     * @return TypeDefinition
-     * @throws ExternalFileException
-     */
-    public function fetch(string $type, Definition $from): TypeDefinition
-    {
-        if (($result = $this->getTypeDefinition($type)) !== null) {
-            return $result;
-        }
-
-        throw $this->typeNotFound($type)
-            ->throwsIn($from->getFile(), $from->getLine(), $from->getColumn());
-    }
-
-    /**
      * @param string $name
+     * @param TypeDefinition $from
      * @return TypeNotFoundException
      */
-    private function typeNotFound(string $name): TypeNotFoundException
+    protected function typeNotFound(string $name, TypeDefinition $from = null): TypeNotFoundException
     {
         $error = \sprintf('Type %s not found or could not be loaded', $name);
 
-        return new TypeNotFoundException($error);
+        $exception = new TypeNotFoundException($error);
+
+        if ($from !== null) {
+            $exception->throwsIn($from->getFile(), $from->getLine(), $from->getColumn());
+        }
+
+        return $exception;
     }
 
     /**
      * @param TypeDefinition $type
-     * @throws ExternalFileException|TypeConflictException
+     * @return ReflectionInterface
      */
-    public function addType(TypeDefinition $type): void
+    public function add(TypeDefinition $type): ReflectionInterface
     {
-        $this->checkTypeExistence($type);
-
-        $this->preCacheSchema($type);
-        $this->preCacheDocument($type);
-
         $this->types[$type->getName()] = $type;
-    }
+        $this->addDocument($type->getDocument());
 
-    /**
-     * @param TypeDefinition $type
-     * @throws ExternalFileException
-     * @throws TypeConflictException
-     */
-    private function checkTypeExistence(TypeDefinition $type): void
-    {
-        if (\array_key_exists($type->getName(), $this->types)) {
-            throw $this->typeRedefinition($type);
-        }
-    }
-
-    /**
-     * @param TypeDefinition $type
-     * @return TypeConflictException|ExternalFileException
-     */
-    private function typeRedefinition(TypeDefinition $type): TypeConflictException
-    {
-        $def = $this->types[$type->getName()];
-
-        $error = 'Could not define type %s, because type with same name already has been defined in %s:%d:%d';
-        $error = \sprintf($error, $type, $def->getFile()->getPathname(), $def->getLine(), $def->getColumn());
-
-        return (new TypeConflictException($error))->throwsIn($type->getFile(), $type->getLine(), $type->getColumn());
-    }
-
-    /**
-     * @param TypeDefinition $type
-     */
-    private function preCacheSchema(TypeDefinition $type): void
-    {
-        if ($type instanceof SchemaInterface) {
-            $this->schema[] = $type->getName();
-        }
-    }
-
-    /**
-     * @param TypeDefinition $type
-     */
-    private function preCacheDocument(TypeDefinition $type): void
-    {
-        $document = $type->getDocument();
-
-        if (! \array_key_exists($document->getName(), $this->documents)) {
-            $this->documents[$document->getName()] = $document;
-        }
-    }
-
-    /**
-     * @return iterable|TypeDefinition[]
-     */
-    public function getTypeDefinitions(): iterable
-    {
-        return \array_values($this->types);
+        return $this;
     }
 
     /**
      * @param string $name
      * @return bool
      */
-    public function hasTypeDefinition(string $name): bool
+    public function has(string $name): bool
     {
-        return \array_key_exists($name, $this->types);
-    }
-
-    /**
-     * @return int
-     */
-    public function getNumberOfTypeDefinitions(): int
-    {
-        return \count($this->types);
+        return ($this->types[$name] ?? null) !== null;
     }
 }

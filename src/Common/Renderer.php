@@ -20,8 +20,7 @@ class Renderer
      */
     public static function typeName(string $name): string
     {
-        $name = \str_replace(['-', '_'], ' ', $name);
-        $name = \ucwords($name);
+        $name = \ucwords(\mb_strtolower(\preg_replace('/\W+/u', ' ', $name)));
 
         return (string)\str_replace(' ', '', $name);
     }

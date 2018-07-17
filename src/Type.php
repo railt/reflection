@@ -9,14 +9,13 @@ declare(strict_types=1);
 
 namespace Railt\Reflection;
 
-use Railt\Reflection\Common\Renderer;
 use Railt\Reflection\Common\Serializable;
 use Railt\Reflection\Contracts\Type as TypeInterface;
 
 /**
- * Class BaseType
+ * Class Type
  */
-abstract class Type implements TypeInterface
+class Type implements TypeInterface
 {
     use Serializable;
 
@@ -26,9 +25,9 @@ abstract class Type implements TypeInterface
     private static $instances = [];
 
     /**
-     * @var array
+     * @var array[]|string[][]
      */
-    private static $types = [];
+    private static $inheritance = [];
 
     /**
      * @var string
@@ -39,9 +38,23 @@ abstract class Type implements TypeInterface
      * BaseType constructor.
      * @param string $name
      */
-    public function __construct(string $name)
+    private function __construct(string $name)
     {
+        \assert(\in_array($name, \array_merge(static::DEPENDENT_TYPES, static::ROOT_TYPES), true));
+
         $this->name = $name;
+
+        if (self::$inheritance === []) {
+            $this->bootInheritance();
+        }
+    }
+
+    /**
+     * @var
+     */
+    private function bootInheritance(): void
+    {
+
     }
 
     /**
@@ -50,17 +63,15 @@ abstract class Type implements TypeInterface
      */
     public static function of(string $type): Type
     {
-        return self::$instances[$type] ?? (
-            self::$instances[$type] = new static($type)
-        );
+        return self::$instances[$type] ?? (self::$instances[$type] = new static($type));
     }
 
     /**
-     * @return string
+     * @return bool
      */
-    public function getName(): string
+    public function isDependent(): bool
     {
-        return $this->name;
+        return \in_array($this->name, static::DEPENDENT_TYPES, true);
     }
 
     /**
@@ -77,24 +88,14 @@ abstract class Type implements TypeInterface
      */
     public function __toString(): string
     {
-        return Renderer::typeName($this->getName());
+        return $this->getName();
     }
 
     /**
-     * @param string $name
-     * @return bool
-     * @throws \ReflectionException
+     * @return string
      */
-    public static function isValid(string $name): bool
+    public function getName(): string
     {
-        if (self::$types === []) {
-            $reflection = new \ReflectionClass(static::class);
-
-            foreach ($reflection->getConstants() as $constant) {
-                self::$types[] = $constant;
-            }
-        }
-
-        return \in_array($name, self::$types, true);
+        return $this->name;
     }
 }

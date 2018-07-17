@@ -34,13 +34,15 @@ abstract class AbstractTypeDefinition extends AbstractDefinition implements Type
     /**
      * AbstractTypeDefinition constructor.
      * @param Document $document
-     * @param int $offset
      * @param string $name
      */
-    public function __construct(Document $document, int $offset, string $name)
+    public function __construct(Document $document, string $name)
     {
         $this->name = $name;
-        parent::__construct($document, $offset);
+
+        parent::__construct($document);
+
+        $document->addTypeDefinition($this);
     }
 
     /**
@@ -74,5 +76,14 @@ abstract class AbstractTypeDefinition extends AbstractDefinition implements Type
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @param string $type
+     * @return TypeDefinition
+     */
+    protected function fetch(string $type): TypeDefinition
+    {
+        return $this->document->getReflection()->get($type, $this);
     }
 }

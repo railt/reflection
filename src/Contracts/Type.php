@@ -15,115 +15,124 @@ namespace Railt\Reflection\Contracts;
 interface Type
 {
     /**
-     * Type of document (global).
+     * @var string
      */
-    public const DOCUMENT = 'DOCUMENT';
+    public const SCALAR = 'Scalar';
 
     /**
-     * Type of enum definition.
+     * @var string
      */
-    public const ENUM = 'ENUM';
+    public const OBJECT = 'Object';
 
     /**
-     * Location adjacent to a query operation.
+     * @var string
      */
-    public const QUERY = 'QUERY';
+    public const INTERFACE = 'Interface';
 
     /**
-     * Location adjacent to a union definition.
+     * @var string
      */
-    public const UNION = 'UNION';
+    public const UNION = 'Union';
 
     /**
-     * Location adjacent to a field.
+     * @var string
      */
-    public const FIELD = 'FIELD';
+    public const ENUM = 'Enum';
 
     /**
-     * Location adjacent to a scalar definition.
+     * @var string
      */
-    public const SCALAR = 'SCALAR';
+    public const INPUT_OBJECT = 'Input';
 
     /**
-     * Location adjacent to a schema definition.
+     * @var string
      */
-    public const SCHEMA = 'SCHEMA';
+    public const INPUT_UNION = 'InputUnion';
 
     /**
-     * Type of object type definition.
+     * @var string
      */
-    public const OBJECT = 'OBJECT';
+    public const SCHEMA = 'Schema';
 
     /**
-     * Location adjacent to a mutation operation.
+     * @var string
      */
-    public const MUTATION = 'MUTATION';
+    public const ENUM_VALUE = 'EnumValue';
 
     /**
-     * Type of interface definition.
+     * @var string
      */
-    public const INTERFACE = 'INTERFACE';
+    public const FIELD_DEFINITION = 'FieldDefinition';
 
     /**
-     * Type of enum value definition.
+     * @var string
      */
-    public const ENUM_VALUE = 'ENUM_VALUE';
+    public const ARGUMENT_DEFINITION = 'ArgumentDefinition';
 
     /**
-     * Type of input object type definition.
+     * @var string
      */
-    public const INPUT_OBJECT = 'INPUT_OBJECT';
+    public const INPUT_FIELD_DEFINITION = 'InputField';
 
     /**
-     * Type of input union object type definition.
+     * @var string
      */
-    public const INPUT_UNION = 'INPUT_UNION';
+    public const DOCUMENT = 'Document';
 
     /**
-     * Location adjacent to a subscription operation.
+     * @var string
      */
-    public const SUBSCRIPTION = 'SUBSCRIPTION';
+    public const ANY = 'Any';
 
     /**
-     * Location adjacent to a fragment spread.
+     * @var string[]
      */
-    public const FRAGMENT_SPREAD = 'FRAGMENT_SPREAD';
+    public const DEPENDENT_TYPES = [
+        self::SCHEMA,
+        self::ENUM_VALUE,
+        self::FIELD_DEFINITION,
+        self::ARGUMENT_DEFINITION,
+        self::INPUT_FIELD_DEFINITION,
+        self::DOCUMENT,
+    ];
 
     /**
-     * Type of inline fragment.
+     * @var string[]
      */
-    public const INLINE_FRAGMENT = 'INLINE_FRAGMENT';
+    public const ROOT_TYPES = [
+        self::SCALAR,
+        self::OBJECT,
+        self::INTERFACE,
+        self::UNION,
+        self::ENUM,
+        self::INPUT_OBJECT,
+        self::INPUT_UNION,
+        self::ANY,
+    ];
 
     /**
-     * Location adjacent to a field definition.
+     * @var string[]|array[]
      */
-    public const FIELD_DEFINITION = 'FIELD_DEFINITION';
+    public const INHERITANCE_TREE = [
+        self::ANY => [
+            self::INTERFACE => [
+                self::OBJECT => [
+                    self::INPUT_OBJECT,
+                ],
+            ],
+            self::UNION => [
+                self::INPUT_UNION
+            ],
+            self::SCALAR => [
+                self::ENUM
+            ]
+        ]
+    ];
 
     /**
-     * Location adjacent to a fragment definition.
-     */
-    public const FRAGMENT_DEFINITION = 'FRAGMENT_DEFINITION';
-
-    /**
-     * Type of argument definition.
-     */
-    public const ARGUMENT_DEFINITION = 'ARGUMENT_DEFINITION';
-
-    /**
-     * Type of input object field definition.
-     */
-    public const INPUT_FIELD_DEFINITION = 'INPUT_FIELD_DEFINITION';
-
-    /**
-     * Type of directive definition.
-     */
-    public const DIRECTIVE = 'DIRECTIVE';
-
-    /**
-     * @param string $name
      * @return bool
      */
-    public static function isValid(string $name): bool;
+    public function isDependent(): bool;
 
     /**
      * @return string

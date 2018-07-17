@@ -25,5 +25,5 @@ interface ProvidesType
      * @param Type $type
      * @return bool
      */
-    public function typeOf(Type $type): bool;
+    public static function typeOf(Type $type): bool;
 }

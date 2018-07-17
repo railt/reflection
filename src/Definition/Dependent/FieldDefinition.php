@@ -10,7 +10,11 @@ declare(strict_types=1);
 namespace Railt\Reflection\Definition\Dependent;
 
 use Railt\Reflection\Contracts\Definition\Dependent\FieldDefinition as FieldDefinitionInterface;
+use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Type as TypeInterface;
+use Railt\Reflection\Definition\Behaviour\HasArguments;
+use Railt\Reflection\Definition\Behaviour\HasTypeIndication;
+use Railt\Reflection\Document;
 use Railt\Reflection\Type;
 
 /**
@@ -18,10 +22,28 @@ use Railt\Reflection\Type;
  */
 class FieldDefinition extends AbstractDependentTypeDefinition implements FieldDefinitionInterface
 {
-    public static function getType(): TypeInterface
+    use HasTypeIndication;
+    use HasArguments;
+
+    /**
+     * FieldDefinition constructor.
+     * @param TypeDefinition $parent
+     * @param Document $document
+     * @param string $name
+     * @param string $type
+     */
+    public function __construct(TypeDefinition $parent, Document $document, string $name, string $type)
     {
-        return Type::of(Type::FIELD);
+        parent::__construct($parent, $document, $name);
+
+        $this->setTypeDefinition($type);
     }
 
-
+    /**
+     * @return TypeInterface
+     */
+    public static function getType(): TypeInterface
+    {
+        return Type::of(Type::FIELD_DEFINITION);
+    }
 }

@@ -28,13 +28,13 @@ abstract class AbstractDependentTypeDefinition extends AbstractTypeDefinition im
      * AbstractDependentTypeDefinition constructor.
      * @param TypeDefinition $parent
      * @param Document $document
-     * @param int $offset
      * @param string $name
      */
-    public function __construct(TypeDefinition $parent, Document $document, int $offset, string $name)
+    public function __construct(TypeDefinition $parent, Document $document, string $name)
     {
         $this->parent = $parent;
-        parent::__construct($document, $offset, $name);
+
+        parent::__construct($document, $name);
     }
 
     /**

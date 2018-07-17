@@ -18,6 +18,21 @@ use Railt\Reflection\Contracts\Definition\TypeDefinition;
 interface ProvidesTypeIndication
 {
     /**
+     * @var int
+     */
+    public const IS_LIST = 0b0001;
+
+    /**
+     * @var int
+     */
+    public const IS_NOT_NULL = 0b0010;
+
+    /**
+     * @var int
+     */
+    public const IS_LIST_OF_NOT_NULL = 0b0100;
+
+    /**
      * Reference to type definition.
      *
      * @return TypeDefinition

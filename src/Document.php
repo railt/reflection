@@ -11,13 +11,12 @@ namespace Railt\Reflection;
 
 use Railt\Io\File;
 use Railt\Io\Readable;
-use Railt\Reflection\Common\Renderer;
 use Railt\Reflection\Common\Serializable;
-use Railt\Reflection\Contracts\Definition\SchemaDefinition;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Document as DocumentInterface;
 use Railt\Reflection\Contracts\Reflection as ReflectionInterface;
 use Railt\Reflection\Contracts\Type as TypeInterface;
+use Railt\Reflection\Exception\TypeNotFoundException;
 use Railt\Reflection\Invocation\Behaviour\HasDirectives;
 
 /**
@@ -54,6 +53,8 @@ class Document extends AbstractDefinition implements DocumentInterface
         $this->store = $parent;
 
         parent::__construct($this, 0);
+
+        $parent->addDocument($this);
     }
 
     /**
@@ -66,12 +67,10 @@ class Document extends AbstractDefinition implements DocumentInterface
 
     /**
      * @param TypeDefinition $type
-     * @throws \Railt\Io\Exception\ExternalFileException
-     * @throws \Railt\Reflection\Exception\TypeConflictException
      */
     public function addTypeDefinition(TypeDefinition $type): void
     {
-        $this->store->addType($type);
+        $this->store->add($type);
         $this->types[] = $type->getName();
     }
 
@@ -108,13 +107,13 @@ class Document extends AbstractDefinition implements DocumentInterface
     }
 
     /**
-     * @return iterable
-     * @throws \Railt\Io\Exception\ExternalFileException
+     * @return iterable|TypeDefinition[]
+     * @throws TypeNotFoundException
      */
     public function getTypeDefinitions(): iterable
     {
         foreach ($this->types as $type) {
-            yield $this->fetch($type);
+            yield $this->store->get($type);
         }
     }
 
@@ -129,15 +128,15 @@ class Document extends AbstractDefinition implements DocumentInterface
 
     /**
      * @param string $name
-     * @return TypeDefinition
+     * @return null|TypeDefinition
      */
-    public function getTypeDefinition(string $name): TypeDefinition
+    public function getTypeDefinition(string $name): ?TypeDefinition
     {
         if (! \in_array($name, $this->types, true)) {
             return null;
         }
 
-        return $this->store->getTypeDefinition($name);
+        return $this->store->find($name);
     }
 
     /**
@@ -145,16 +144,6 @@ class Document extends AbstractDefinition implements DocumentInterface
      */
     public function getName(): string
     {
-        $name = \basename($this->file->getPathname());
-
-        return Renderer::typeName(\explode('.', $name)[0]);
-    }
-
-    /**
-     * @return int
-     */
-    public function getNumberOfTypeDefinitions(): int
-    {
-        return \count($this->types);
+        return $this->file->isFile() ? $this->file->getPathname() : $this->file->getHash();
     }
 }

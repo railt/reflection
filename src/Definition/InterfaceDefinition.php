@@ -10,11 +10,12 @@ declare(strict_types=1);
 namespace Railt\Reflection\Definition;
 
 use Railt\Reflection\AbstractTypeDefinition;
+use Railt\Reflection\Contracts\Definition\ObjectDefinition as ObjectDefinitionInterface;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Type as TypeInterface;
+use Railt\Reflection\Definition\Behaviour\HasFields;
 use Railt\Reflection\Definition\Behaviour\HasInterfaces;
 use Railt\Reflection\Type;
-use Railt\Reflection\Contracts\Definition\ObjectDefinition as ObjectDefinitionInterface;
 
 /**
  * Class InterfaceDefinition
@@ -22,6 +23,7 @@ use Railt\Reflection\Contracts\Definition\ObjectDefinition as ObjectDefinitionIn
 class InterfaceDefinition extends AbstractTypeDefinition implements ObjectDefinitionInterface
 {
     use HasInterfaces;
+    use HasFields;
 
     /**
      * @return TypeInterface

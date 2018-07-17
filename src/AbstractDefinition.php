@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Railt\Reflection;
 
-use Railt\Io\Exception\ExternalFileException;
 use Railt\Io\Readable;
 use Railt\Reflection\Common\Serializable;
 use Railt\Reflection\Contracts\Definition;
@@ -32,17 +31,32 @@ abstract class AbstractDefinition implements Definition
     /**
      * @var int
      */
-    protected $offset;
+    protected $offset = 0;
 
     /**
      * AbstractDefinition constructor.
      * @param Document $document
+     */
+    public function __construct(Document $document)
+    {
+        $this->document = $document;
+    }
+
+    /**
      * @param int $offset
      */
-    public function __construct(Document $document, int $offset)
+    public function setOffset(int $offset): void
     {
-        $this->offset   = $offset;
-        $this->document = $document;
+        $this->offset = $offset;
+    }
+
+    /**
+     * @param TypeInterface $type
+     * @return bool
+     */
+    public static function typeOf(TypeInterface $type): bool
+    {
+        return static::getType()->instanceOf($type);
     }
 
     /**
@@ -78,15 +92,6 @@ abstract class AbstractDefinition implements Definition
     }
 
     /**
-     * @param TypeInterface $type
-     * @return bool
-     */
-    public function typeOf(TypeInterface $type): bool
-    {
-        return static::getType()->instanceOf($type);
-    }
-
-    /**
      * @return string
      */
     public function __toString(): string
@@ -101,10 +106,9 @@ abstract class AbstractDefinition implements Definition
     /**
      * @param string $type
      * @return TypeDefinition
-     * @throws ExternalFileException
      */
     protected function fetch(string $type): TypeDefinition
     {
-        return $this->document->getReflection()->fetch($type, $this);
+        return $this->document->getReflection()->get($type);
     }
 }
