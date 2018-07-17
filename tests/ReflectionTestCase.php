@@ -104,7 +104,8 @@ class ReflectionTestCase extends TestCase
         new ObjectDefinition($file, 'Test');
         $this->assertEquals(1, $reflection->get('Test')->getColumn());
 
-        new ObjectDefinition($file, 'Test', 10);
+        $obj = new ObjectDefinition($file, 'Test');
+        $obj->setOffset(10);
         $this->assertEquals(11, $reflection->get('Test')->getColumn());
     }
 }
