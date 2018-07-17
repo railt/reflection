@@ -14,44 +14,130 @@ namespace Railt\Reflection\Contracts;
  */
 interface Type
 {
-    /**#@+
-     * Virtual types group
+    /**
+     * Type of document (global).
      */
-    public const DOCUMENT           = 'Document';
-    /**#@-*/
+    public const DOCUMENT = 'DOCUMENT';
 
-    /**#@+
-     * SDL types
+    /**
+     * Type of enum definition.
      */
-    public const SCHEMA             = 'Schema';
+    public const ENUM = 'ENUM';
 
-    public const OBJECT             = 'Object';
-    public const OBJECT_FIELD       = 'Field';      // TODO Rename
-    public const OBJECT_ARGUMENT    = 'Argument';   // TODO Rename
-
-    public const INTERFACE          = 'Interface';
-    public const INTERFACE_FIELD    = 'Field';      // TODO Rename
-    public const INTERFACE_ARGUMENT = 'Argument';   // TODO Rename
-
-    public const DIRECTIVE          = 'Directive';
-    public const DIRECTIVE_ARGUMENT = 'Argument';   // TODO Rename
-
-    public const INPUT              = 'Input';
-    public const INPUT_FIELD        = 'InputField';
-
-    public const ENUM               = 'Enum';
-    public const ENUM_VALUE         = 'EnumValue';
-
-    public const UNION              = 'Union';
-    public const SCALAR             = 'Scalar';
-    /**#@-*/
-
-    /**#@+
-     * Invocations
+    /**
+     * Location adjacent to a query operation.
      */
-    public const INPUT_INVOCATION       = self::INPUT;
-    public const DIRECTIVE_INVOCATION   = self::DIRECTIVE;
-    // Extensions
-    public const EXTENSION          = 'Extension';
-    /**#@-*/
+    public const QUERY = 'QUERY';
+
+    /**
+     * Location adjacent to a union definition.
+     */
+    public const UNION = 'UNION';
+
+    /**
+     * Location adjacent to a field.
+     */
+    public const FIELD = 'FIELD';
+
+    /**
+     * Location adjacent to a scalar definition.
+     */
+    public const SCALAR = 'SCALAR';
+
+    /**
+     * Location adjacent to a schema definition.
+     */
+    public const SCHEMA = 'SCHEMA';
+
+    /**
+     * Type of object type definition.
+     */
+    public const OBJECT = 'OBJECT';
+
+    /**
+     * Location adjacent to a mutation operation.
+     */
+    public const MUTATION = 'MUTATION';
+
+    /**
+     * Type of interface definition.
+     */
+    public const INTERFACE = 'INTERFACE';
+
+    /**
+     * Type of enum value definition.
+     */
+    public const ENUM_VALUE = 'ENUM_VALUE';
+
+    /**
+     * Type of input object type definition.
+     */
+    public const INPUT_OBJECT = 'INPUT_OBJECT';
+
+    /**
+     * Type of input union object type definition.
+     */
+    public const INPUT_UNION = 'INPUT_UNION';
+
+    /**
+     * Location adjacent to a subscription operation.
+     */
+    public const SUBSCRIPTION = 'SUBSCRIPTION';
+
+    /**
+     * Location adjacent to a fragment spread.
+     */
+    public const FRAGMENT_SPREAD = 'FRAGMENT_SPREAD';
+
+    /**
+     * Type of inline fragment.
+     */
+    public const INLINE_FRAGMENT = 'INLINE_FRAGMENT';
+
+    /**
+     * Location adjacent to a field definition.
+     */
+    public const FIELD_DEFINITION = 'FIELD_DEFINITION';
+
+    /**
+     * Location adjacent to a fragment definition.
+     */
+    public const FRAGMENT_DEFINITION = 'FRAGMENT_DEFINITION';
+
+    /**
+     * Type of argument definition.
+     */
+    public const ARGUMENT_DEFINITION = 'ARGUMENT_DEFINITION';
+
+    /**
+     * Type of input object field definition.
+     */
+    public const INPUT_FIELD_DEFINITION = 'INPUT_FIELD_DEFINITION';
+
+    /**
+     * Type of directive definition.
+     */
+    public const DIRECTIVE = 'DIRECTIVE';
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public static function isValid(string $name): bool;
+
+    /**
+     * @return string
+     */
+    public function getName(): string;
+
+    /**
+     * @param Type $type
+     * @return bool
+     */
+    public function instanceOf(Type $type): bool;
+
+    /**
+     * @return string
+     */
+    public function __toString(): string;
 }

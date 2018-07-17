@@ -29,6 +29,7 @@
         "php": "^7.1.3",
         "ext-json": "*",
         "ext-mbstring": "*",
+        "psr/http-message": "~1.0",
         "railt/io": "1.2.*|dev-master"
     },
     "autoload": {
@@ -37,6 +38,9 @@
         }
     },
     "require-dev": {
+        "illuminate/support": "~5.6",
+        "symfony/var-dumper": "~4.1",
+        "guzzlehttp/guzzle": "~6.0",
         "phpunit/phpunit": "^6.5"
     },
     "autoload-dev": {
@@ -44,12 +48,11 @@
             "Railt\\Tests\\Reflection\\": "tests"
         }
     },
+    "suggest": {
+        "guzzlehttp/guzzle": "(~6.0) Enables GuzzleProvider support"
+    },
     "config": {
         "sort-packages": true
-    },
-    "suggest": {
-        "psr/cache-implementation": "PSR-6 Cache Implementation",
-        "psr/simple-cache-implementation": "PSR-16 Cache Implementation"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
