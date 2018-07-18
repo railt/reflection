@@ -31,7 +31,7 @@ trait HasTypeIndication
     /**
      * @return TypeDefinition
      */
-    public function getTypeDefinition(): TypeDefinition
+    public function getDefinition(): TypeDefinition
     {
         \assert(\is_string($this->definition));
 
@@ -67,17 +67,23 @@ trait HasTypeIndication
 
     /**
      * @param int $value
+     * @return ProvidesTypeIndication
      */
-    public function setModifiers(int $value): void
+    public function withModifiers(int $value): ProvidesTypeIndication
     {
         $this->modifiers |= $value;
+
+        return $this;
     }
 
     /**
      * @param string $name
+     * @return ProvidesTypeIndication
      */
-    public function setTypeDefinition(string $name): void
+    public function withTypeDefinition(string $name): ProvidesTypeIndication
     {
         $this->definition = $name;
+        
+        return $this;
     }
 }

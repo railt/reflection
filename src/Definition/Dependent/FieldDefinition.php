@@ -36,7 +36,7 @@ class FieldDefinition extends AbstractDependentTypeDefinition implements FieldDe
     {
         parent::__construct($parent, $document, $name);
 
-        $this->setTypeDefinition($type);
+        $this->withTypeDefinition($type);
     }
 
     /**

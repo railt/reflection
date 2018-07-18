@@ -41,8 +41,6 @@ abstract class AbstractTypeDefinition extends AbstractDefinition implements Type
         $this->name = $name;
 
         parent::__construct($document);
-
-        $document->addTypeDefinition($this);
     }
 
     /**
@@ -79,11 +77,10 @@ abstract class AbstractTypeDefinition extends AbstractDefinition implements Type
     }
 
     /**
-     * @param string $type
-     * @return TypeDefinition
+     * @return string
      */
-    protected function fetch(string $type): TypeDefinition
+    public function __toString(): string
     {
-        return $this->document->getReflection()->get($type, $this);
+        return \sprintf('%s<%s>', $this->getName(), static::getType());
     }
 }

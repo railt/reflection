@@ -19,7 +19,7 @@ interface ProvidesTypeDefinitions
     /**
      * @return iterable|TypeDefinition[]
      */
-    public function getTypeDefinitions(): iterable;
+    public function getDefinitions(): iterable;
 
     /**
      * This method should return a Boolean value that indicates
@@ -28,7 +28,7 @@ interface ProvidesTypeDefinitions
      * @param string $name The name of required type.
      * @return bool Presence of the type in the container.
      */
-    public function hasTypeDefinition(string $name): bool;
+    public function hasDefinition(string $name): bool;
 
     /**
      * This method should return the Type (except Union and Interface) that is contained
@@ -37,6 +37,6 @@ interface ProvidesTypeDefinitions
      * @param string $name The name of required type.
      * @return TypeDefinition|null The type object or null if there is no such Type in the container.
      */
-    public function getTypeDefinition(string $name): ?TypeDefinition;
+    public function getDefinition(string $name): ?TypeDefinition;
 }
 

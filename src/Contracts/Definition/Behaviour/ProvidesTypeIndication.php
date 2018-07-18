@@ -37,7 +37,7 @@ interface ProvidesTypeIndication
      *
      * @return TypeDefinition
      */
-    public function getTypeDefinition(): TypeDefinition;
+    public function getDefinition(): TypeDefinition;
 
     /**
      * Returns a Boolean value that indicates that the type

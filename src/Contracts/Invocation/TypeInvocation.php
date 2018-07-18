@@ -20,5 +20,10 @@ interface TypeInvocation extends Definition
     /**
      * @return TypeDefinition
      */
-    public function getTypeDefinition(): TypeDefinition;
+    public function getDefinition(): TypeDefinition;
+
+    /**
+     * @return string
+     */
+    public function getName(): string;
 }

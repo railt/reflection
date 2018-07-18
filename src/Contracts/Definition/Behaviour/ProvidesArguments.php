@@ -20,17 +20,17 @@ interface ProvidesArguments
     /**
      * @return iterable|ArgumentDefinition[]
      */
-    public function getArgumentDefinitions(): iterable;
+    public function getArguments(): iterable;
 
     /**
      * @param string $name
      * @return bool
      */
-    public function hasArgumentDefinition(string $name): bool;
+    public function hasArgument(string $name): bool;
 
     /**
      * @param string $name
      * @return ArgumentDefinition|null
      */
-    public function getArgumentDefinition(string $name): ?ArgumentDefinition;
+    public function getArgument(string $name): ?ArgumentDefinition;
 }

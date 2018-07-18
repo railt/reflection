@@ -14,6 +14,7 @@ use Railt\Reflection\Common\Serializable;
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Document as DocumentInterface;
+use Railt\Reflection\Contracts\Invocation\TypeInvocation;
 use Railt\Reflection\Contracts\Type as TypeInterface;
 
 /**
@@ -43,20 +44,23 @@ abstract class AbstractDefinition implements Definition
     }
 
     /**
-     * @param int $offset
-     */
-    public function setOffset(int $offset): void
-    {
-        $this->offset = $offset;
-    }
-
-    /**
      * @param TypeInterface $type
      * @return bool
      */
     public static function typeOf(TypeInterface $type): bool
     {
         return static::getType()->instanceOf($type);
+    }
+
+    /**
+     * @param int $offset
+     * @return Definition|TypeDefinition|TypeInvocation|$this
+     */
+    public function withOffset(int $offset): Definition
+    {
+        $this->offset = $offset;
+
+        return $this;
     }
 
     /**
@@ -96,10 +100,6 @@ abstract class AbstractDefinition implements Definition
      */
     public function __toString(): string
     {
-        if (\method_exists($this, 'getName')) {
-            return \sprintf('%s<%s>', $this->getName(), static::getType());
-        }
-
         return \sprintf('?<%s>', static::getType());
     }
 
@@ -109,6 +109,6 @@ abstract class AbstractDefinition implements Definition
      */
     protected function fetch(string $type): TypeDefinition
     {
-        return $this->document->getReflection()->get($type);
+        return $this->document->getDictionary()->get($type, $this);
     }
 }

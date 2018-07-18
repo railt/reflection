@@ -27,6 +27,11 @@ interface Type
     /**
      * @var string
      */
+    public const DIRECTIVE = 'Directive';
+
+    /**
+     * @var string
+     */
     public const INTERFACE = 'Interface';
 
     /**
@@ -107,6 +112,7 @@ interface Type
         self::ENUM,
         self::INPUT_OBJECT,
         self::INPUT_UNION,
+        self::DIRECTIVE,
         self::ANY,
     ];
 
@@ -117,7 +123,9 @@ interface Type
         self::ANY => [
             self::INTERFACE => [
                 self::OBJECT => [
-                    self::INPUT_OBJECT,
+                    self::INPUT_OBJECT => [
+                        self::DIRECTIVE
+                    ]
                 ],
             ],
             self::UNION => [

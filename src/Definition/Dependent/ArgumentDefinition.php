@@ -44,7 +44,7 @@ class ArgumentDefinition extends AbstractDependentTypeDefinition implements Argu
     {
         parent::__construct($parent, $document, $name);
 
-        $this->setTypeDefinition($type);
+        $this->withTypeDefinition($type);
     }
 
     /**
@@ -64,13 +64,15 @@ class ArgumentDefinition extends AbstractDependentTypeDefinition implements Argu
     }
 
     /**
-     * @param $value
-     * @return void
+     * @param mixed $value
+     * @return ArgumentDefinitionInterface
      */
-    public function setDefaultValue($value): void
+    public function withDefaultValue($value): ArgumentDefinitionInterface
     {
         $this->defaultValue    = $value;
         $this->hasDefaultValue = true;
+
+        return $this;
     }
 
     /**
@@ -82,11 +84,13 @@ class ArgumentDefinition extends AbstractDependentTypeDefinition implements Argu
     }
 
     /**
-     * @return void
+     * @return ArgumentDefinitionInterface
      */
-    public function removeDefaultValue(): void
+    public function withoutDefaultValue(): ArgumentDefinitionInterface
     {
         $this->defaultValue    = null;
         $this->hasDefaultValue = false;
+
+        return $this;
     }
 }

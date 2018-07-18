@@ -29,7 +29,7 @@ trait HasInterfaces
      * @param TypeDefinition $definition
      * @return bool
      */
-    protected function instanceOfInterface(TypeDefinition $definition): bool
+    protected function isImplementsDefinition(TypeDefinition $definition): bool
     {
         foreach ($this->getInterfaces() as $interface) {
             if ($interface->instanceOf($definition)) {
@@ -38,6 +38,15 @@ trait HasInterfaces
         }
 
         return false;
+    }
+
+    /**
+     * @param string $interface
+     * @return bool
+     */
+    public function isImplements(string $interface): bool
+    {
+        return $this->isImplementsDefinition($this->fetch($interface));
     }
 
     /**
@@ -76,10 +85,13 @@ trait HasInterfaces
 
     /**
      * @param InterfaceDefinition $definition
+     * @return ProvidesInterfaces
      */
-    public function addInterface(InterfaceDefinition $definition): void
+    public function withInterface(InterfaceDefinition $definition): ProvidesInterfaces
     {
         $this->interfaces[] = $definition->getName();
+
+        return $this;
     }
 }
 

@@ -39,25 +39,20 @@ trait HasDirectives
     public function getDirectives(string $name = null): iterable
     {
         foreach ($this->directives as $directive) {
-            if ($name === null || $name === $directive->getTypeDefinition()->getName()) {
+            if ($name === null || $name === $directive->getDefinition()->getName()) {
                 yield $directive;
             }
         }
     }
 
     /**
-     * @return int
-     */
-    public function getNumberOfDirectives(): int
-    {
-        return \count($this->directives);
-    }
-
-    /**
      * @param DirectiveInvocation $invocation
+     * @return ProvidesDirectives
      */
-    protected function addDirective(DirectiveInvocation $invocation): void
+    public function withDirective(DirectiveInvocation $invocation): ProvidesDirectives
     {
         $this->directives[] = $invocation;
+
+        return $this;
     }
 }

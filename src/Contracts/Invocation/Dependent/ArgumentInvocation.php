@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace Railt\Reflection\Contracts\Invocation\Dependent;
 
-use Railt\Reflection\Contracts\Definition\Dependent\ArgumentDefinition;
-
 /**
  * Interface ArgumentInvocation
  */
@@ -20,9 +18,4 @@ interface ArgumentInvocation extends DependentTypeInvocation
      * @return mixed
      */
     public function getValue();
-
-    /**
-     * @return ArgumentDefinition
-     */
-    public function getArgumentDefinition(): ArgumentDefinition;
 }

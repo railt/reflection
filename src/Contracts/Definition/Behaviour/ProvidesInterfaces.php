@@ -32,4 +32,10 @@ interface ProvidesInterfaces
      * @return InterfaceDefinition|null
      */
     public function getInterface(string $name): ?InterfaceDefinition;
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function isImplements(string $name): bool;
 }

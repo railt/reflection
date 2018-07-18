@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Railt\Reflection\Definition;
 
 use Railt\Reflection\AbstractTypeDefinition;
-use Railt\Reflection\Contracts\Definition\ObjectDefinition as ObjectDefinitionInterface;
+use Railt\Reflection\Contracts\Definition\InterfaceDefinition as InterfaceDefinitionInterface;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Type as TypeInterface;
 use Railt\Reflection\Definition\Behaviour\HasFields;
@@ -20,7 +20,7 @@ use Railt\Reflection\Type;
 /**
  * Class InterfaceDefinition
  */
-class InterfaceDefinition extends AbstractTypeDefinition implements ObjectDefinitionInterface
+class InterfaceDefinition extends AbstractTypeDefinition implements InterfaceDefinitionInterface
 {
     use HasInterfaces;
     use HasFields;
@@ -39,6 +39,6 @@ class InterfaceDefinition extends AbstractTypeDefinition implements ObjectDefini
      */
     public function instanceOf(TypeDefinition $definition): bool
     {
-        return $this->instanceOfInterface($definition) || parent::instanceOf($definition);
+        return $this->isImplementsDefinition($definition) || parent::instanceOf($definition);
     }
 }

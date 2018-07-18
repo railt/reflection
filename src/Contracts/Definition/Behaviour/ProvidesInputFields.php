@@ -21,17 +21,17 @@ interface ProvidesInputFields
     /**
      * @return iterable|InputFieldDefinition[]
      */
-    public function getInputFields(): iterable;
+    public function getFields(): iterable;
 
     /**
      * @param string $name
      * @return bool
      */
-    public function hasInputField(string $name): bool;
+    public function hasField(string $name): bool;
 
     /**
      * @param string $name
      * @return InputFieldDefinition|null
      */
-    public function getInputField(string $name): ?InputFieldDefinition;
+    public function getField(string $name): ?InputFieldDefinition;
 }

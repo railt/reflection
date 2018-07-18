@@ -20,17 +20,17 @@ interface ProvidesFields
     /**
      * @return iterable|FieldDefinition[]
      */
-    public function getFieldDefinitions(): iterable;
+    public function getFields(): iterable;
 
     /**
      * @param string $name
      * @return bool
      */
-    public function hasFieldDefinition(string $name): bool;
+    public function hasField(string $name): bool;
 
     /**
      * @param string $name
      * @return FieldDefinition|null
      */
-    public function getFieldDefinition(string $name): ?FieldDefinition;
+    public function getField(string $name): ?FieldDefinition;
 }

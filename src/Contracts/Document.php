@@ -22,9 +22,9 @@ use Railt\Reflection\Contracts\Invocation\Behaviour\ProvidesDirectives;
 interface Document extends ProvidesTypeDefinitions, ProvidesDirectives, Definition
 {
     /**
-     * @return Reflection
+     * @return Dictionary
      */
-    public function getReflection(): Reflection;
+    public function getDictionary(): Dictionary;
 
     /**
      * @return string

@@ -19,17 +19,17 @@ interface ProvidesPassedArguments
     /**
      * @return iterable|ArgumentInvocation[]
      */
-    public function getPassedArguments(): iterable;
+    public function getArguments(): iterable;
 
     /**
      * @param string $name
      * @return bool
      */
-    public function hasPassedArgument(string $name): bool;
+    public function hasArgument(string $name): bool;
 
     /**
      * @param string $name
      * @return ArgumentInvocation|null
      */
-    public function getPassedArgument(string $name): ?ArgumentInvocation;
+    public function getArgument(string $name): ?ArgumentInvocation;
 }

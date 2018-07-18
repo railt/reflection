@@ -11,7 +11,6 @@ namespace Railt\Reflection\Definition\Behaviour;
 
 use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesFields;
 use Railt\Reflection\Contracts\Definition\Dependent\FieldDefinition;
-use Railt\Reflection\Exception\TypeConflictException;
 
 /**
  * Trait HasFields
@@ -27,7 +26,7 @@ trait HasFields
     /**
      * @return iterable|FieldDefinition[]
      */
-    public function getFieldDefinitions(): iterable
+    public function getFields(): iterable
     {
         return \array_values($this->fields);
     }
@@ -36,7 +35,7 @@ trait HasFields
      * @param string $name
      * @return bool
      */
-    public function hasFieldDefinition(string $name): bool
+    public function hasField(string $name): bool
     {
         return isset($this->fields[$name]);
     }
@@ -45,16 +44,19 @@ trait HasFields
      * @param string $name
      * @return null|FieldDefinition
      */
-    public function getFieldDefinition(string $name): ?FieldDefinition
+    public function getField(string $name): ?FieldDefinition
     {
         return $this->fields[$name] ?? null;
     }
 
     /**
      * @param FieldDefinition $field
+     * @return ProvidesFields
      */
-    public function addFieldDefinition(FieldDefinition $field): void
+    public function withField(FieldDefinition $field): ProvidesFields
     {
         $this->fields[$field->getName()] = $field;
+
+        return $this;
     }
 }

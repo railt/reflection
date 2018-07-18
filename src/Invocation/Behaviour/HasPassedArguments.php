@@ -7,25 +7,24 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Reflection\Definition\Behaviour;
+namespace Railt\Reflection\Invocation\Behaviour;
 
-use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesArguments;
-use Railt\Reflection\Definition\Dependent\ArgumentDefinition;
-use Railt\Reflection\Contracts\Definition\Dependent\ArgumentDefinition as ArgumentDefinitionInterface;
+use Railt\Reflection\Contracts\Invocation\Behaviour\ProvidesPassedArguments;
+use Railt\Reflection\Contracts\Invocation\Dependent\ArgumentInvocation;
 
 /**
- * Trait HasArguments
- * @mixin ProvidesArguments
+ * Trait HasPassedArguments
+ * @mixin ProvidesPassedArguments
  */
-trait HasArguments
+trait HasPassedArguments
 {
     /**
-     * @var array|ArgumentDefinition[]
+     * @var array|ArgumentInvocation[]
      */
     protected $arguments = [];
 
     /**
-     * @return iterable|ArgumentDefinition[]
+     * @return iterable|ArgumentInvocation[]
      */
     public function getArguments(): iterable
     {
@@ -43,18 +42,18 @@ trait HasArguments
 
     /**
      * @param string $name
-     * @return null|ArgumentDefinitionInterface
+     * @return null|ArgumentInvocation
      */
-    public function getArgument(string $name): ?ArgumentDefinitionInterface
+    public function getArgument(string $name): ?ArgumentInvocation
     {
         return $this->arguments[$name] ?? null;
     }
 
     /**
-     * @param ArgumentDefinitionInterface $argument
-     * @return ProvidesArguments
+     * @param ArgumentInvocation $argument
+     * @return ProvidesPassedArguments
      */
-    public function withArgument(ArgumentDefinitionInterface $argument): ProvidesArguments
+    public function withArgument(ArgumentInvocation $argument): ProvidesPassedArguments
     {
         $this->arguments[$argument->getName()] = $argument;
 

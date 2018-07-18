@@ -56,7 +56,7 @@ class ReflectionTestCase extends TestCase
     {
         $reflection = new Reflection();
         $document = new Document($reflection);
-        $type = new ObjectDefinition($document, 'Object');
+        $document->withDefinition(new ObjectDefinition($document, 'Object'));
 
         $this->assertTrue($reflection->has('Object'));
         $this->assertInstanceOf(ObjectDefinition::class, $reflection->find('Object'));
@@ -99,13 +99,12 @@ class ReflectionTestCase extends TestCase
     public function testReflectionTypesDuplication(): void
     {
         $reflection = new Reflection();
-        $file = new Document($reflection, File::fromSources(\str_repeat(' ', 20)));
+        $doc = new Document($reflection, File::fromSources(\str_repeat(' ', 20)));
 
-        new ObjectDefinition($file, 'Test');
+        $reflection->add(new ObjectDefinition($doc, 'Test'));
         $this->assertEquals(1, $reflection->get('Test')->getColumn());
 
-        $obj = new ObjectDefinition($file, 'Test');
-        $obj->setOffset(10);
+        $reflection->add((new ObjectDefinition($doc, 'Test'))->withOffset(10));
         $this->assertEquals(11, $reflection->get('Test')->getColumn());
     }
 }

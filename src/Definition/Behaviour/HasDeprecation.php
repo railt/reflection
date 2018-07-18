@@ -32,10 +32,13 @@ trait HasDeprecation
 
     /**
      * @param null|string $reason
+     * @return Deprecatable
      */
-    public function setDeprecationReason(?string $reason): void
+    public function withDeprecationReason(?string $reason): Deprecatable
     {
         $this->deprecation = $reason;
+
+        return $this;
     }
 
     /**
