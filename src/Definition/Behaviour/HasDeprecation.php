@@ -32,7 +32,7 @@ trait HasDeprecation
 
     /**
      * @param null|string $reason
-     * @return Deprecatable
+     * @return Deprecatable|$this
      */
     public function withDeprecationReason(?string $reason): Deprecatable
     {

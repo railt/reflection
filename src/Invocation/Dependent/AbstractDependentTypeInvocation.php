@@ -40,7 +40,7 @@ abstract class AbstractDependentTypeInvocation extends AbstractTypeInvocation im
     /**
      * @return TypeInvocation
      */
-    public function getParent(): TypeInvocation
+    public function getParentInvocation(): TypeInvocation
     {
         return $this->parent;
     }

@@ -40,7 +40,7 @@ abstract class AbstractDependentTypeDefinition extends AbstractTypeDefinition im
     /**
      * @return TypeDefinition
      */
-    public function getParent(): TypeDefinition
+    public function getParentDefinition(): TypeDefinition
     {
         return $this->parent;
     }

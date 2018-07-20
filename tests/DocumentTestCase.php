@@ -23,6 +23,7 @@ class DocumentTestCase extends TestCase
 {
     /**
      * @return Document
+     * @throws \Railt\Io\Exception\NotReadableException
      */
     private function mock(): Document
     {
@@ -33,6 +34,7 @@ class DocumentTestCase extends TestCase
      * @throws \PHPUnit\Framework\AssertionFailedError
      * @throws \PHPUnit\Framework\Exception
      * @throws \Railt\Reflection\Exception\TypeNotFoundException
+     * @throws \Railt\Io\Exception\NotReadableException
      */
     public function testEmptyDocument(): void
     {
@@ -67,6 +69,7 @@ class DocumentTestCase extends TestCase
      * @throws \PHPUnit\Framework\AssertionFailedError
      * @throws \PHPUnit\Framework\Exception
      * @throws \Railt\Reflection\Exception\TypeNotFoundException
+     * @throws \Railt\Io\Exception\NotReadableException
      */
     public function testDocumentWithObject(): void
     {
@@ -84,6 +87,7 @@ class DocumentTestCase extends TestCase
      * @throws \PHPUnit\Framework\AssertionFailedError
      * @throws \PHPUnit\Framework\Exception
      * @throws \Railt\Reflection\Exception\TypeNotFoundException
+     * @throws \Railt\Io\Exception\NotReadableException
      */
     public function testDocumentWithAnotherDocument(): void
     {
@@ -102,6 +106,7 @@ class DocumentTestCase extends TestCase
      * @throws \PHPUnit\Framework\AssertionFailedError
      * @throws \PHPUnit\Framework\Exception
      * @throws \Railt\Reflection\Exception\TypeNotFoundException
+     * @throws \Railt\Io\Exception\NotReadableException
      */
     public function testDocumentWithDirectives(): void
     {

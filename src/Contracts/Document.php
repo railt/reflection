@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Railt\Reflection\Contracts;
 
-use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesSchema;
 use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesTypeDefinitions;
 use Railt\Reflection\Contracts\Invocation\Behaviour\ProvidesDirectives;
 

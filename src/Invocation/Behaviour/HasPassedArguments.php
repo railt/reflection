@@ -50,12 +50,14 @@ trait HasPassedArguments
     }
 
     /**
-     * @param ArgumentInvocation $argument
-     * @return ProvidesPassedArguments
+     * @param ArgumentInvocation ...$arguments
+     * @return ProvidesPassedArguments|$this
      */
-    public function withArgument(ArgumentInvocation $argument): ProvidesPassedArguments
+    public function withArgument(ArgumentInvocation ...$arguments): ProvidesPassedArguments
     {
-        $this->arguments[$argument->getName()] = $argument;
+        foreach ($arguments as $argument) {
+            $this->arguments[$argument->getName()] = $argument;
+        }
 
         return $this;
     }

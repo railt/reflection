@@ -52,7 +52,7 @@ class ArgumentDefinition extends AbstractDependentTypeDefinition implements Argu
      */
     public static function getType(): TypeInterface
     {
-        return Type::of(Type::ARGUMENT_DEFINITION);
+        return Type::of(Type::ARGUMENT);
     }
 
     /**
@@ -65,7 +65,7 @@ class ArgumentDefinition extends AbstractDependentTypeDefinition implements Argu
 
     /**
      * @param mixed $value
-     * @return ArgumentDefinitionInterface
+     * @return ArgumentDefinitionInterface|$this
      */
     public function withDefaultValue($value): ArgumentDefinitionInterface
     {

@@ -10,7 +10,9 @@ declare(strict_types=1);
 namespace Railt\Reflection;
 
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
+use Railt\Reflection\Contracts\Dictionary;
 use Railt\Reflection\Definition\Behaviour\HasDeprecation;
+use Railt\Reflection\Definition\Behaviour\HasInheritance;
 use Railt\Reflection\Invocation\Behaviour\HasDirectives;
 
 /**
@@ -20,6 +22,7 @@ abstract class AbstractTypeDefinition extends AbstractDefinition implements Type
 {
     use HasDirectives;
     use HasDeprecation;
+    use HasInheritance;
 
     /**
      * @var string
@@ -53,10 +56,32 @@ abstract class AbstractTypeDefinition extends AbstractDefinition implements Type
 
     /**
      * @param null|string $description
+     * @return TypeDefinition|$this
      */
-    public function setDescription(?string $description): void
+    public function withDescription(?string $description): TypeDefinition
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @return TypeDefinition|$this
+     */
+    public function renameTo(string $name): TypeDefinition
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Dictionary
+     */
+    public function getDictionary(): Dictionary
+    {
+        return $this->document->getDictionary();
     }
 
     /**
@@ -65,15 +90,15 @@ abstract class AbstractTypeDefinition extends AbstractDefinition implements Type
      */
     public function instanceOf(TypeDefinition $definition): bool
     {
-        return $this instanceof $definition;
-    }
+        if ($definition::getType()->is(Type::ANY)) {
+            return true;
+        }
 
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
+        if ($this->getName() === $definition->getName()) {
+            return true;
+        }
+
+        return $this->isExtendsDefinition($definition);
     }
 
     /**
@@ -82,5 +107,13 @@ abstract class AbstractTypeDefinition extends AbstractDefinition implements Type
     public function __toString(): string
     {
         return \sprintf('%s<%s>', $this->getName(), static::getType());
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 }

@@ -32,6 +32,11 @@ interface Type
     /**
      * @var string
      */
+    public const DIRECTIVE_LOCATION = 'DirectiveLocation';
+
+    /**
+     * @var string
+     */
     public const INTERFACE = 'Interface';
 
     /**
@@ -67,12 +72,12 @@ interface Type
     /**
      * @var string
      */
-    public const FIELD_DEFINITION = 'FieldDefinition';
+    public const FIELD = 'Field';
 
     /**
      * @var string
      */
-    public const ARGUMENT_DEFINITION = 'ArgumentDefinition';
+    public const ARGUMENT = 'Argument';
 
     /**
      * @var string
@@ -95,10 +100,11 @@ interface Type
     public const DEPENDENT_TYPES = [
         self::SCHEMA,
         self::ENUM_VALUE,
-        self::FIELD_DEFINITION,
-        self::ARGUMENT_DEFINITION,
+        self::FIELD,
+        self::ARGUMENT,
         self::INPUT_FIELD_DEFINITION,
         self::DOCUMENT,
+        self::DIRECTIVE_LOCATION
     ];
 
     /**
@@ -117,23 +123,26 @@ interface Type
     ];
 
     /**
+     * @var string
+     */
+    public const ROOT_TYPE = self::ANY;
+
+    /**
      * @var string[]|array[]
      */
     public const INHERITANCE_TREE = [
-        self::ANY => [
-            self::INTERFACE => [
-                self::OBJECT => [
-                    self::INPUT_OBJECT => [
-                        self::DIRECTIVE
-                    ]
-                ],
+        self::INTERFACE => [
+            self::OBJECT => [
+                self::INPUT_OBJECT => [
+                    self::DIRECTIVE
+                ]
             ],
-            self::UNION => [
-                self::INPUT_UNION
-            ],
-            self::SCALAR => [
-                self::ENUM
-            ]
+        ],
+        self::UNION => [
+            self::INPUT_UNION
+        ],
+        self::SCALAR => [
+            self::ENUM
         ]
     ];
 
@@ -152,6 +161,12 @@ interface Type
      * @return bool
      */
     public function instanceOf(Type $type): bool;
+
+    /**
+     * @param string $type
+     * @return bool
+     */
+    public function is(string $type): bool;
 
     /**
      * @return string

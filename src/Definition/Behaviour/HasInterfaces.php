@@ -29,7 +29,7 @@ trait HasInterfaces
      * @param TypeDefinition $definition
      * @return bool
      */
-    protected function isImplementsDefinition(TypeDefinition $definition): bool
+    public function isImplementsDefinition(TypeDefinition $definition): bool
     {
         foreach ($this->getInterfaces() as $interface) {
             if ($interface->instanceOf($definition)) {
@@ -70,26 +70,22 @@ trait HasInterfaces
 
     /**
      * @param string $name
-     * @return InterfaceDefinition
-     * @throws TypeNotFoundException
+     * @return InterfaceDefinition|null
      */
-    public function getInterface(string $name): InterfaceDefinition
+    public function getInterface(string $name): ?InterfaceDefinition
     {
-        if (! \in_array($name, $this->interfaces, true)) {
-            $error = \sprintf('%s does not contain an interface named "%s"', $this, $name);
-            throw new TypeNotFoundException($error);
-        }
-
-        return $this->fetch($name);
+        return \in_array($name, $this->interfaces, true) ? $this->fetch($name) : null;
     }
 
     /**
-     * @param InterfaceDefinition $definition
-     * @return ProvidesInterfaces
+     * @param InterfaceDefinition ...$interfaces
+     * @return ProvidesInterfaces|$this
      */
-    public function withInterface(InterfaceDefinition $definition): ProvidesInterfaces
+    public function implements(InterfaceDefinition ...$interfaces): ProvidesInterfaces
     {
-        $this->interfaces[] = $definition->getName();
+        foreach ($interfaces as $interface) {
+            $this->interfaces[] = $interface->getName();
+        }
 
         return $this;
     }

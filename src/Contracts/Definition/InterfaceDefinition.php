@@ -15,7 +15,7 @@ use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesInterfaces;
 /**
  * Interface InterfaceDefinition
  */
-interface InterfaceDefinition extends TypeDefinition, ProvidesFields, ProvidesInterfaces
+interface InterfaceDefinition extends ProvidesFields, ProvidesInterfaces, TypeDefinition
 {
 
 }

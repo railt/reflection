@@ -15,7 +15,7 @@ use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesLocations;
 /**
  * Interface DirectiveDefinition
  */
-interface DirectiveDefinition extends TypeDefinition, ProvidesArguments, ProvidesLocations
+interface DirectiveDefinition extends ProvidesArguments, ProvidesLocations, TypeDefinition
 {
     /**
      * @param TypeDefinition $definition

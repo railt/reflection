@@ -19,5 +19,5 @@ interface DependentTypeInvocation extends TypeInvocation
     /**
      * @return TypeInvocation
      */
-    public function getParent(): TypeInvocation;
+    public function getParentInvocation(): TypeInvocation;
 }

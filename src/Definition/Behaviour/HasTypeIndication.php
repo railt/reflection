@@ -66,19 +66,21 @@ trait HasTypeIndication
     }
 
     /**
-     * @param int $value
-     * @return ProvidesTypeIndication
+     * @param int ...$values
+     * @return ProvidesTypeIndication|$this
      */
-    public function withModifiers(int $value): ProvidesTypeIndication
+    public function withModifiers(int ...$values): ProvidesTypeIndication
     {
-        $this->modifiers |= $value;
+        foreach ($values as $value) {
+            $this->modifiers |= $value;
+        }
 
         return $this;
     }
 
     /**
      * @param string $name
-     * @return ProvidesTypeIndication
+     * @return ProvidesTypeIndication|$this
      */
     public function withTypeDefinition(string $name): ProvidesTypeIndication
     {

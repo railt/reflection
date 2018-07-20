@@ -9,27 +9,12 @@ declare(strict_types=1);
 
 namespace Railt\Reflection\Contracts\Definition;
 
-use Railt\Reflection\Contracts\Definition\Dependent\EnumValueDefinition;
+use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesEnumValues;
 
 /**
  * Interface EnumDefinition
  */
-interface EnumDefinition extends ScalarDefinition
+interface EnumDefinition extends ProvidesEnumValues, ScalarDefinition
 {
-    /**
-     * @return iterable|EnumValueDefinition[]
-     */
-    public function getValues(): iterable;
 
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public function hasValue(string $name): bool;
-
-    /**
-     * @param string $name
-     * @return EnumValueDefinition|null
-     */
-    public function getValue(string $name): ?EnumValueDefinition;
 }

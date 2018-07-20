@@ -14,6 +14,6 @@ use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesInputFields;
 /**
  * Interface InputDefinition
  */
-interface InputDefinition extends TypeDefinition, ProvidesInputFields
+interface InputDefinition extends ProvidesInputFields, TypeDefinition
 {
 }

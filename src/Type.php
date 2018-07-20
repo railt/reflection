@@ -30,6 +30,11 @@ class Type implements TypeInterface
     private static $inheritance = [];
 
     /**
+     * @var array|string[]
+     */
+    private $parent;
+
+    /**
      * @var string
      */
     protected $name;
@@ -43,18 +48,49 @@ class Type implements TypeInterface
         \assert(\in_array($name, \array_merge(static::DEPENDENT_TYPES, static::ROOT_TYPES), true));
 
         $this->name = $name;
-
-        if (self::$inheritance === []) {
-            $this->bootInheritance();
-        }
+        $this->parent = $this->getInheritanceSequence($name);
     }
 
     /**
-     * @var
+     * @param string $name
+     * @return array
      */
-    private function bootInheritance(): void
+    private function getInheritanceSequence(string $name): array
     {
+        if (self::$inheritance === []) {
+            $this->bootInheritance(new \SplStack(), static::INHERITANCE_TREE);
+        }
 
+        return self::$inheritance[$name] ?? [static::ROOT_TYPE];
+    }
+
+    /**
+     * @param \SplStack $stack
+     * @param array $children
+     */
+    private function bootInheritance(\SplStack $stack, array $children = []): void
+    {
+        $push = function (string $type) use ($stack): void {
+            self::$inheritance[$type] = \array_values(\iterator_to_array($stack));
+            self::$inheritance[$type][] = static::ROOT_TYPE;
+
+            $stack->push($type);
+        };
+
+        foreach ($children as $type => $child) {
+            switch (true) {
+                case \is_string($child):
+                    $push($child);
+                    break;
+
+                case \is_array($child):
+                    $push($type);
+                    $this->bootInheritance($stack, $child);
+                    break;
+            }
+
+            $stack->pop();
+        }
     }
 
     /**
@@ -80,15 +116,18 @@ class Type implements TypeInterface
      */
     public function instanceOf(TypeInterface $type): bool
     {
-        return $this instanceof $type;
+        $needle = $type->getName();
+
+        return $this->is($needle) || \in_array($needle, $this->parent, true);
     }
 
     /**
-     * @return string
+     * @param string $type
+     * @return bool
      */
-    public function __toString(): string
+    public function is(string $type): bool
     {
-        return $this->getName();
+        return $this->getName() === $type;
     }
 
     /**
@@ -97,5 +136,13 @@ class Type implements TypeInterface
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->getName();
     }
 }

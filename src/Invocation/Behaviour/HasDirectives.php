@@ -46,12 +46,14 @@ trait HasDirectives
     }
 
     /**
-     * @param DirectiveInvocation $invocation
-     * @return ProvidesDirectives
+     * @param DirectiveInvocation ...$invocations
+     * @return ProvidesDirectives|$this
      */
-    public function withDirective(DirectiveInvocation $invocation): ProvidesDirectives
+    public function withDirective(DirectiveInvocation ...$invocations): ProvidesDirectives
     {
-        $this->directives[] = $invocation;
+        foreach ($invocations as $invocation) {
+            $this->directives[] = $invocation;
+        }
 
         return $this;
     }

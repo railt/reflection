@@ -39,7 +39,9 @@ class ProxyDictionary implements Dictionary
      */
     public function all(Type $of = null): iterable
     {
-        yield from $this->parent->all($of);
+        foreach ($this->parent->all($of) as $definition) {
+            yield $definition;
+        }
     }
 
     /**

@@ -110,7 +110,7 @@ interface DirectiveLocation
      * @version SDL June 2018
      * @var string
      */
-    public const INTERFACE = 'INTERFACE';
+    public const INTERFACE           = 'INTERFACE';
 
     /**
      * @version SDL June 2018
@@ -179,19 +179,19 @@ interface DirectiveLocation
      * @var string[]
      */
     public const LOCATION_TO_TYPES = [
-        self::SCALAR => Type::SCALAR,
-        self::OBJECT => Type::OBJECT,
-        self::INTERFACE => Type::INTERFACE,
-        self::UNION => Type::UNION,
-        self::ENUM => Type::ENUM,
-        self::INPUT_OBJECT => Type::INPUT_OBJECT,
-        self::INPUT_UNION => Type::INPUT_UNION,
-        self::SCHEMA => Type::SCHEMA,
-        self::ENUM_VALUE => Type::ENUM_VALUE,
-        self::FIELD_DEFINITION => Type::FIELD_DEFINITION,
-        self::ARGUMENT_DEFINITION => Type::ARGUMENT_DEFINITION,
+        self::SCALAR                 => Type::SCALAR,
+        self::OBJECT                 => Type::OBJECT,
+        self::INTERFACE              => Type::INTERFACE,
+        self::UNION                  => Type::UNION,
+        self::ENUM                   => Type::ENUM,
+        self::INPUT_OBJECT           => Type::INPUT_OBJECT,
+        self::INPUT_UNION            => Type::INPUT_UNION,
+        self::SCHEMA                 => Type::SCHEMA,
+        self::ENUM_VALUE             => Type::ENUM_VALUE,
+        self::FIELD_DEFINITION       => Type::FIELD,
+        self::ARGUMENT_DEFINITION    => Type::ARGUMENT,
         self::INPUT_FIELD_DEFINITION => Type::INPUT_FIELD_DEFINITION,
-        self::DOCUMENT => Type::DOCUMENT,
+        self::DOCUMENT               => Type::DOCUMENT,
     ];
 
     /**

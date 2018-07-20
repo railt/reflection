@@ -14,7 +14,7 @@ use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesTypeDefinitions;
 /**
  * Interface UnionDefinition
  */
-interface UnionDefinition extends TypeDefinition, ProvidesTypeDefinitions
+interface UnionDefinition extends ProvidesTypeDefinitions, TypeDefinition
 {
 
 }

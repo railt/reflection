@@ -22,20 +22,22 @@ class ReflectionTestCase extends TestCase
     /**
      * @throws \PHPUnit\Framework\AssertionFailedError
      * @throws \PHPUnit\Framework\Exception
+     * @throws \Railt\Io\Exception\NotReadableException
      */
     public function testEmptyReflection(): void
     {
-        $ref = new Reflection();
+        $reflection = new Reflection();
 
-        $this->assertFalse($ref->has('asd'));
-        $this->assertNull($ref->find('asd'));
-        $this->assertCount(0, $ref->all());
-        $this->assertCount(0, $ref->getDocuments());
+        $this->assertFalse($reflection->has('asd'));
+        $this->assertNull($reflection->find('asd'));
+        $this->assertCount(10, \iterator_to_array($reflection->all()));
+        $this->assertCount(1, $reflection->getDocuments());
     }
 
     /**
      * @throws \PHPUnit\Framework\AssertionFailedError
      * @throws \PHPUnit\Framework\Exception
+     * @throws \Railt\Io\Exception\NotReadableException
      */
     public function testReflectionWithEmptyDocument(): void
     {
@@ -44,13 +46,14 @@ class ReflectionTestCase extends TestCase
 
         $this->assertFalse($reflection->has('asd'));
         $this->assertNull($reflection->find('asd'));
-        $this->assertCount(0, $reflection->all());
-        $this->assertCount(1, $reflection->getDocuments());
+        $this->assertCount(10, \iterator_to_array($reflection->all()));
+        $this->assertCount(2, $reflection->getDocuments());
     }
 
     /**
      * @throws \PHPUnit\Framework\AssertionFailedError
      * @throws \PHPUnit\Framework\Exception
+     * @throws \Railt\Io\Exception\NotReadableException
      */
     public function testReflectionWithDocument(): void
     {
@@ -60,12 +63,13 @@ class ReflectionTestCase extends TestCase
 
         $this->assertTrue($reflection->has('Object'));
         $this->assertInstanceOf(ObjectDefinition::class, $reflection->find('Object'));
-        $this->assertCount(1, $reflection->all());
-        $this->assertCount(1, $reflection->getDocuments());
+        $this->assertCount(11, \iterator_to_array($reflection->all()));
+        $this->assertCount(2, $reflection->getDocuments());
     }
 
     /**
      * @throws \PHPUnit\Framework\Exception
+     * @throws \Railt\Io\Exception\NotReadableException
      */
     public function testReflectionDocumentDuplication(): void
     {
@@ -74,27 +78,28 @@ class ReflectionTestCase extends TestCase
         new Document($reflection);
         new Document($reflection);
 
-        $this->assertCount(1, $reflection->getDocuments());
+        $this->assertCount(2, $reflection->getDocuments());
 
         // Sources collision
         $reflection = new Reflection();
         new Document($reflection, File::fromSources(' '));
         new Document($reflection, File::fromSources(' '));
 
-        $this->assertCount(1, $reflection->getDocuments());
+        $this->assertCount(2, $reflection->getDocuments());
 
         // Different sources
         $reflection = new Reflection();
         new Document($reflection, File::fromSources(' '));
         new Document($reflection, File::fromSources('  '));
 
-        $this->assertCount(2, $reflection->getDocuments());
+        $this->assertCount(3, $reflection->getDocuments());
     }
 
 
     /**
      * @throws \PHPUnit\Framework\Exception
      * @throws \Railt\Reflection\Exception\TypeNotFoundException
+     * @throws \Railt\Io\Exception\NotReadableException
      */
     public function testReflectionTypesDuplication(): void
     {

@@ -11,12 +11,14 @@ namespace Railt\Reflection\Contracts\Definition;
 
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Definition\Behaviour\Deprecatable;
+use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesInheritance;
+use Railt\Reflection\Contracts\Dictionary;
 use Railt\Reflection\Contracts\Invocation\Behaviour\ProvidesDirectives;
 
 /**
  * Interface TypeDefinition
  */
-interface TypeDefinition extends Deprecatable, ProvidesDirectives, Definition
+interface TypeDefinition extends Deprecatable, ProvidesDirectives, ProvidesInheritance, Definition
 {
     /**
      * Returns the name of definition instance.
@@ -37,4 +39,9 @@ interface TypeDefinition extends Deprecatable, ProvidesDirectives, Definition
      * @return bool
      */
     public function instanceOf(TypeDefinition $definition): bool;
+
+    /**
+     * @return Dictionary
+     */
+    public function getDictionary(): Dictionary;
 }

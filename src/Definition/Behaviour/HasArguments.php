@@ -51,12 +51,14 @@ trait HasArguments
     }
 
     /**
-     * @param ArgumentDefinitionInterface $argument
-     * @return ProvidesArguments
+     * @param ArgumentDefinitionInterface ...$arguments
+     * @return ProvidesArguments|$this
      */
-    public function withArgument(ArgumentDefinitionInterface $argument): ProvidesArguments
+    public function withArgument(ArgumentDefinitionInterface ...$arguments): ProvidesArguments
     {
-        $this->arguments[$argument->getName()] = $argument;
+        foreach ($arguments as $argument) {
+            $this->arguments[$argument->getName()] = $argument;
+        }
 
         return $this;
     }

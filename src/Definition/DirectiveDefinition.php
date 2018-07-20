@@ -16,15 +16,16 @@ use Railt\Reflection\Contracts\Definition\DirectiveDefinition as DirectiveDefini
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Type as TypeInterface;
 use Railt\Reflection\Definition\Behaviour\HasArguments;
+use Railt\Reflection\Definition\Behaviour\HasLocations;
 use Railt\Reflection\Type;
 
 /**
  * Class DirectiveDefinition
- * TODO
  */
 class DirectiveDefinition extends AbstractTypeDefinition implements DirectiveDefinitionInterface
 {
     use HasArguments;
+    use HasLocations;
 
     /**
      * @return TypeInterface
@@ -34,23 +35,18 @@ class DirectiveDefinition extends AbstractTypeDefinition implements DirectiveDef
         return Type::of(Type::DIRECTIVE);
     }
 
+    /**
+     * @param TypeDefinition $definition
+     * @return bool
+     */
     public function isAllowedFor(TypeDefinition $definition): bool
     {
-        throw new \LogicException(__METHOD__ . ' not implemented yet');
-    }
+        foreach ($this->locations as $location) {
+            if ($location->isAllowedFor($definition::getType())) {
+                return true;
+            }
+        }
 
-    public function getLocations(): iterable
-    {
-        throw new \LogicException(__METHOD__ . ' not implemented yet');
-    }
-
-    public function getLocation(string $name): ?DirectiveLocation
-    {
-        throw new \LogicException(__METHOD__ . ' not implemented yet');
-    }
-
-    public function hasLocation(string $name): bool
-    {
-        throw new \LogicException(__METHOD__ . ' not implemented yet');
+        return false;
     }
 }

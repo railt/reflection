@@ -19,5 +19,5 @@ interface DependentTypeDefinition extends TypeDefinition
     /**
      * @return TypeDefinition
      */
-    public function getParent(): TypeDefinition;
+    public function getParentDefinition(): TypeDefinition;
 }

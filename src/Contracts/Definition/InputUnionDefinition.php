@@ -14,6 +14,6 @@ use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesTypeDefinitions;
 /**
  * Interface InputUnionDefinition
  */
-interface InputUnionDefinition extends TypeDefinition, ProvidesTypeDefinitions
+interface InputUnionDefinition extends ProvidesTypeDefinitions, TypeDefinition
 {
 }

@@ -15,6 +15,7 @@ use Railt\Reflection\Contracts\Document as DocumentInterface;
 use Railt\Reflection\Contracts\Reflection as ReflectionInterface;
 use Railt\Reflection\Dictionary\ProxyDictionary;
 use Railt\Reflection\Dictionary\SimpleDictionary;
+use Railt\Reflection\Stdlib\GraphQLDocument;
 
 /**
  * Class Reflection
@@ -33,6 +34,16 @@ class Reflection extends ProxyDictionary implements ReflectionInterface
     public function __construct(Dictionary $parent = null)
     {
         parent::__construct($parent ?? new SimpleDictionary());
+
+        $this->boot();
+    }
+
+    /**
+     * @return void
+     */
+    private function boot(): void
+    {
+        $this->addDocument(new GraphQLDocument($this));
     }
 
     /**

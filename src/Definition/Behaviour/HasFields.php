@@ -50,12 +50,14 @@ trait HasFields
     }
 
     /**
-     * @param FieldDefinition $field
-     * @return ProvidesFields
+     * @param FieldDefinition ...$fields
+     * @return ProvidesFields|$this
      */
-    public function withField(FieldDefinition $field): ProvidesFields
+    public function withField(FieldDefinition ...$fields): ProvidesFields
     {
-        $this->fields[$field->getName()] = $field;
+        foreach ($fields as $field) {
+            $this->fields[$field->getName()] = $field;
+        }
 
         return $this;
     }
