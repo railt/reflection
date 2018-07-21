@@ -52,16 +52,18 @@ Description;
     /**
      * BooleanScalar constructor.
      * @param Document $document
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public function __construct(Document $document)
     {
         parent::__construct($document, self::TYPE_NAME);
 
         $this->withDescription(self::TYPE_DESCRIPTION)
-            ->withArgument((new ArgumentDefinition($this, $document, 'reason','String'))
+            ->withArgument((new ArgumentDefinition($this, 'reason', 'String'))
+                ->withLine(39)
                 ->withDefaultValue('No longer supported'))
             ->withLocation(...\array_map(function (string $location) use ($document): DirectiveLocation {
-                return new DirectiveLocation($this, $document, $location);
+                return new DirectiveLocation($this, $location);
             }, self::LOCATIONS));
     }
 

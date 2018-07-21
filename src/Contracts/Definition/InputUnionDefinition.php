@@ -13,6 +13,7 @@ use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesTypeDefinitions;
 
 /**
  * Interface InputUnionDefinition
+ * @internal Experimental support: https://github.com/facebook/graphql/pull/395
  */
 interface InputUnionDefinition extends ProvidesTypeDefinitions, TypeDefinition
 {

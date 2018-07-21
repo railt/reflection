@@ -12,6 +12,7 @@ namespace Railt\Reflection\Definition\Behaviour;
 use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesArguments;
 use Railt\Reflection\Definition\Dependent\ArgumentDefinition;
 use Railt\Reflection\Contracts\Definition\Dependent\ArgumentDefinition as ArgumentDefinitionInterface;
+use Railt\Reflection\Common\Verifiable;
 
 /**
  * Trait HasArguments
@@ -57,6 +58,10 @@ trait HasArguments
     public function withArgument(ArgumentDefinitionInterface ...$arguments): ProvidesArguments
     {
         foreach ($arguments as $argument) {
+            if ($argument instanceof Verifiable) {
+                $argument->verify();
+            }
+
             $this->arguments[$argument->getName()] = $argument;
         }
 

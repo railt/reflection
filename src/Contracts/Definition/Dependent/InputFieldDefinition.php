@@ -9,18 +9,11 @@ declare(strict_types=1);
 
 namespace Railt\Reflection\Contracts\Definition\Dependent;
 
+use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesDefaultValue;
+
 /**
  * Interface InputField
  */
-interface InputFieldDefinition extends ArgumentDefinition
+interface InputFieldDefinition extends ProvidesDefaultValue, ArgumentDefinition
 {
-    /**
-     * @return mixed
-     */
-    public function getDefaultValue();
-
-    /**
-     * @return bool
-     */
-    public function hasDefaultValue(): bool;
 }

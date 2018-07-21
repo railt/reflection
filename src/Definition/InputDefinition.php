@@ -11,20 +11,23 @@ namespace Railt\Reflection\Definition;
 
 use Railt\Reflection\AbstractTypeDefinition;
 use Railt\Reflection\Contracts\Type as TypeInterface;
+use Railt\Reflection\Contracts\Definition\InputDefinition as InputDefinitionInterface;
+use Railt\Reflection\Definition\Behaviour\HasInputFields;
 use Railt\Reflection\Type;
-use Railt\Reflection\Contracts\Definition\ScalarDefinition as ScalarDefinitionInterface;
 
 /**
- * Class ScalarDefinition
+ * Class InputDefinition
  */
-class ScalarDefinition extends AbstractTypeDefinition implements ScalarDefinitionInterface
+class InputDefinition extends AbstractTypeDefinition implements InputDefinitionInterface
 {
+    use HasInputFields;
+
     /**
      * @return TypeInterface
      * @throws \Railt\Io\Exception\ExternalFileException
      */
     public static function getType(): TypeInterface
     {
-        return Type::of(Type::SCALAR);
+        return Type::of(Type::INPUT_OBJECT);
     }
 }

@@ -123,6 +123,33 @@ interface Type
     ];
 
     /**
+     * @var string[]
+     */
+    public const ALLOWS_TO_INPUT = [
+        self::SCALAR,
+        self::ENUM,
+        self::ENUM_VALUE,
+        self::INPUT_OBJECT,
+        self::INPUT_FIELD_DEFINITION,
+        self::INPUT_UNION,
+        self::ANY
+    ];
+
+    /**
+     * @var string[]
+     */
+    public const ALLOWS_TO_OUTPUT = [
+        self::SCALAR,
+        self::OBJECT,
+        self::INTERFACE,
+        self::UNION,
+        self::ENUM,
+        self::INPUT_OBJECT,
+        self::INPUT_UNION,
+        self::ANY,
+    ];
+
+    /**
      * @var string
      */
     public const ROOT_TYPE = self::ANY;
@@ -133,9 +160,7 @@ interface Type
     public const INHERITANCE_TREE = [
         self::INTERFACE => [
             self::OBJECT => [
-                self::INPUT_OBJECT => [
-                    self::DIRECTIVE
-                ]
+                self::INPUT_OBJECT
             ],
         ],
         self::UNION => [
@@ -150,6 +175,16 @@ interface Type
      * @return bool
      */
     public function isDependent(): bool;
+
+    /**
+     * @return bool
+     */
+    public function isInputable(): bool;
+
+    /**
+     * @return bool
+     */
+    public function isReturnable(): bool;
 
     /**
      * @return string

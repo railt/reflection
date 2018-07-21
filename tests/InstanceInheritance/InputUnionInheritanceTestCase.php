@@ -22,9 +22,9 @@ use Railt\Reflection\Reflection;
 use Railt\Reflection\Type;
 
 /**
- * Class ObjectInheritanceTestCase
+ * Class InputUnionInheritanceTestCase
  */
-class ObjectInheritanceTestCase extends InstanceInheritanceTestCase
+class InputUnionInheritanceTestCase extends InstanceInheritanceTestCase
 {
     /**
      * @return array
@@ -33,15 +33,15 @@ class ObjectInheritanceTestCase extends InstanceInheritanceTestCase
     {
         $document = new Document($gql = new Reflection());
 
-        $target = new ObjectDefinition($document, 'SourceType');
+        $target = new InputUnionDefinition($document, 'SourceType');
 
         return [
             Type::DIRECTIVE    => [$target, new DirectiveDefinition($document, 'ChildType'), false],
             Type::ENUM         => [$target, new EnumDefinition($document, 'ChildType'), false],
             Type::INPUT_OBJECT => [$target, new InputDefinition($document, 'ChildType'), false],
-            Type::INPUT_UNION  => [$target, new InputUnionDefinition($document, 'ChildType'), false],
+            Type::INPUT_UNION  => [$target, new InputUnionDefinition($document, 'ChildType'), true],
             Type::INTERFACE    => [$target, new InterfaceDefinition($document, 'ChildType'), false],
-            Type::OBJECT       => [$target, new ObjectDefinition($document, 'ChildType'), true],
+            Type::OBJECT       => [$target, new ObjectDefinition($document, 'ChildType'), false],
             Type::SCALAR       => [$target, new ScalarDefinition($document, 'ChildType'), false],
             //Type::SCHEMA       => [$target, new SchemaDefinition($document, 'ChildType'), true],
             Type::UNION        => [$target, new UnionDefinition($document, 'ChildType'), false],

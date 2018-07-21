@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Railt\Reflection;
 
+use Railt\Io\Exception\ExternalFileException;
 use Railt\Io\Readable;
 use Railt\Reflection\Common\Serializable;
 use Railt\Reflection\Contracts\Definition;
@@ -16,6 +17,7 @@ use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Document as DocumentInterface;
 use Railt\Reflection\Contracts\Invocation\TypeInvocation;
 use Railt\Reflection\Contracts\Type as TypeInterface;
+use Railt\Reflection\Exception\ReflectionException;
 
 /**
  * Class AbstractDefinition
@@ -33,6 +35,16 @@ abstract class AbstractDefinition implements Definition
      * @var int
      */
     protected $offset = 0;
+
+    /**
+     * @var int|null
+     */
+    protected $line;
+
+    /**
+     * @var int|null
+     */
+    protected $column;
 
     /**
      * AbstractDefinition constructor.
@@ -64,6 +76,27 @@ abstract class AbstractDefinition implements Definition
     }
 
     /**
+     * @param int $line
+     * @return Definition|TypeDefinition|TypeInvocation|$this
+     */
+    public function withLine(?int $line): Definition
+    {
+        $this->line = \is_int($line) ? \max(1, $line) : $line;
+
+        return $this;
+    }
+    /**
+     * @param int $column
+     * @return Definition|TypeDefinition|TypeInvocation|$this
+     */
+    public function withColumn(?int $column): Definition
+    {
+        $this->column = \is_int($column) ? \max(1, $column) : $column;
+
+        return $this;
+    }
+
+    /**
      * @return DocumentInterface
      */
     public function getDocument(): DocumentInterface
@@ -76,7 +109,11 @@ abstract class AbstractDefinition implements Definition
      */
     public function getLine(): int
     {
-        return $this->getFile()->getPosition($this->offset)->getLine();
+        if ($this->line === null) {
+            $this->line = $this->getFile()->getPosition($this->offset)->getLine();
+        }
+
+        return $this->line;
     }
 
     /**
@@ -92,7 +129,11 @@ abstract class AbstractDefinition implements Definition
      */
     public function getColumn(): int
     {
-        return $this->getFile()->getPosition($this->offset)->getColumn();
+        if ($this->column === null) {
+            $this->column = $this->getFile()->getPosition($this->offset)->getColumn();
+        }
+
+        return $this->column;
     }
 
     /**
@@ -104,11 +145,33 @@ abstract class AbstractDefinition implements Definition
     }
 
     /**
-     * @param string $type
+     * @param string|TypeDefinition $type
      * @return TypeDefinition
+     * @throws ExternalFileException
      */
-    protected function fetch(string $type): TypeDefinition
+    protected function fetch($type): TypeDefinition
     {
-        return $this->document->getDictionary()->get($type, $this);
+        switch (true) {
+            case \is_string($type):
+                return $this->document->getDictionary()->get($type, $this);
+            case $type instanceof TypeDefinition:
+                return $type;
+        }
+
+        throw (new ReflectionException('Unsupported argument'))
+            ->throwsIn($this->getFile(), $this->getLine(), $this->getColumn());
+    }
+
+    /**
+     * @param \Throwable $error
+     * @return ExternalFileException
+     */
+    protected function error(\Throwable $error): ExternalFileException
+    {
+        if (! $error instanceof ExternalFileException) {
+            $error = new ReflectionException($error->getMessage(), $error->getCode(), $error);
+        }
+
+        return $error->throwsIn($this->getFile(), $this->getLine(), $this->getColumn());
     }
 }

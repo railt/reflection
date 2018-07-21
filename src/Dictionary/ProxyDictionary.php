@@ -34,6 +34,14 @@ class ProxyDictionary implements Dictionary
     }
 
     /**
+     * @return Dictionary
+     */
+    public function getParentDictionary(): Dictionary
+    {
+        return $this->parent;
+    }
+
+    /**
      * @param Type|null $of
      * @return iterable|TypeDefinition[]
      */

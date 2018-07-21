@@ -10,7 +10,11 @@ declare(strict_types=1);
 namespace Railt\Reflection;
 
 use Railt\Reflection\Common\Serializable;
+use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesType;
+use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Type as TypeInterface;
+use Railt\Reflection\Exception\ReflectionException;
+use Railt\Reflection\Exception\TypeConflictException;
 
 /**
  * Class Type
@@ -42,13 +46,43 @@ class Type implements TypeInterface
     /**
      * BaseType constructor.
      * @param string $name
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
     private function __construct(string $name)
     {
-        \assert(\in_array($name, \array_merge(static::DEPENDENT_TYPES, static::ROOT_TYPES), true));
-
         $this->name = $name;
         $this->parent = $this->getInheritanceSequence($name);
+
+        $this->verifyType($name);
+    }
+
+    /**
+     * @param string $name
+     * @throws \Railt\Io\Exception\ExternalFileException
+     */
+    private function verifyType(string $name): void
+    {
+        $types = \array_merge(static::DEPENDENT_TYPES, static::ROOT_TYPES);
+
+        if (! \in_array($name, $types, true)) {
+            throw new TypeConflictException(\sprintf('Invalid type name %s', $this));
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInputable(): bool
+    {
+        return \in_array($this->name, static::ALLOWS_TO_INPUT, true);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isReturnable(): bool
+    {
+        return \in_array($this->name, static::ALLOWS_TO_OUTPUT, true);
     }
 
     /**
@@ -94,12 +128,22 @@ class Type implements TypeInterface
     }
 
     /**
-     * @param string $type
-     * @return Type
+     * @param string|ProvidesType $type
+     * @return Type|\Railt\Reflection\Contracts\Type
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
-    public static function of(string $type): Type
+    public static function of($type): Type
     {
-        return self::$instances[$type] ?? (self::$instances[$type] = new static($type));
+        switch (true) {
+            case \is_string($type):
+                return self::$instances[$type] ?? (self::$instances[$type] = new static($type));
+
+            case $type instanceof ProvidesType:
+                return $type::getType();
+
+            default:
+                throw new ReflectionException('Unsupported argument type');
+        }
     }
 
     /**

@@ -12,25 +12,25 @@ namespace Railt\Reflection\Definition\Dependent;
 use Railt\Reflection\Contracts\Definition\Dependent\DirectiveLocation as DirectiveLocationInterface;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Type as TypeInterface;
-use Railt\Reflection\Document;
+use Railt\Reflection\Common\Verifiable;
+use Railt\Reflection\Exception\TypeConflictException;
 use Railt\Reflection\Type;
 
 /**
  * Class DirectiveLocation
  */
-class DirectiveLocation extends AbstractDependentTypeDefinition implements DirectiveLocationInterface
+class DirectiveLocation extends AbstractDependentTypeDefinition implements DirectiveLocationInterface, Verifiable
 {
     /**
-     * DirectiveLocation constructor.
-     * @param TypeDefinition $parent
-     * @param Document $document
-     * @param string $name
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
-    public function __construct(TypeDefinition $parent, Document $document, string $name)
+    public function verify(): void
     {
-        \assert(\in_array($name, \array_merge(static::EXECUTABLE_LOCATIONS, static::SDL_LOCATIONS), true));
+        $locations = \array_merge(static::EXECUTABLE_LOCATIONS, static::SDL_LOCATIONS);
 
-        parent::__construct($parent, $document, $name);
+        if (! \in_array($this->name, $locations, true)) {
+            throw $this->error(new TypeConflictException(\sprintf('Invalid name of %s', $this)));
+        }
     }
 
     /**
@@ -52,6 +52,7 @@ class DirectiveLocation extends AbstractDependentTypeDefinition implements Direc
     /**
      * @param TypeInterface $type
      * @return bool
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public function isAllowedFor(TypeInterface $type): bool
     {
@@ -62,6 +63,7 @@ class DirectiveLocation extends AbstractDependentTypeDefinition implements Direc
 
     /**
      * @return TypeInterface
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public static function getType(): TypeInterface
     {

@@ -29,12 +29,16 @@ trait HasTypeIndication
     protected $modifiers = 0b0000;
 
     /**
+     * @param string|TypeDefinition $type
+     * @return TypeDefinition
+     */
+    abstract protected function fetch($type): TypeDefinition;
+
+    /**
      * @return TypeDefinition
      */
     public function getDefinition(): TypeDefinition
     {
-        \assert(\is_string($this->definition));
-
         return $this->fetch($this->definition);
     }
 
@@ -79,13 +83,29 @@ trait HasTypeIndication
     }
 
     /**
-     * @param string $name
+     * @param string|TypeDefinition $type
      * @return ProvidesTypeIndication|$this
      */
-    public function withTypeDefinition(string $name): ProvidesTypeIndication
+    public function withTypeDefinition($type): ProvidesTypeIndication
     {
-        $this->definition = $name;
-        
+        $definition = $this->fetch($type);
+        $this->definition = $definition->getName();
+
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        try {
+            $parent = (string)$this->getDefinition();
+        } catch (\Throwable $e) {
+            $parent = '?<?>';
+        }
+
+        return \sprintf('%s<%s>: %s', $this->getName(), static::getType(), $parent);
+
     }
 }

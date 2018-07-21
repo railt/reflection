@@ -9,20 +9,12 @@ declare(strict_types=1);
 
 namespace Railt\Reflection\Contracts\Definition\Dependent;
 
+use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesDefaultValue;
 use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesTypeIndication;
 
 /**
  * Interface ArgumentDefinition
  */
-interface ArgumentDefinition extends DependentTypeDefinition, ProvidesTypeIndication
+interface ArgumentDefinition extends ProvidesTypeIndication, ProvidesDefaultValue, DependentTypeDefinition
 {
-    /**
-     * @return mixed
-     */
-    public function getDefaultValue();
-
-    /**
-     * @return bool
-     */
-    public function hasDefaultValue(): bool;
 }

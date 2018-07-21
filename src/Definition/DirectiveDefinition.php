@@ -10,8 +10,6 @@ declare(strict_types=1);
 namespace Railt\Reflection\Definition;
 
 use Railt\Reflection\AbstractTypeDefinition;
-use Railt\Reflection\Contracts\Definition\Dependent\ArgumentDefinition;
-use Railt\Reflection\Contracts\Definition\Dependent\DirectiveLocation;
 use Railt\Reflection\Contracts\Definition\DirectiveDefinition as DirectiveDefinitionInterface;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Type as TypeInterface;
@@ -29,6 +27,7 @@ class DirectiveDefinition extends AbstractTypeDefinition implements DirectiveDef
 
     /**
      * @return TypeInterface
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public static function getType(): TypeInterface
     {

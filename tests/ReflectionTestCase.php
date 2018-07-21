@@ -10,6 +10,8 @@ declare(strict_types=1);
 namespace Railt\Tests\Reflection;
 
 use Railt\Io\File;
+use Railt\Reflection\Definition\Dependent\InputFieldDefinition;
+use Railt\Reflection\Definition\InputDefinition;
 use Railt\Reflection\Definition\ObjectDefinition;
 use Railt\Reflection\Document;
 use Railt\Reflection\Reflection;
@@ -22,7 +24,6 @@ class ReflectionTestCase extends TestCase
     /**
      * @throws \PHPUnit\Framework\AssertionFailedError
      * @throws \PHPUnit\Framework\Exception
-     * @throws \Railt\Io\Exception\NotReadableException
      */
     public function testEmptyReflection(): void
     {
@@ -37,7 +38,6 @@ class ReflectionTestCase extends TestCase
     /**
      * @throws \PHPUnit\Framework\AssertionFailedError
      * @throws \PHPUnit\Framework\Exception
-     * @throws \Railt\Io\Exception\NotReadableException
      */
     public function testReflectionWithEmptyDocument(): void
     {
@@ -53,7 +53,6 @@ class ReflectionTestCase extends TestCase
     /**
      * @throws \PHPUnit\Framework\AssertionFailedError
      * @throws \PHPUnit\Framework\Exception
-     * @throws \Railt\Io\Exception\NotReadableException
      */
     public function testReflectionWithDocument(): void
     {
@@ -69,7 +68,6 @@ class ReflectionTestCase extends TestCase
 
     /**
      * @throws \PHPUnit\Framework\Exception
-     * @throws \Railt\Io\Exception\NotReadableException
      */
     public function testReflectionDocumentDuplication(): void
     {
@@ -99,7 +97,6 @@ class ReflectionTestCase extends TestCase
     /**
      * @throws \PHPUnit\Framework\Exception
      * @throws \Railt\Reflection\Exception\TypeNotFoundException
-     * @throws \Railt\Io\Exception\NotReadableException
      */
     public function testReflectionTypesDuplication(): void
     {

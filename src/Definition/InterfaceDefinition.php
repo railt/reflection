@@ -27,6 +27,7 @@ class InterfaceDefinition extends AbstractTypeDefinition implements InterfaceDef
 
     /**
      * @return TypeInterface
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public static function getType(): TypeInterface
     {
@@ -39,6 +40,6 @@ class InterfaceDefinition extends AbstractTypeDefinition implements InterfaceDef
      */
     public function instanceOf(TypeDefinition $definition): bool
     {
-        return $this->isImplementsDefinition($definition) || parent::instanceOf($definition);
+        return $this->isImplements($definition) || parent::instanceOf($definition);
     }
 }

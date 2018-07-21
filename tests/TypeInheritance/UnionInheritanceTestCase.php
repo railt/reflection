@@ -22,7 +22,7 @@ class UnionInheritanceTestCase extends TypeInheritanceTestCase
     public function inheritanceDataProvider(): array
     {
         return [
-            'Is a type of ' . Type::DIRECTIVE    => [Type::UNION, Type::DIRECTIVE, true],
+            'Is a type of ' . Type::DIRECTIVE    => [Type::UNION, Type::DIRECTIVE, false],
             'Is a type of ' . Type::ENUM         => [Type::UNION, Type::ENUM, false],
             'Is a type of ' . Type::INPUT_OBJECT => [Type::UNION, Type::INPUT_OBJECT, false],
             'Is a type of ' . Type::INPUT_UNION  => [Type::UNION, Type::INPUT_UNION, false],
@@ -30,7 +30,7 @@ class UnionInheritanceTestCase extends TypeInheritanceTestCase
             'Is a type of ' . Type::OBJECT       => [Type::UNION, Type::OBJECT, false],
             'Is a type of ' . Type::SCALAR       => [Type::UNION, Type::SCALAR, false],
             'Is a type of ' . Type::SCHEMA       => [Type::UNION, Type::SCHEMA, false],
-            'Is a type of ' . Type::UNION        => [Type::UNION, Type::UNION, false],
+            'Is a type of ' . Type::UNION        => [Type::UNION, Type::UNION, true],
             'Is a type of ' . Type::ANY          => [Type::UNION, Type::ANY, true],
         ];
     }

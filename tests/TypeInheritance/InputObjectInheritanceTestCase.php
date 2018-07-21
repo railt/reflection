@@ -22,12 +22,12 @@ class InputObjectInheritanceTestCase extends TypeInheritanceTestCase
     public function inheritanceDataProvider(): array
     {
         return [
-            'Is a type of ' . Type::DIRECTIVE    => [Type::INPUT_OBJECT, Type::DIRECTIVE, true],
+            'Is a type of ' . Type::DIRECTIVE    => [Type::INPUT_OBJECT, Type::DIRECTIVE, false],
             'Is a type of ' . Type::ENUM         => [Type::INPUT_OBJECT, Type::ENUM, false],
-            'Is a type of ' . Type::INPUT_OBJECT => [Type::INPUT_OBJECT, Type::INPUT_OBJECT, false],
+            'Is a type of ' . Type::INPUT_OBJECT => [Type::INPUT_OBJECT, Type::INPUT_OBJECT, true],
             'Is a type of ' . Type::INPUT_UNION  => [Type::INPUT_OBJECT, Type::INPUT_UNION, false],
-            'Is a type of ' . Type::INTERFACE    => [Type::INPUT_OBJECT, Type::INTERFACE, false],
-            'Is a type of ' . Type::OBJECT       => [Type::INPUT_OBJECT, Type::OBJECT, false],
+            'Is a type of ' . Type::INTERFACE    => [Type::INPUT_OBJECT, Type::INTERFACE, true],
+            'Is a type of ' . Type::OBJECT       => [Type::INPUT_OBJECT, Type::OBJECT, true],
             'Is a type of ' . Type::SCALAR       => [Type::INPUT_OBJECT, Type::SCALAR, false],
             'Is a type of ' . Type::SCHEMA       => [Type::INPUT_OBJECT, Type::SCHEMA, false],
             'Is a type of ' . Type::UNION        => [Type::INPUT_OBJECT, Type::UNION, false],

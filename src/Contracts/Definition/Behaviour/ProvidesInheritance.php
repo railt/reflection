@@ -34,8 +34,8 @@ interface ProvidesInheritance
     public function getParent(string $name): ?TypeDefinition;
 
     /**
-     * @param string $name
+     * @param string|TypeDefinition $name
      * @return bool
      */
-    public function isExtends(string $name): bool;
+    public function isExtends($name): bool;
 }

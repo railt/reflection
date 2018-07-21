@@ -22,12 +22,12 @@ class ObjectInheritanceTestCase extends TypeInheritanceTestCase
     public function inheritanceDataProvider(): array
     {
         return [
-            'Is a type of ' . Type::DIRECTIVE    => [Type::OBJECT, Type::DIRECTIVE, true],
+            'Is a type of ' . Type::DIRECTIVE    => [Type::OBJECT, Type::DIRECTIVE, false],
             'Is a type of ' . Type::ENUM         => [Type::OBJECT, Type::ENUM, false],
             'Is a type of ' . Type::INPUT_OBJECT => [Type::OBJECT, Type::INPUT_OBJECT, false],
             'Is a type of ' . Type::INPUT_UNION  => [Type::OBJECT, Type::INPUT_UNION, false],
-            'Is a type of ' . Type::INTERFACE    => [Type::OBJECT, Type::INTERFACE, false],
-            'Is a type of ' . Type::OBJECT       => [Type::OBJECT, Type::OBJECT, false],
+            'Is a type of ' . Type::INTERFACE    => [Type::OBJECT, Type::INTERFACE, true],
+            'Is a type of ' . Type::OBJECT       => [Type::OBJECT, Type::OBJECT, true],
             'Is a type of ' . Type::SCALAR       => [Type::OBJECT, Type::SCALAR, false],
             'Is a type of ' . Type::SCHEMA       => [Type::OBJECT, Type::SCHEMA, false],
             'Is a type of ' . Type::UNION        => [Type::OBJECT, Type::UNION, false],

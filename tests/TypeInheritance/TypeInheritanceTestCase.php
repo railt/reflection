@@ -28,6 +28,7 @@ abstract class TypeInheritanceTestCase extends TestCase
      * @param string $of
      * @param bool $valid
      * @throws \PHPUnit\Framework\Exception
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public function testTypeOf(string $type, string $of, bool $valid): void
     {

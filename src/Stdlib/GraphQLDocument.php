@@ -37,6 +37,8 @@ class GraphQLDocument extends Document
     /**
      * GraphQLDocument constructor.
      * @param Reflection $parent
+     * @throws \Railt\Reflection\Exception\TypeConflictException
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public function __construct(Reflection $parent)
     {
@@ -59,6 +61,8 @@ class GraphQLDocument extends Document
 
     /**
      * @return void
+     * @throws \Railt\Reflection\Exception\TypeConflictException
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
     private function boot(): void
     {

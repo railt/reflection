@@ -15,6 +15,6 @@ use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesTypeIndication;
 /**
  * Interface FieldDefinition
  */
-interface FieldDefinition extends DependentTypeDefinition, ProvidesArguments, ProvidesTypeIndication
+interface FieldDefinition extends ProvidesArguments, ProvidesTypeIndication, DependentTypeDefinition
 {
 }

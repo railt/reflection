@@ -72,7 +72,7 @@ class SimpleDictionary implements Dictionary
      */
     protected function typeNotFound(string $name, Definition $from = null): TypeNotFoundException
     {
-        $error = \sprintf('Type %s not found or could not be loaded', $name);
+        $error = \sprintf('Type %s<?> not found or could not be loaded', $name);
 
         $exception = new TypeNotFoundException($error);
 

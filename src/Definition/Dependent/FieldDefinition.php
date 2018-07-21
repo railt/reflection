@@ -14,13 +14,14 @@ use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Type as TypeInterface;
 use Railt\Reflection\Definition\Behaviour\HasArguments;
 use Railt\Reflection\Definition\Behaviour\HasTypeIndication;
-use Railt\Reflection\Document;
+use Railt\Reflection\Common\Verifiable;
+use Railt\Reflection\Exception\TypeConflictException;
 use Railt\Reflection\Type;
 
 /**
  * Class FieldDefinition
  */
-class FieldDefinition extends AbstractDependentTypeDefinition implements FieldDefinitionInterface
+class FieldDefinition extends AbstractDependentTypeDefinition implements FieldDefinitionInterface, Verifiable
 {
     use HasTypeIndication;
     use HasArguments;
@@ -28,22 +29,30 @@ class FieldDefinition extends AbstractDependentTypeDefinition implements FieldDe
     /**
      * FieldDefinition constructor.
      * @param TypeDefinition $parent
-     * @param Document $document
      * @param string $name
      * @param string $type
      */
-    public function __construct(TypeDefinition $parent, Document $document, string $name, string $type)
+    public function __construct(TypeDefinition $parent, string $name, string $type)
     {
-        parent::__construct($parent, $document, $name);
+        parent::__construct($parent, $name);
 
         $this->withTypeDefinition($type);
     }
 
     /**
+     * @throws \Railt\Io\Exception\ExternalFileException
+     */
+    public function verify(): void
+    {
+        $this->verifyOutputType($this->getDefinition());
+    }
+
+    /**
      * @return TypeInterface
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public static function getType(): TypeInterface
     {
-        return Type::of(Type::FIELD_DEFINITION);
+        return Type::of(Type::FIELD);
     }
 }

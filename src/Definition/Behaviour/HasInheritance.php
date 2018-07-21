@@ -16,6 +16,7 @@ use Railt\Reflection\Exception\TypeConflictException;
 /**
  * Trait HasInheritance
  * @mixin ProvidesInheritance
+ * @mixin TypeDefinition
  */
 trait HasInheritance
 {
@@ -23,6 +24,12 @@ trait HasInheritance
      * @var array|string[]
      */
     protected $parents = [];
+
+    /**
+     * @param string|TypeDefinition $type
+     * @return TypeDefinition
+     */
+    abstract protected function fetch($type): TypeDefinition;
 
     /**
      * @return iterable|TypeDefinition[]
@@ -74,27 +81,20 @@ trait HasInheritance
      */
     private function verifyExtensionType(TypeDefinition $def): void
     {
-        if (! $this::typeOf($def::getType())) {
+        if (! $def::getType()->is(static::getType()->getName())) {
             $error = \sprintf('Type %s can extends only %s types, but %s given.', $this, static::getType(), $def);
-            throw new TypeConflictException($error);
+            throw $this->error(new TypeConflictException($error));
         }
     }
 
     /**
-     * @param string $name
+     * @param string|TypeDefinition $type
      * @return bool
      */
-    public function isExtends(string $name): bool
+    public function isExtends($type): bool
     {
-        return $this->isExtendsDefinition($this->fetch($name));
-    }
+        $definition = $this->fetch($type);
 
-    /**
-     * @param TypeDefinition $definition
-     * @return bool
-     */
-    public function isExtendsDefinition(TypeDefinition $definition): bool
-    {
         foreach ($this->getParents() as $parent) {
             if ($parent->instanceOf($definition)) {
                 return true;

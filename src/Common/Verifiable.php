@@ -7,14 +7,15 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Reflection\Exception;
-
-use Railt\Io\Exception\ExternalFileException;
+namespace Railt\Reflection\Common;
 
 /**
- * Class ParsingException
+ * Interface Verifiable
  */
-class ParsingException extends ExternalFileException
+interface Verifiable
 {
-
+    /**
+     * @return void
+     */
+    public function verify(): void;
 }

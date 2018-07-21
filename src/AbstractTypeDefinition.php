@@ -9,10 +9,13 @@ declare(strict_types=1);
 
 namespace Railt\Reflection;
 
+use Railt\Io\Exception\ExternalFileException;
+use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesTypeIndication;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Dictionary;
 use Railt\Reflection\Definition\Behaviour\HasDeprecation;
 use Railt\Reflection\Definition\Behaviour\HasInheritance;
+use Railt\Reflection\Exception\TypeConflictException;
 use Railt\Reflection\Invocation\Behaviour\HasDirectives;
 
 /**
@@ -36,7 +39,7 @@ abstract class AbstractTypeDefinition extends AbstractDefinition implements Type
 
     /**
      * AbstractTypeDefinition constructor.
-     * @param Document $document
+     * @param Document|\Railt\Reflection\Contracts\Document $document
      * @param string $name
      */
     public function __construct(Document $document, string $name)
@@ -98,7 +101,7 @@ abstract class AbstractTypeDefinition extends AbstractDefinition implements Type
             return true;
         }
 
-        return $this->isExtendsDefinition($definition);
+        return $this->isExtends($definition);
     }
 
     /**
@@ -106,7 +109,7 @@ abstract class AbstractTypeDefinition extends AbstractDefinition implements Type
      */
     public function __toString(): string
     {
-        return \sprintf('%s<%s>', $this->getName(), static::getType());
+        return \sprintf('%s<%s>', $this->name ?? '?', static::getType());
     }
 
     /**
@@ -115,5 +118,30 @@ abstract class AbstractTypeDefinition extends AbstractDefinition implements Type
     public function getName(): string
     {
         return $this->name;
+    }
+
+
+    /**
+     * @param TypeDefinition $type
+     * @throws ExternalFileException
+     */
+    protected function verifyInputType(TypeDefinition $type): void
+    {
+        if (! $type::getType()->isInputable()) {
+            $error = 'Type %s can contains only inputable types, but %s given';
+            throw $this->error(new TypeConflictException(\sprintf($error, $this, $type)));
+        }
+    }
+
+    /**
+     * @param TypeDefinition $type
+     * @throws ExternalFileException
+     */
+    protected function verifyOutputType(TypeDefinition $type): void
+    {
+        if (! $type::getType()->isInputable()) {
+            $error = 'Type %s can not be defined as return type hint of %s';
+            throw $this->error(new TypeConflictException(\sprintf($error, $type, $this)));
+        }
     }
 }

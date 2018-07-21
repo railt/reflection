@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Railt\Reflection\Definition\Dependent;
 
-use Railt\Reflection\Contracts\Definition\Dependent\ArgumentDefinition as ArgumentDefinitionInterface;
+use Railt\Reflection\Contracts\Definition\Dependent\InputFieldDefinition as InputFieldDefinitionInterface;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Type as TypeInterface;
 use Railt\Reflection\Definition\Behaviour\HasDefaultValue;
@@ -18,9 +18,9 @@ use Railt\Reflection\Common\Verifiable;
 use Railt\Reflection\Type;
 
 /**
- * Class ArgumentDefinition
+ * Class InputFieldDefinition
  */
-class ArgumentDefinition extends AbstractDependentTypeDefinition implements ArgumentDefinitionInterface, Verifiable
+class InputFieldDefinition extends AbstractDependentTypeDefinition implements InputFieldDefinitionInterface, Verifiable
 {
     use HasTypeIndication;
     use HasDefaultValue;
@@ -52,6 +52,6 @@ class ArgumentDefinition extends AbstractDependentTypeDefinition implements Argu
      */
     public static function getType(): TypeInterface
     {
-        return Type::of(Type::ARGUMENT);
+        return Type::of(Type::INPUT_FIELD_DEFINITION);
     }
 }

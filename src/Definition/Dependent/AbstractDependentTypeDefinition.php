@@ -12,7 +12,6 @@ namespace Railt\Reflection\Definition\Dependent;
 use Railt\Reflection\AbstractTypeDefinition;
 use Railt\Reflection\Contracts\Definition\Dependent\DependentTypeDefinition;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
-use Railt\Reflection\Document;
 
 /**
  * Class AbstractDependentTypeDefinition
@@ -27,14 +26,13 @@ abstract class AbstractDependentTypeDefinition extends AbstractTypeDefinition im
     /**
      * AbstractDependentTypeDefinition constructor.
      * @param TypeDefinition $parent
-     * @param Document $document
      * @param string $name
      */
-    public function __construct(TypeDefinition $parent, Document $document, string $name)
+    public function __construct(TypeDefinition $parent, string $name)
     {
         $this->parent = $parent;
 
-        parent::__construct($document, $name);
+        parent::__construct($parent->getDocument(), $name);
     }
 
     /**
@@ -43,5 +41,19 @@ abstract class AbstractDependentTypeDefinition extends AbstractTypeDefinition im
     public function getParentDefinition(): TypeDefinition
     {
         return $this->parent;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        try {
+            $parent = (string)$this->getParentDefinition();
+        } catch (\Throwable $e) {
+            $parent = '?<?>';
+        }
+
+        return \sprintf('%s of %s', parent::__toString(), $parent);
     }
 }

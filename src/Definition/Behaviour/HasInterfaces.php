@@ -12,7 +12,6 @@ namespace Railt\Reflection\Definition\Behaviour;
 use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesInterfaces;
 use Railt\Reflection\Contracts\Definition\InterfaceDefinition;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
-use Railt\Reflection\Exception\TypeNotFoundException;
 
 /**
  * Trait HasInterfaces
@@ -26,27 +25,26 @@ trait HasInterfaces
     protected $interfaces = [];
 
     /**
-     * @param TypeDefinition $definition
+     * @param string|TypeDefinition $type
+     * @return TypeDefinition
+     */
+    abstract protected function fetch($type): TypeDefinition;
+
+    /**
+     * @param string|TypeDefinition $interface
      * @return bool
      */
-    public function isImplementsDefinition(TypeDefinition $definition): bool
+    public function isImplements($interface): bool
     {
-        foreach ($this->getInterfaces() as $interface) {
-            if ($interface->instanceOf($definition)) {
+        $definition = $this->fetch($interface);
+
+        foreach ($this->getInterfaces() as $impl) {
+            if ($impl->instanceOf($definition)) {
                 return true;
             }
         }
 
         return false;
-    }
-
-    /**
-     * @param string $interface
-     * @return bool
-     */
-    public function isImplements(string $interface): bool
-    {
-        return $this->isImplementsDefinition($this->fetch($interface));
     }
 
     /**
@@ -70,7 +68,7 @@ trait HasInterfaces
 
     /**
      * @param string $name
-     * @return InterfaceDefinition|null
+     * @return InterfaceDefinition|TypeDefinition|null
      */
     public function getInterface(string $name): ?InterfaceDefinition
     {

@@ -9,23 +9,23 @@ declare(strict_types=1);
 
 namespace Railt\Reflection\Definition\Behaviour;
 
-use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesFields;
-use Railt\Reflection\Contracts\Definition\Dependent\FieldDefinition;
+use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesInputFields;
+use Railt\Reflection\Contracts\Definition\Dependent\InputFieldDefinition;
 use Railt\Reflection\Common\Verifiable;
 
 /**
- * Trait HasFields
- * @mixin ProvidesFields
+ * Trait HasInputFields
+ * @mixin ProvidesInputFields
  */
-trait HasFields
+trait HasInputFields
 {
     /**
-     * @var array|FieldDefinition[]
+     * @var array|InputFieldDefinition[]
      */
     protected $fields = [];
 
     /**
-     * @return iterable|FieldDefinition[]
+     * @return iterable|InputFieldDefinition[]
      */
     public function getFields(): iterable
     {
@@ -43,18 +43,18 @@ trait HasFields
 
     /**
      * @param string $name
-     * @return null|FieldDefinition
+     * @return null|InputFieldDefinition
      */
-    public function getField(string $name): ?FieldDefinition
+    public function getField(string $name): ?InputFieldDefinition
     {
         return $this->fields[$name] ?? null;
     }
 
     /**
-     * @param FieldDefinition ...$fields
-     * @return ProvidesFields|$this
+     * @param InputFieldDefinition ...$fields
+     * @return ProvidesInputFields|$this
      */
-    public function withField(FieldDefinition ...$fields): ProvidesFields
+    public function withField(InputFieldDefinition ...$fields): ProvidesInputFields
     {
         foreach ($fields as $field) {
             if ($field instanceof Verifiable) {

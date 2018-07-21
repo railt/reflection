@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Railt\Reflection\Contracts\Definition\Behaviour;
 
 use Railt\Reflection\Contracts\Definition\InterfaceDefinition;
+use Railt\Reflection\Contracts\Definition\TypeDefinition;
 
 /**
  * Interface ProvidesInterfaces
@@ -34,8 +35,8 @@ interface ProvidesInterfaces
     public function getInterface(string $name): ?InterfaceDefinition;
 
     /**
-     * @param string $name
+     * @param string|TypeDefinition $name
      * @return bool
      */
-    public function isImplements(string $name): bool;
+    public function isImplements($name): bool;
 }
