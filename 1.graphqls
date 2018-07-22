@@ -1,6 +1,0 @@
-
-type obj {
-    fld(
-        arg: deprecated
-    ): deprecated
-}
