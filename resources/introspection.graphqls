@@ -104,6 +104,9 @@ enum __TypeKind {
     "Indicates this type is a union. possibleTypes is a valid field."
     UNION
 
+    "Indicates this type is a inputUnion. possibleTypes is a valid field."
+    INPUT_UNION
+
     "Indicates this type is an enum. enumValues is a valid field."
     ENUM
 
@@ -186,7 +189,7 @@ enum __DirectiveLocation {
     "Location adjacent to a union definition."
     UNION
 
-    "Location adjacent to a inpu union definition."
+    "Location adjacent to a input union definition."
     INPUT_UNION
 
     "Location adjacent to an enum definition."

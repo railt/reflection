@@ -16,14 +16,24 @@ use Railt\Reflection\Contracts\Reflection as ReflectionInterface;
 use Railt\Reflection\Dictionary\ProxyDictionary;
 use Railt\Reflection\Dictionary\SimpleDictionary;
 use Railt\Reflection\Exception\ReflectionException;
-use Railt\Reflection\Stack\ProvidesCallStack;
-use Railt\Reflection\Stdlib\GraphQLDocument;
+use Railt\Reflection\Introspection\IntrospectionDocument;
+use Railt\Reflection\Stdlib\StdlibDocument;
 
 /**
  * Class Reflection
  */
 class Reflection extends ProxyDictionary implements ReflectionInterface
 {
+    /**
+     * @var int
+     */
+    public const LOAD_STDLIB = 0x02;
+
+    /**
+     * @var int
+     */
+    public const LOAD_INTROSPECTION = 0x04;
+
     /**
      * @var array|DocumentInterface[]
      */
@@ -32,44 +42,32 @@ class Reflection extends ProxyDictionary implements ReflectionInterface
     /**
      * Reflection constructor.
      * @param Dictionary|null $parent
-     * @throws ReflectionException
+     * @param int $options
+     * @throws Exception\TypeConflictException
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
-    public function __construct(Dictionary $parent = null)
+    public function __construct(Dictionary $parent = null, int $options = self::LOAD_INTROSPECTION | self::LOAD_STDLIB)
     {
         parent::__construct($parent ?? new SimpleDictionary());
 
-        $this->wrap(function () {
-            $this->boot();
-        });
+        $this->boot($options);
     }
 
     /**
-     * @param \Closure $then
-     * @return mixed
-     * @throws ReflectionException
-     */
-    private function wrap(\Closure $then)
-    {
-        try {
-            return $then();
-        } catch (ReflectionException $e) {
-            $parent = $this->getParentDictionary();
-
-            if ($parent instanceof ProvidesCallStack) {
-                $e = $e->withCallStack($parent->getCallStack());
-            }
-
-            throw $e;
-        }
-    }
-
-    /**
+     * @param int $options
      * @return void
      * @throws Exception\TypeConflictException
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
-    private function boot(): void
+    private function boot(int $options): void
     {
-        $this->addDocument(new GraphQLDocument($this));
+        if ($options & self::LOAD_STDLIB) {
+            $this->addDocument(new StdlibDocument($this));
+        }
+
+        if ($options & self::LOAD_INTROSPECTION) {
+            $this->addDocument(new IntrospectionDocument($this));
+        }
     }
 
     /**

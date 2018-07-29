@@ -13,7 +13,6 @@ use Railt\Reflection\Contracts\Definition\Behaviour\Deprecatable;
 
 /**
  * Trait HasDeprecation
- * @mixin Deprecatable
  */
 trait HasDeprecation
 {

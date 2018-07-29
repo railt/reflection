@@ -46,27 +46,11 @@ class Type implements TypeInterface
     /**
      * BaseType constructor.
      * @param string $name
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     private function __construct(string $name)
     {
         $this->name = $name;
         $this->parent = $this->getInheritanceSequence($name);
-
-        $this->verifyType($name);
-    }
-
-    /**
-     * @param string $name
-     * @throws \Railt\Io\Exception\ExternalFileException
-     */
-    private function verifyType(string $name): void
-    {
-        $types = \array_merge(static::DEPENDENT_TYPES, static::ROOT_TYPES);
-
-        if (! \in_array($name, $types, true)) {
-            throw new TypeConflictException(\sprintf('Invalid type name %s', $this));
-        }
     }
 
     /**
@@ -130,7 +114,6 @@ class Type implements TypeInterface
     /**
      * @param string|ProvidesType $type
      * @return Type|\Railt\Reflection\Contracts\Type
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public static function of($type): Type
     {
@@ -140,10 +123,9 @@ class Type implements TypeInterface
 
             case $type instanceof ProvidesType:
                 return $type::getType();
-
-            default:
-                throw new ReflectionException('Unsupported argument type');
         }
+
+        return static::of(static::ANY);
     }
 
     /**

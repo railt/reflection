@@ -27,7 +27,7 @@ use Railt\Reflection\Stdlib\Scalar\StringScalar;
 /**
  * Class GraphQLDocument
  */
-class GraphQLDocument extends Document
+class StdlibDocument extends Document
 {
     /**
      * @var string

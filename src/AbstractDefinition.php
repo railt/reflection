@@ -154,12 +154,23 @@ abstract class AbstractDefinition implements Definition
         switch (true) {
             case \is_string($type):
                 return $this->document->getDictionary()->get($type, $this);
+
             case $type instanceof TypeDefinition:
                 return $type;
         }
 
         throw (new ReflectionException('Unsupported argument'))
             ->throwsIn($this->getFile(), $this->getLine(), $this->getColumn());
+    }
+
+    /**
+     * @param string|TypeDefinition|null $type
+     * @return null|TypeDefinition
+     * @throws ExternalFileException
+     */
+    protected function fetchOrNull($type): ?TypeDefinition
+    {
+        return $type === null ? $this->fetch($type) : null;
     }
 
     /**

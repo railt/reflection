@@ -13,7 +13,6 @@ use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesDefaultValue;
 
 /**
  * Trait HasDefaultValue
- * @mixin ProvidesDefaultValue
  */
 trait HasDefaultValue
 {

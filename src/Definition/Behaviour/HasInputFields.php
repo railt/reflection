@@ -11,11 +11,9 @@ namespace Railt\Reflection\Definition\Behaviour;
 
 use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesInputFields;
 use Railt\Reflection\Contracts\Definition\Dependent\InputFieldDefinition;
-use Railt\Reflection\Common\Verifiable;
 
 /**
  * Trait HasInputFields
- * @mixin ProvidesInputFields
  */
 trait HasInputFields
 {
@@ -57,10 +55,6 @@ trait HasInputFields
     public function withField(InputFieldDefinition ...$fields): ProvidesInputFields
     {
         foreach ($fields as $field) {
-            if ($field instanceof Verifiable) {
-                $field->verify();
-            }
-
             $this->fields[$field->getName()] = $field;
         }
 

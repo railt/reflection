@@ -11,11 +11,9 @@ namespace Railt\Reflection\Definition\Behaviour;
 
 use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesFields;
 use Railt\Reflection\Contracts\Definition\Dependent\FieldDefinition;
-use Railt\Reflection\Common\Verifiable;
 
 /**
  * Trait HasFields
- * @mixin ProvidesFields
  */
 trait HasFields
 {
@@ -57,10 +55,6 @@ trait HasFields
     public function withField(FieldDefinition ...$fields): ProvidesFields
     {
         foreach ($fields as $field) {
-            if ($field instanceof Verifiable) {
-                $field->verify();
-            }
-
             $this->fields[$field->getName()] = $field;
         }
 

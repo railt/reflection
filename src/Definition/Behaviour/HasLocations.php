@@ -14,7 +14,6 @@ use Railt\Reflection\Contracts\Definition\Dependent\DirectiveLocation;
 
 /**
  * Trait HasLocations
- * @mixin ProvidesLocations
  */
 trait HasLocations
 {

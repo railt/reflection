@@ -19,7 +19,6 @@ class ObjectDefinition extends InterfaceDefinition
 {
     /**
      * @return TypeInterface
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public static function getType(): TypeInterface
     {

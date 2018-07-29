@@ -14,13 +14,12 @@ use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Type as TypeInterface;
 use Railt\Reflection\Definition\Behaviour\HasDefaultValue;
 use Railt\Reflection\Definition\Behaviour\HasTypeIndication;
-use Railt\Reflection\Common\Verifiable;
 use Railt\Reflection\Type;
 
 /**
  * Class InputFieldDefinition
  */
-class InputFieldDefinition extends AbstractDependentTypeDefinition implements InputFieldDefinitionInterface, Verifiable
+class InputFieldDefinition extends AbstractDependentTypeDefinition implements InputFieldDefinitionInterface
 {
     use HasTypeIndication;
     use HasDefaultValue;
@@ -39,16 +38,7 @@ class InputFieldDefinition extends AbstractDependentTypeDefinition implements In
     }
 
     /**
-     * @throws \Railt\Io\Exception\ExternalFileException
-     */
-    public function verify(): void
-    {
-        $this->verifyInputType($this->getDefinition());
-    }
-
-    /**
      * @return TypeInterface
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public static function getType(): TypeInterface
     {

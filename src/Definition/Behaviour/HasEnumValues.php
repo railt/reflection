@@ -14,7 +14,6 @@ use Railt\Reflection\Contracts\Definition\Dependent\EnumValueDefinition;
 
 /**
  * Trait HasEnumValues
- * @mixin ProvidesEnumValues
  */
 trait HasEnumValues
 {

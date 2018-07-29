@@ -14,7 +14,6 @@ use Railt\Reflection\Contracts\Definition\TypeDefinition;
 
 /**
  * Trait HasTypeIndication
- * @mixin ProvidesTypeIndication
  */
 trait HasTypeIndication
 {

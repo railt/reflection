@@ -27,7 +27,6 @@ class InterfaceDefinition extends AbstractTypeDefinition implements InterfaceDef
 
     /**
      * @return TypeInterface
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public static function getType(): TypeInterface
     {

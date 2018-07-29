@@ -59,7 +59,6 @@ class Document extends AbstractDefinition implements DocumentInterface
 
     /**
      * @return TypeInterface
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public static function getType(): TypeInterface
     {

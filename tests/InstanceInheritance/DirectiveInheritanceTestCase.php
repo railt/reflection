@@ -16,6 +16,7 @@ use Railt\Reflection\Definition\InputUnionDefinition;
 use Railt\Reflection\Definition\InterfaceDefinition;
 use Railt\Reflection\Definition\ObjectDefinition;
 use Railt\Reflection\Definition\ScalarDefinition;
+use Railt\Reflection\Definition\SchemaDefinition;
 use Railt\Reflection\Definition\UnionDefinition;
 use Railt\Reflection\Document;
 use Railt\Reflection\Reflection;
@@ -28,6 +29,7 @@ class DirectiveInheritanceTestCase extends InstanceInheritanceTestCase
 {
     /**
      * @return array
+     * @throws \Railt\Reflection\Exception\ReflectionException
      */
     public function inheritanceDataProvider(): array
     {
@@ -43,7 +45,7 @@ class DirectiveInheritanceTestCase extends InstanceInheritanceTestCase
             Type::INTERFACE    => [$target, new InterfaceDefinition($document, 'ChildType'), false],
             Type::OBJECT       => [$target, new ObjectDefinition($document, 'ChildType'), false],
             Type::SCALAR       => [$target, new ScalarDefinition($document, 'ChildType'), false],
-            //Type::SCHEMA       => [$target, new SchemaDefinition($document, 'ChildType'), true],
+            Type::SCHEMA       => [$target, new SchemaDefinition($document, 'ChildType'), false],
             Type::UNION        => [$target, new UnionDefinition($document, 'ChildType'), false],
         ];
     }

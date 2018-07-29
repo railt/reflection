@@ -10,29 +10,15 @@ declare(strict_types=1);
 namespace Railt\Reflection\Definition\Dependent;
 
 use Railt\Reflection\Contracts\Definition\Dependent\DirectiveLocation as DirectiveLocationInterface;
-use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Type as TypeInterface;
-use Railt\Reflection\Common\Verifiable;
 use Railt\Reflection\Exception\TypeConflictException;
 use Railt\Reflection\Type;
 
 /**
  * Class DirectiveLocation
  */
-class DirectiveLocation extends AbstractDependentTypeDefinition implements DirectiveLocationInterface, Verifiable
+class DirectiveLocation extends AbstractDependentTypeDefinition implements DirectiveLocationInterface
 {
-    /**
-     * @throws \Railt\Io\Exception\ExternalFileException
-     */
-    public function verify(): void
-    {
-        $locations = \array_merge(static::EXECUTABLE_LOCATIONS, static::SDL_LOCATIONS);
-
-        if (! \in_array($this->name, $locations, true)) {
-            throw $this->error(new TypeConflictException(\sprintf('Invalid name of %s', $this)));
-        }
-    }
-
     /**
      * @return bool
      */
@@ -63,7 +49,6 @@ class DirectiveLocation extends AbstractDependentTypeDefinition implements Direc
 
     /**
      * @return TypeInterface
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public static function getType(): TypeInterface
     {

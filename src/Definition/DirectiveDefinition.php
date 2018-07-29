@@ -27,7 +27,6 @@ class DirectiveDefinition extends AbstractTypeDefinition implements DirectiveDef
 
     /**
      * @return TypeInterface
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public static function getType(): TypeInterface
     {

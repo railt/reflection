@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Railt\Reflection;
 
 use Railt\Io\Exception\ExternalFileException;
-use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesTypeIndication;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Dictionary;
 use Railt\Reflection\Definition\Behaviour\HasDeprecation;
@@ -118,30 +117,5 @@ abstract class AbstractTypeDefinition extends AbstractDefinition implements Type
     public function getName(): string
     {
         return $this->name;
-    }
-
-
-    /**
-     * @param TypeDefinition $type
-     * @throws ExternalFileException
-     */
-    protected function verifyInputType(TypeDefinition $type): void
-    {
-        if (! $type::getType()->isInputable()) {
-            $error = 'Type %s can contains only inputable types, but %s given';
-            throw $this->error(new TypeConflictException(\sprintf($error, $this, $type)));
-        }
-    }
-
-    /**
-     * @param TypeDefinition $type
-     * @throws ExternalFileException
-     */
-    protected function verifyOutputType(TypeDefinition $type): void
-    {
-        if (! $type::getType()->isInputable()) {
-            $error = 'Type %s can not be defined as return type hint of %s';
-            throw $this->error(new TypeConflictException(\sprintf($error, $type, $this)));
-        }
     }
 }

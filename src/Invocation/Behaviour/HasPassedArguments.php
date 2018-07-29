@@ -14,7 +14,6 @@ use Railt\Reflection\Contracts\Invocation\Dependent\ArgumentInvocation;
 
 /**
  * Trait HasPassedArguments
- * @mixin ProvidesPassedArguments
  */
 trait HasPassedArguments
 {

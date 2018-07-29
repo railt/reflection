@@ -14,7 +14,6 @@ use Railt\Reflection\Contracts\Invocation\DirectiveInvocation;
 
 /**
  * Trait HasDirectives
- * @mixin ProvidesDirectives
  */
 trait HasDirectives
 {

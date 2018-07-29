@@ -15,7 +15,6 @@ use Railt\Reflection\Contracts\Definition\TypeDefinition;
 
 /**
  * Trait HasInterfaces
- * @mixin ProvidesInterfaces
  */
 trait HasInterfaces
 {

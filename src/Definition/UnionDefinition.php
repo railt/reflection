@@ -28,7 +28,6 @@ class UnionDefinition extends AbstractTypeDefinition implements InputUnionDefini
 
     /**
      * @return TypeInterface
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public static function getType(): TypeInterface
     {
@@ -38,13 +37,12 @@ class UnionDefinition extends AbstractTypeDefinition implements InputUnionDefini
     /**
      * @param string|TypeDefinition $type
      * @return ProvidesTypeDefinitions
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public function withDefinition($type): ProvidesTypeDefinitions
     {
         $instance = $this->fetch($type);
 
-        $this->verifyOutputType($instance);
+        \assert($instance::getType()->isReturnable());
 
         return $this->__withDefinition($instance);
     }

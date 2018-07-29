@@ -24,7 +24,6 @@ class EnumDefinition extends AbstractTypeDefinition implements EnumDefinitionInt
 
     /**
      * @return TypeInterface
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public static function getType(): TypeInterface
     {

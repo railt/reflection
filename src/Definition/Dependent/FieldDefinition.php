@@ -14,14 +14,12 @@ use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Type as TypeInterface;
 use Railt\Reflection\Definition\Behaviour\HasArguments;
 use Railt\Reflection\Definition\Behaviour\HasTypeIndication;
-use Railt\Reflection\Common\Verifiable;
-use Railt\Reflection\Exception\TypeConflictException;
 use Railt\Reflection\Type;
 
 /**
  * Class FieldDefinition
  */
-class FieldDefinition extends AbstractDependentTypeDefinition implements FieldDefinitionInterface, Verifiable
+class FieldDefinition extends AbstractDependentTypeDefinition implements FieldDefinitionInterface
 {
     use HasTypeIndication;
     use HasArguments;
@@ -40,16 +38,7 @@ class FieldDefinition extends AbstractDependentTypeDefinition implements FieldDe
     }
 
     /**
-     * @throws \Railt\Io\Exception\ExternalFileException
-     */
-    public function verify(): void
-    {
-        $this->verifyOutputType($this->getDefinition());
-    }
-
-    /**
      * @return TypeInterface
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public static function getType(): TypeInterface
     {

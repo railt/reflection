@@ -15,8 +15,6 @@ use Railt\Reflection\Exception\TypeConflictException;
 
 /**
  * Trait HasInheritance
- * @mixin ProvidesInheritance
- * @mixin TypeDefinition
  */
 trait HasInheritance
 {
