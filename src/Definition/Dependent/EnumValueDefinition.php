@@ -40,10 +40,10 @@ class EnumValueDefinition extends AbstractDependentTypeDefinition implements Enu
     }
 
     /**
-     * @param null|string $value
+     * @param mixed $value
      * @return EnumValueDefinitionInterface|$this
      */
-    public function withValue(?string $value): EnumValueDefinitionInterface
+    public function withValue($value): EnumValueDefinitionInterface
     {
         $this->value = $value;
 
