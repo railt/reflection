@@ -40,13 +40,10 @@ class SchemaDefinition extends AbstractTypeDefinition implements SchemaDefinitio
     /**
      * SchemaDefinition constructor.
      * @param Document $document
-     * @param string $queryType
      * @param string|null $name
      */
-    public function __construct(Document $document, string $queryType, string $name = null)
+    public function __construct(Document $document, string $name = null)
     {
-        $this->query = $queryType;
-
         parent::__construct($document, $name ?? self::DEFAULT_SCHEMA_NAME);
     }
 
