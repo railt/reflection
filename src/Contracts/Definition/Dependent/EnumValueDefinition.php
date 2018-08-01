@@ -15,7 +15,7 @@ namespace Railt\Reflection\Contracts\Definition\Dependent;
 interface EnumValueDefinition extends DependentTypeDefinition
 {
     /**
-     * @return string
+     * @return string|mixed
      */
-    public function getValue(): string;
+    public function getValue();
 }

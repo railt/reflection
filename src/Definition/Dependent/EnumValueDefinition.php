@@ -32,9 +32,9 @@ class EnumValueDefinition extends AbstractDependentTypeDefinition implements Enu
     }
 
     /**
-     * @return string
+     * @return string|mixed
      */
-    public function getValue(): string
+    public function getValue()
     {
         return $this->value ?? $this->getName();
     }
