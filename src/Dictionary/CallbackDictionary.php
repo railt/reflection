@@ -45,9 +45,9 @@ class CallbackDictionary extends SimpleDictionary
 
     /**
      * @param string $name
-     * @param TypeDefinition|null $from
+     * @param Definition|null $from
      */
-    private function invoke(string $name, TypeDefinition $from = null): void
+    private function invoke(string $name, Definition $from = null): void
     {
         foreach ($this->callbacks as $callback) {
             if (! $this->has($name)) {
