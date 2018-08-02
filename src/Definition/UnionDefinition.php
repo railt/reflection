@@ -10,9 +10,7 @@ declare(strict_types=1);
 namespace Railt\Reflection\Definition;
 
 use Railt\Reflection\AbstractTypeDefinition;
-use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesTypeDefinitions;
 use Railt\Reflection\Contracts\Definition\InputUnionDefinition as InputUnionDefinitionInterface;
-use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Type as TypeInterface;
 use Railt\Reflection\Definition\Behaviour\HasDefinitions;
 use Railt\Reflection\Type;

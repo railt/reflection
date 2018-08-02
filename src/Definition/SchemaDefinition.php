@@ -13,8 +13,8 @@ use Railt\Reflection\AbstractTypeDefinition;
 use Railt\Reflection\Contracts\Definition\ObjectDefinition;
 use Railt\Reflection\Contracts\Definition\SchemaDefinition as SchemaDefinitionInterface;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
+use Railt\Reflection\Contracts\Document;
 use Railt\Reflection\Contracts\Type as TypeInterface;
-use Railt\Reflection\Document;
 use Railt\Reflection\Type;
 
 /**
@@ -39,7 +39,7 @@ class SchemaDefinition extends AbstractTypeDefinition implements SchemaDefinitio
 
     /**
      * SchemaDefinition constructor.
-     * @param Document $document
+     * @param Document|\Railt\Reflection\Contracts\Document $document
      * @param string|null $name
      */
     public function __construct(Document $document, string $name = null)
