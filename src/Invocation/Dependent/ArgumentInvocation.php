@@ -36,6 +36,8 @@ class ArgumentInvocation extends AbstractDependentTypeInvocation implements Argu
      */
     public function __construct(TypeInvocation $parent, Document $document, string $name, $value)
     {
+        $this->value = $value;
+
         parent::__construct($parent, $document, $name);
     }
 
@@ -58,13 +60,13 @@ class ArgumentInvocation extends AbstractDependentTypeInvocation implements Argu
     /**
      * @return TypeDefinition
      */
-    public function getTypeDefinition(): TypeDefinition
+    public function getDefinition(): TypeDefinition
     {
         /** @var ProvidesArguments $parent */
-        $parent = $this->getParent()->getTypeDefinition();
+        $parent = $this->getParentInvocation()->getDefinition();
 
         \assert($parent instanceof ProvidesArguments);
 
-        return $parent->getArgumentDefinition($this->name);
+        return $parent->getArgument($this->name);
     }
 }

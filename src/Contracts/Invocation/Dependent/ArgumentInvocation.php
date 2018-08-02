@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace Railt\Reflection\Contracts\Invocation\Dependent;
 
+use Railt\Reflection\Contracts\Definition\TypeDefinition;
+
 /**
  * Interface ArgumentInvocation
  */

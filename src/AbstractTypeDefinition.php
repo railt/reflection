@@ -9,12 +9,10 @@ declare(strict_types=1);
 
 namespace Railt\Reflection;
 
-use Railt\Io\Exception\ExternalFileException;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Dictionary;
 use Railt\Reflection\Definition\Behaviour\HasDeprecation;
 use Railt\Reflection\Definition\Behaviour\HasInheritance;
-use Railt\Reflection\Exception\TypeConflictException;
 use Railt\Reflection\Invocation\Behaviour\HasDirectives;
 
 /**
@@ -106,16 +104,16 @@ abstract class AbstractTypeDefinition extends AbstractDefinition implements Type
     /**
      * @return string
      */
-    public function __toString(): string
+    public function getName(): string
     {
-        return \sprintf('%s<%s>', $this->name ?? '?', static::getType());
+        return $this->name;
     }
 
     /**
      * @return string
      */
-    public function getName(): string
+    public function __toString(): string
     {
-        return $this->name;
+        return \sprintf('%s<%s>', $this->name ?? '?', static::getType());
     }
 }

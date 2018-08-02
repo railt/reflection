@@ -9,10 +9,12 @@ declare(strict_types=1);
 
 namespace Railt\Reflection\Contracts\Invocation;
 
+use Railt\Reflection\Contracts\Definition\DirectiveDefinition;
 use Railt\Reflection\Contracts\Invocation\Behaviour\ProvidesPassedArguments;
 
 /**
  * Interface DirectiveInvocation
+ * @method DirectiveDefinition getDefinition()
  */
 interface DirectiveInvocation extends ProvidesPassedArguments, TypeInvocation
 {

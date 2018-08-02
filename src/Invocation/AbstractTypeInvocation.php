@@ -38,6 +38,7 @@ abstract class AbstractTypeInvocation extends AbstractDefinition implements Type
 
     /**
      * @return TypeDefinition
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public function getDefinition(): TypeDefinition
     {

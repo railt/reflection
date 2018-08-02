@@ -9,8 +9,10 @@ declare(strict_types=1);
 
 namespace Railt\Reflection\Invocation\Behaviour;
 
+use Railt\Reflection\Contracts\Definition\Behaviour\Deprecatable;
 use Railt\Reflection\Contracts\Invocation\Behaviour\ProvidesDirectives;
 use Railt\Reflection\Contracts\Invocation\DirectiveInvocation;
+use Railt\Reflection\Definition\Behaviour\HasDeprecation;
 
 /**
  * Trait HasDirectives
@@ -52,8 +54,40 @@ trait HasDirectives
     {
         foreach ($invocations as $invocation) {
             $this->directives[] = $invocation;
+
+            if ($this->isDeprecatedDirective($invocation)) {
+                $this->withDeprecationReason($this->getDirectiveDeprecationReason($invocation));
+            }
         }
 
         return $this;
+    }
+
+    /**
+     * @param DirectiveInvocation $directive
+     * @return bool
+     */
+    private function isDeprecatedDirective(DirectiveInvocation $directive): bool
+    {
+        return $this instanceof Deprecatable && $directive->getName() === 'deprecated';
+    }
+
+    /**
+     * @param DirectiveInvocation $deprecated
+     * @return null|string
+     */
+    private function getDirectiveDeprecationReason(DirectiveInvocation $deprecated): ?string
+    {
+        $argument = $deprecated->getArgument('reason');
+
+        /** @var HasDeprecation $this */
+        if ($argument) {
+            return $argument->getValue();
+        }
+
+        $definition = $deprecated->getDefinition();
+        $argument   = $definition->getArgument('reason');
+
+        return $argument->getDefaultValue();
     }
 }
