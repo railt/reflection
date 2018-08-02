@@ -15,7 +15,6 @@ use Railt\Reflection\Contracts\Document as DocumentInterface;
 use Railt\Reflection\Contracts\Reflection as ReflectionInterface;
 use Railt\Reflection\Dictionary\ProxyDictionary;
 use Railt\Reflection\Dictionary\SimpleDictionary;
-use Railt\Reflection\Exception\ReflectionException;
 use Railt\Reflection\Introspection\IntrospectionDocument;
 use Railt\Reflection\Stdlib\StdlibDocument;
 
