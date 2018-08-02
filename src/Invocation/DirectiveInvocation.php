@@ -28,4 +28,12 @@ class DirectiveInvocation extends AbstractTypeInvocation implements DirectiveInv
     {
         return DirectiveDefinition::getType();
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return '@' . parent::__toString();
+    }
 }
