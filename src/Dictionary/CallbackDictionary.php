@@ -60,17 +60,6 @@ class CallbackDictionary extends SimpleDictionary
 
     /**
      * @param string $name
-     * @return bool
-     */
-    public function has(string $name): bool
-    {
-        $this->invoke($name);
-
-        return parent::has($name);
-    }
-
-    /**
-     * @param string $name
      * @return null|TypeDefinition
      */
     public function find(string $name): ?TypeDefinition

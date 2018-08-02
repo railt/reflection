@@ -14,7 +14,6 @@ use Railt\Reflection\Contracts\Invocation\Behaviour\ProvidesPassedArguments;
 
 /**
  * Interface DirectiveInvocation
- * @method DirectiveDefinition getDefinition()
  */
 interface DirectiveInvocation extends ProvidesPassedArguments, TypeInvocation
 {
