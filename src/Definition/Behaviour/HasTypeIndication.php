@@ -87,8 +87,11 @@ trait HasTypeIndication
      */
     public function withTypeDefinition($type): ProvidesTypeIndication
     {
-        $definition = $this->fetch($type);
-        $this->definition = $definition->getName();
+        if ($type instanceof TypeDefinition) {
+            $type = $type->getName();
+        }
+
+        $this->definition = $type;
 
         return $this;
     }

@@ -22,9 +22,7 @@ use Railt\Reflection\Type;
  */
 class UnionDefinition extends AbstractTypeDefinition implements InputUnionDefinitionInterface
 {
-    use HasDefinitions {
-        withDefinition as private __withDefinition;
-    }
+    use HasDefinitions;
 
     /**
      * @return TypeInterface
@@ -32,18 +30,5 @@ class UnionDefinition extends AbstractTypeDefinition implements InputUnionDefini
     public static function getType(): TypeInterface
     {
         return Type::of(Type::UNION);
-    }
-
-    /**
-     * @param string|TypeDefinition $type
-     * @return ProvidesTypeDefinitions
-     */
-    public function withDefinition($type): ProvidesTypeDefinitions
-    {
-        $instance = $this->fetch($type);
-
-        \assert($instance::getType()->isReturnable());
-
-        return $this->__withDefinition($instance);
     }
 }
