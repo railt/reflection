@@ -11,6 +11,7 @@ namespace Railt\Reflection;
 
 use Railt\Io\Exception\ExternalFileException;
 use Railt\Io\Readable;
+use Railt\Reflection\Common\Jsonable;
 use Railt\Reflection\Common\Serializable;
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
@@ -24,6 +25,7 @@ use Railt\Reflection\Exception\ReflectionException;
  */
 abstract class AbstractDefinition implements Definition, \JsonSerializable
 {
+    use Jsonable;
     use Serializable;
 
     /**
@@ -184,13 +186,5 @@ abstract class AbstractDefinition implements Definition, \JsonSerializable
         }
 
         return $error->throwsIn($this->getFile(), $this->getLine(), $this->getColumn());
-    }
-
-    /**
-     * @return array
-     */
-    public function jsonSerialize(): array
-    {
-        return \iterator_to_array($this->getObjectFields());
     }
 }
