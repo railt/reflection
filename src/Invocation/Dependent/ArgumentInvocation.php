@@ -30,15 +30,14 @@ class ArgumentInvocation extends AbstractDependentTypeInvocation implements Argu
     /**
      * ArgumentInvocation constructor.
      * @param TypeInvocation $parent
-     * @param Document $document
      * @param string $name
      * @param mixed $value
      */
-    public function __construct(TypeInvocation $parent, Document $document, string $name, $value)
+    public function __construct(TypeInvocation $parent, string $name, $value)
     {
         $this->value = $value;
 
-        parent::__construct($parent, $document, $name);
+        parent::__construct($parent, $name);
     }
 
     /**

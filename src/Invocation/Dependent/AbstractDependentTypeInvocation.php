@@ -27,12 +27,14 @@ abstract class AbstractDependentTypeInvocation extends AbstractTypeInvocation im
     /**
      * AbstractDependentTypeInvocation constructor.
      * @param TypeInvocation $parent
-     * @param Document $document
      * @param string $name
      */
-    public function __construct(TypeInvocation $parent, Document $document, string $name)
+    public function __construct(TypeInvocation $parent, string $name)
     {
         $this->parent = $parent;
+
+        /** @var Document $document */
+        $document = $parent->getDocument();
 
         parent::__construct($document, $name);
     }
