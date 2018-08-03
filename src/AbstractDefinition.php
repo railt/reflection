@@ -22,7 +22,7 @@ use Railt\Reflection\Exception\ReflectionException;
 /**
  * Class AbstractDefinition
  */
-abstract class AbstractDefinition implements Definition
+abstract class AbstractDefinition implements Definition, \JsonSerializable
 {
     use Serializable;
 
@@ -184,5 +184,13 @@ abstract class AbstractDefinition implements Definition
         }
 
         return $error->throwsIn($this->getFile(), $this->getLine(), $this->getColumn());
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return \iterator_to_array($this->getObjectFields());
     }
 }
