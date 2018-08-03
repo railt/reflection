@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace Railt\Reflection\Dictionary;
 
+use Railt\Reflection\Common\Jsonable;
+use Railt\Reflection\Common\Serializable;
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Dictionary;
@@ -17,12 +19,15 @@ use Railt\Reflection\Contracts\Type;
 /**
  * Class ProxyDictionary
  */
-class ProxyDictionary implements Dictionary
+class ProxyDictionary implements Dictionary, \JsonSerializable
 {
+    use Jsonable;
+    use Serializable;
+
     /**
      * @var Dictionary
      */
-    private $parent;
+    protected $proxy;
 
     /**
      * ProxyDictionary constructor.
@@ -30,7 +35,7 @@ class ProxyDictionary implements Dictionary
      */
     public function __construct(Dictionary $parent)
     {
-        $this->parent = $parent;
+        $this->proxy = $parent;
     }
 
     /**
@@ -38,7 +43,7 @@ class ProxyDictionary implements Dictionary
      */
     public function getParentDictionary(): Dictionary
     {
-        return $this->parent;
+        return $this->proxy;
     }
 
     /**
@@ -47,7 +52,7 @@ class ProxyDictionary implements Dictionary
      */
     public function all(Type $of = null): iterable
     {
-        foreach ($this->parent->all($of) as $definition) {
+        foreach ($this->proxy->all($of) as $definition) {
             yield $definition;
         }
     }
@@ -58,7 +63,7 @@ class ProxyDictionary implements Dictionary
      */
     public function has(string $name): bool
     {
-        return $this->parent->has($name);
+        return $this->proxy->has($name);
     }
 
     /**
@@ -67,7 +72,7 @@ class ProxyDictionary implements Dictionary
      */
     public function find(string $name): ?TypeDefinition
     {
-        return $this->parent->find($name);
+        return $this->proxy->find($name);
     }
 
     /**
@@ -78,7 +83,7 @@ class ProxyDictionary implements Dictionary
      */
     public function get(string $name, Definition $from = null): TypeDefinition
     {
-        return $this->parent->get($name, $from);
+        return $this->proxy->get($name, $from);
     }
 
     /**
@@ -87,6 +92,6 @@ class ProxyDictionary implements Dictionary
      */
     public function add(TypeDefinition $type): Dictionary
     {
-        return $this->parent->add($type);
+        return $this->proxy->add($type);
     }
 }

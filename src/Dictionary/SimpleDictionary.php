@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Railt\Reflection\Dictionary;
 
+use Railt\Reflection\Common\Jsonable;
 use Railt\Reflection\Common\Serializable;
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
@@ -19,8 +20,9 @@ use Railt\Reflection\Exception\TypeNotFoundException;
 /**
  * Class SimpleDictionary
  */
-class SimpleDictionary implements Dictionary
+class SimpleDictionary implements Dictionary, \JsonSerializable
 {
+    use Jsonable;
     use Serializable;
 
     /**

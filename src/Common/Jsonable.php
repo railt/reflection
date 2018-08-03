@@ -25,15 +25,11 @@ trait Jsonable
         $result = [];
 
         foreach ($this->getObjectFields() as $field => $value) {
-            if ($value instanceof Readable) {
+            if ($value instanceof Readable || $value instanceof Document) {
                 continue;
             }
 
-            if ($value instanceof Document) {
-                continue;
-            }
-
-            if ($field === 'parent') {
+            if ($field === 'parent' || $field === 'dictionary') {
                 continue;
             }
 
