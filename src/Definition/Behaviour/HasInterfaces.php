@@ -75,13 +75,15 @@ trait HasInterfaces
     }
 
     /**
-     * @param InterfaceDefinition ...$interfaces
+     * @param string|TypeDefinition ...$interfaces
      * @return ProvidesInterfaces|$this
      */
-    public function implements(InterfaceDefinition ...$interfaces): ProvidesInterfaces
+    public function withInterface(...$interfaces): ProvidesInterfaces
     {
         foreach ($interfaces as $interface) {
-            $this->interfaces[] = $interface->getName();
+            $interface = $interface instanceof TypeDefinition ? $interface->getName() : $interface;
+
+            $this->interfaces[] = $interface;
         }
 
         return $this;

@@ -11,7 +11,6 @@ namespace Railt\Reflection\Definition\Behaviour;
 
 use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesInheritance;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
-use Railt\Reflection\Exception\TypeConflictException;
 
 /**
  * Trait HasInheritance
@@ -58,31 +57,18 @@ trait HasInheritance
     }
 
     /**
-     * @param TypeDefinition ...$definitions
+     * @param TypeDefinition|string ...$definitions
      * @return ProvidesInheritance|$this
-     * @throws TypeConflictException
      */
-    public function extends(TypeDefinition ...$definitions): ProvidesInheritance
+    public function extends(...$definitions): ProvidesInheritance
     {
         foreach ($definitions as $definition) {
-            $this->verifyExtensionType($definition);
+            $definition = $definition instanceof TypeDefinition ? $definition->getName() : $definition;
 
             $this->parents[] = $definition->getName();
         }
 
         return $this;
-    }
-
-    /**
-     * @param TypeDefinition $def
-     * @throws TypeConflictException
-     */
-    private function verifyExtensionType(TypeDefinition $def): void
-    {
-        if (! $def::getType()->is(static::getType()->getName())) {
-            $error = \sprintf('Type %s can extends only %s types, but %s given.', $this, static::getType(), $def);
-            throw $this->error(new TypeConflictException($error));
-        }
     }
 
     /**
