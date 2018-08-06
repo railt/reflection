@@ -65,7 +65,7 @@ trait HasInheritance
         foreach ($definitions as $definition) {
             $definition = $definition instanceof TypeDefinition ? $definition->getName() : $definition;
 
-            $this->parents[] = $definition->getName();
+            $this->parents[] = $definition;
         }
 
         return $this;
