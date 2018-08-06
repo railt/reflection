@@ -20,7 +20,7 @@ trait HasInheritance
     /**
      * @var array|string[]
      */
-    protected $parents = [];
+    protected $extends = [];
 
     /**
      * @param string|TypeDefinition $type
@@ -33,7 +33,7 @@ trait HasInheritance
      */
     public function getParents(): iterable
     {
-        foreach ($this->parents as $parent) {
+        foreach ($this->extends as $parent) {
             yield $this->fetch($parent);
         }
     }
@@ -44,7 +44,7 @@ trait HasInheritance
      */
     public function hasParent(string $name): bool
     {
-        return \in_array($name, $this->parents, true);
+        return \in_array($name, $this->extends, true);
     }
 
     /**
@@ -53,7 +53,7 @@ trait HasInheritance
      */
     public function getParent(string $name): ?TypeDefinition
     {
-        return \in_array($name, $this->parents, true) ? $this->fetch($name) : null;
+        return \in_array($name, $this->extends, true) ? $this->fetch($name) : null;
     }
 
     /**
@@ -63,9 +63,7 @@ trait HasInheritance
     public function extends(...$definitions): ProvidesInheritance
     {
         foreach ($definitions as $definition) {
-            $definition = $definition instanceof TypeDefinition ? $definition->getName() : $definition;
-
-            $this->parents[] = $definition;
+            $this->extends[] = $this->nameOf($definition);
         }
 
         return $this;

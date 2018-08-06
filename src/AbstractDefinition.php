@@ -166,6 +166,25 @@ abstract class AbstractDefinition implements Definition, \JsonSerializable
     }
 
     /**
+     * @param string|TypeDefinition $type
+     * @return string|null
+     * @throws ExternalFileException
+     */
+    protected function nameOf($type): ?string
+    {
+        switch (true) {
+            case \is_string($type):
+                return $type;
+
+            case $type instanceof TypeDefinition:
+                return $type->getName();
+        }
+
+        throw (new ReflectionException('Unsupported argument'))
+            ->throwsIn($this->getFile(), $this->getLine(), $this->getColumn());
+    }
+
+    /**
      * @param string|TypeDefinition|null $type
      * @return null|TypeDefinition
      * @throws ExternalFileException

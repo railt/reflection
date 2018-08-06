@@ -81,9 +81,7 @@ trait HasInterfaces
     public function withInterface(...$interfaces): ProvidesInterfaces
     {
         foreach ($interfaces as $interface) {
-            $interface = $interface instanceof TypeDefinition ? $interface->getName() : $interface;
-
-            $this->interfaces[] = $interface;
+            $this->interfaces[] = $this->nameOf($interface);
         }
 
         return $this;

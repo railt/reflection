@@ -62,15 +62,11 @@ trait HasDefinitions
 
     /**
      * @param string|TypeDefinition $type
-     * @return ProvidesTypeDefinitions
+     * @return ProvidesTypeDefinitions|$this
      */
     public function withDefinition($type): ProvidesTypeDefinitions
     {
-        if ($type instanceof TypeDefinition) {
-            $type = $type->getName();
-        }
-
-        $this->types[] = $type;
+        $this->types[] = $this->nameOf($type);
 
         return $this;
     }

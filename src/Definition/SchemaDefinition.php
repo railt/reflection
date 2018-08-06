@@ -56,12 +56,13 @@ class SchemaDefinition extends AbstractTypeDefinition implements SchemaDefinitio
     }
 
     /**
-     * @param ObjectDefinition $query
+     * @param TypeDefinition|string $query
      * @return SchemaDefinition
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
-    public function withQuery(ObjectDefinition $query): SchemaDefinition
+    public function withQuery($query): SchemaDefinition
     {
-        $this->query = $query->getName();
+        $this->query = $this->nameOf($query);
 
         return $this;
     }
@@ -75,12 +76,13 @@ class SchemaDefinition extends AbstractTypeDefinition implements SchemaDefinitio
     }
 
     /**
-     * @param ObjectDefinition|null $mutation
+     * @param TypeDefinition|null $mutation
      * @return SchemaDefinition
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
-    public function withMutation(?ObjectDefinition $mutation): SchemaDefinition
+    public function withMutation($mutation = null): SchemaDefinition
     {
-        $this->mutation = $mutation ? $mutation->getName() : null;
+        $this->mutation = $mutation ? $this->nameOf($mutation) : null;
 
         return $this;
     }
@@ -105,10 +107,11 @@ class SchemaDefinition extends AbstractTypeDefinition implements SchemaDefinitio
     /**
      * @param ObjectDefinition|null $subscription
      * @return SchemaDefinition
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
-    public function withSubscription(?ObjectDefinition $subscription): SchemaDefinition
+    public function withSubscription($subscription = null): SchemaDefinition
     {
-        $this->subscription = $subscription ? $subscription->getName() : null;
+        $this->subscription = $subscription ? $this->nameOf($subscription) : null;
 
         return $this;
     }
