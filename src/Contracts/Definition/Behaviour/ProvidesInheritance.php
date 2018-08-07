@@ -17,21 +17,20 @@ use Railt\Reflection\Contracts\Definition\TypeDefinition;
 interface ProvidesInheritance
 {
     /**
+     * @return TypeDefinition|null
+     */
+    public function getParentInheritance(): ?TypeDefinition;
+
+    /**
      * @return iterable|TypeDefinition[]
      */
-    public function getParents(): iterable;
+    public function getChildrenInheritance(): iterable;
 
     /**
      * @param string $name
      * @return bool
      */
-    public function hasParent(string $name): bool;
-
-    /**
-     * @param string $name
-     * @return TypeDefinition|null
-     */
-    public function getParent(string $name): ?TypeDefinition;
+    public function hasParent(): bool;
 
     /**
      * @param string|TypeDefinition $name

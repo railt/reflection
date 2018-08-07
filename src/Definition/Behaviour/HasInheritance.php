@@ -18,9 +18,14 @@ use Railt\Reflection\Contracts\Definition\TypeDefinition;
 trait HasInheritance
 {
     /**
-     * @var array|string[]
+     * @var string|null
      */
-    protected $extends = [];
+    protected $extends;
+
+    /**
+     * @var string[]|array
+     */
+    protected $extendedBy = [];
 
     /**
      * @param string|TypeDefinition $type
@@ -31,42 +36,51 @@ trait HasInheritance
     /**
      * @return iterable|TypeDefinition[]
      */
-    public function getParents(): iterable
+    public function getChildrenInheritance(): iterable
     {
-        foreach ($this->extends as $parent) {
+        foreach ($this->extendedBy as $parent) {
             yield $this->fetch($parent);
         }
+    }
+
+    /**
+     * @return null|TypeDefinition
+     */
+    public function getParentInheritance(): ?TypeDefinition
+    {
+        return $this->extends ? $this->fetch($this->extends) : null;
     }
 
     /**
      * @param string $name
      * @return bool
      */
-    public function hasParent(string $name): bool
+    public function hasParent(): bool
     {
-        return \in_array($name, $this->extends, true);
+        return $this->extends !== null;
     }
 
     /**
-     * @param string $name
-     * @return null|TypeDefinition
-     */
-    public function getParent(string $name): ?TypeDefinition
-    {
-        return \in_array($name, $this->extends, true) ? $this->fetch($name) : null;
-    }
-
-    /**
-     * @param TypeDefinition|string ...$definitions
+     * @param TypeDefinition|string $definition
      * @return ProvidesInheritance|$this
      */
-    public function extends(...$definitions): ProvidesInheritance
+    public function extends($definition): ProvidesInheritance
     {
-        foreach ($definitions as $definition) {
-            $this->extends[] = $this->nameOf($definition);
+        $this->extends = $this->nameOf($definition);
+
+        if ($definition instanceof ProvidesInheritance) {
+            $definition->extendsBy($this);
         }
 
         return $this;
+    }
+
+    /**
+     * @param string|TypeDefinition $definition
+     */
+    private function extendsBy($definition): void
+    {
+        $this->extendedBy[] = $this->nameOf($definition);
     }
 
     /**
@@ -77,10 +91,8 @@ trait HasInheritance
     {
         $definition = $this->fetch($type);
 
-        foreach ($this->getParents() as $parent) {
-            if ($parent->instanceOf($definition)) {
-                return true;
-            }
+        if ($parent = $this->getParentInheritance()) {
+            return $parent->instanceOf($definition);
         }
 
         return false;

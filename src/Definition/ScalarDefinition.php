@@ -33,10 +33,8 @@ class ScalarDefinition extends AbstractTypeDefinition implements ScalarDefinitio
      */
     public function parse($value)
     {
-        foreach ($this->getParents() as $parent) {
-            if ($parent instanceof ScalarDefinitionInterface) {
-                $value = $parent->parse($value);
-            }
+        if ($parent = $this->getParentInheritance()) {
+            $value = $parent->parse($value);
         }
 
         return $value;
@@ -48,10 +46,8 @@ class ScalarDefinition extends AbstractTypeDefinition implements ScalarDefinitio
      */
     public function serialize($value)
     {
-        foreach ($this->getParents() as $parent) {
-            if ($parent instanceof ScalarDefinitionInterface) {
-                $value = $parent->serialize($value);
-            }
+        if ($parent = $this->getParentInheritance()) {
+            $value = $parent->serialize($value);
         }
 
         return $value;
