@@ -25,13 +25,7 @@ trait HasTypeIndication
     /**
      * @var int
      */
-    protected $modifiers = 0b0000;
-
-    /**
-     * @param string|TypeDefinition $type
-     * @return TypeDefinition
-     */
-    abstract protected function fetch($type): TypeDefinition;
+    protected $modifiers = 0;
 
     /**
      * @return TypeDefinition
@@ -39,33 +33,6 @@ trait HasTypeIndication
     public function getDefinition(): TypeDefinition
     {
         return $this->fetch($this->definition);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isList(): bool
-    {
-        return ProvidesTypeIndication::IS_LIST ===
-            ($this->modifiers & ProvidesTypeIndication::IS_LIST);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isNonNull(): bool
-    {
-        return ProvidesTypeIndication::IS_NOT_NULL ===
-            ($this->modifiers & ProvidesTypeIndication::IS_NOT_NULL);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isListOfNonNulls(): bool
-    {
-        return ProvidesTypeIndication::IS_LIST_OF_NOT_NULL ===
-            ($this->modifiers & ProvidesTypeIndication::IS_LIST_OF_NOT_NULL);
     }
 
     /**
@@ -118,4 +85,34 @@ trait HasTypeIndication
         return \sprintf('%s<%s>: %s', $this->getName(), static::getType(), $parent);
 
     }
+
+    /**
+     * @return bool
+     */
+    public function isNonNull(): bool
+    {
+        return (bool)($this->modifiers & ProvidesTypeIndication::IS_NOT_NULL);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isList(): bool
+    {
+        return (bool)($this->modifiers & ProvidesTypeIndication::IS_LIST);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isListOfNonNulls(): bool
+    {
+        return (bool)($this->modifiers & ProvidesTypeIndication::IS_LIST_OF_NOT_NULL);
+    }
+
+    /**
+     * @param string|TypeDefinition $type
+     * @return TypeDefinition
+     */
+    abstract protected function fetch($type): TypeDefinition;
 }
