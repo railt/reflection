@@ -11,6 +11,7 @@ namespace Railt\Reflection\Stdlib\Scalar;
 
 use Railt\Reflection\Definition\ScalarDefinition;
 use Railt\Reflection\Document;
+use Railt\Reflection\Exception\TypeConflictException;
 
 /**
  * Class FloatScalar
@@ -36,6 +37,34 @@ class FloatScalar extends ScalarDefinition
         parent::__construct($document, self::TYPE_NAME);
 
         $this->withDescription(self::TYPE_DESCRIPTION);
+    }
+
+    /**
+     * @param mixed $value
+     * @return float
+     * @throws TypeConflictException
+     */
+    public function parse($value): float
+    {
+        if (! \is_scalar($value)) {
+            throw new TypeConflictException(\sprintf('Could not parse %s type', \gettype($value)));
+        }
+
+        return (float)parent::parse($value);
+    }
+
+    /**
+     * @param mixed $value
+     * @return float
+     * @throws TypeConflictException
+     */
+    public function serialize($value): float
+    {
+        if (! \is_scalar($value)) {
+            throw new TypeConflictException(\sprintf('Could not serialize %s type', \gettype($value)));
+        }
+
+        return (float)parent::serialize($value);
     }
 
     /**

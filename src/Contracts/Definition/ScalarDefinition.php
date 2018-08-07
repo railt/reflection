@@ -14,4 +14,15 @@ namespace Railt\Reflection\Contracts\Definition;
  */
 interface ScalarDefinition extends TypeDefinition
 {
+    /**
+     * @param mixed $value
+     * @return mixed
+     */
+    public function parse($value);
+
+    /**
+     * @param mixed $value
+     * @return mixed
+     */
+    public function serialize($value);
 }

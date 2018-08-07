@@ -11,6 +11,7 @@ namespace Railt\Reflection\Stdlib\Scalar;
 
 use Railt\Reflection\Definition\ScalarDefinition;
 use Railt\Reflection\Document;
+use Railt\Reflection\Exception\TypeConflictException;
 
 /**
  * Class DateTimeScalar
@@ -36,6 +37,54 @@ class DateTimeScalar extends ScalarDefinition
         parent::__construct($document, self::TYPE_NAME);
 
         $this->withDescription(self::TYPE_DESCRIPTION);
+    }
+
+    /**
+     * @param mixed $value
+     * @return \DateTimeInterface
+     * @throws TypeConflictException
+     */
+    public function parse($value): \DateTimeInterface
+    {
+        if ($value instanceof \DateTimeInterface) {
+            return $value;
+        }
+
+        if (! \is_scalar($value)) {
+            throw new TypeConflictException(\sprintf('Could not parse %s type', \gettype($value)));
+        }
+
+        $value = (string)parent::parse($value);
+
+        try {
+            return new \DateTime($value);
+        } catch (\Throwable $e) {
+            throw new TypeConflictException($e->getMessage(), $e->getCode());
+        }
+    }
+
+    /**
+     * @param mixed $value
+     * @return string
+     * @throws TypeConflictException
+     */
+    public function serialize($value): string
+    {
+        if ($value instanceof \DateTimeInterface) {
+            return $value->format(\DateTime::RFC3339);
+        }
+
+        if (! \is_scalar($value)) {
+            throw new TypeConflictException(\sprintf('Could not serialize %s type', \gettype($value)));
+        }
+
+        $value = parent::parse($value);
+
+        try {
+            return (new \DateTime((string)$value))->format(\DateTime::RFC3339);
+        } catch (\Throwable $e) {
+            throw new TypeConflictException($e->getMessage(), $e->getCode());
+        }
     }
 
     /**

@@ -11,6 +11,7 @@ namespace Railt\Reflection\Stdlib\Scalar;
 
 use Railt\Reflection\Definition\ScalarDefinition;
 use Railt\Reflection\Document;
+use Railt\Reflection\Exception\TypeConflictException;
 
 /**
  * Class IdScalar
@@ -41,6 +42,34 @@ Description;
         parent::__construct($document, self::TYPE_NAME);
 
         $this->withDescription(self::TYPE_DESCRIPTION);
+    }
+
+    /**
+     * @param mixed $value
+     * @return string
+     * @throws TypeConflictException
+     */
+    public function parse($value): string
+    {
+        if (! \is_scalar($value)) {
+            throw new TypeConflictException(\sprintf('Could not parse %s type', \gettype($value)));
+        }
+
+        return (string)parent::parse($value);
+    }
+
+    /**
+     * @param mixed $value
+     * @return string
+     * @throws TypeConflictException
+     */
+    public function serialize($value): string
+    {
+        if (! \is_scalar($value)) {
+            throw new TypeConflictException(\sprintf('Could not serialize %s type', \gettype($value)));
+        }
+
+        return (string)parent::serialize($value);
     }
 
     /**

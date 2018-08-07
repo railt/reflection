@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace Railt\Reflection\Definition;
 
 use Railt\Reflection\AbstractTypeDefinition;
+use Railt\Reflection\Contracts\Definition\ScalarDefinition as ScalarDefinitionInterface;
 use Railt\Reflection\Contracts\Type as TypeInterface;
 use Railt\Reflection\Type;
-use Railt\Reflection\Contracts\Definition\ScalarDefinition as ScalarDefinitionInterface;
 
 /**
  * Class ScalarDefinition
@@ -25,5 +25,35 @@ class ScalarDefinition extends AbstractTypeDefinition implements ScalarDefinitio
     public static function getType(): TypeInterface
     {
         return Type::of(Type::SCALAR);
+    }
+
+    /**
+     * @param mixed $value
+     * @return mixed
+     */
+    public function parse($value)
+    {
+        foreach ($this->getParents() as $parent) {
+            if ($parent instanceof ScalarDefinitionInterface) {
+                $value = $value->parse($value);
+            }
+        }
+
+        return $value;
+    }
+
+    /**
+     * @param mixed $value
+     * @return mixed
+     */
+    public function serialize($value)
+    {
+        foreach ($this->getParents() as $parent) {
+            if ($parent instanceof ScalarDefinitionInterface) {
+                $value = $value->serialize($value);
+            }
+        }
+
+        return $value;
     }
 }
