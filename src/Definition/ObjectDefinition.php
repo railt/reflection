@@ -11,11 +11,12 @@ namespace Railt\Reflection\Definition;
 
 use Railt\Reflection\Contracts\Type as TypeInterface;
 use Railt\Reflection\Type;
+use Railt\Reflection\Contracts\Definition\ObjectDefinition as ObjectDefinitionInterface;
 
 /**
  * Class ObjectDefinition
  */
-class ObjectDefinition extends InterfaceDefinition
+class ObjectDefinition extends InterfaceDefinition implements ObjectDefinitionInterface
 {
     /**
      * @return TypeInterface
