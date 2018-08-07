@@ -54,13 +54,7 @@ class DateTimeScalar extends ScalarDefinition
             throw new TypeConflictException(\sprintf('Could not parse %s type', \gettype($value)));
         }
 
-        $value = (string)parent::parse($value);
-
-        try {
-            return new \DateTime($value);
-        } catch (\Throwable $e) {
-            throw new TypeConflictException($e->getMessage(), $e->getCode());
-        }
+        return $this->parseDateTime((string)parent::parse($value));
     }
 
     /**
@@ -78,12 +72,23 @@ class DateTimeScalar extends ScalarDefinition
             throw new TypeConflictException(\sprintf('Could not serialize %s type', \gettype($value)));
         }
 
-        $value = parent::parse($value);
+        return $this->parseDateTime((string)$value)
+            ->format(\DateTime::RFC3339);
+    }
 
+    /**
+     * @param string $value
+     * @return \DateTimeInterface
+     * @throws TypeConflictException
+     */
+    private function parseDateTime(string $value): \DateTimeInterface
+    {
         try {
-            return (new \DateTime((string)$value))->format(\DateTime::RFC3339);
+            return new \DateTime((string)$value, new \DateTimeZone('UTC'));
         } catch (\Throwable $e) {
-            throw new TypeConflictException($e->getMessage(), $e->getCode());
+            $message = \str_replace('DateTime::__construct(): ', '', $e->getMessage());
+
+            throw new TypeConflictException($message, $e->getCode());
         }
     }
 

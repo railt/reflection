@@ -66,18 +66,18 @@ class StdlibDocument extends Document
     private function boot(): void
     {
         /**
-         * - ID
-         * -- String
-         * --- DateTime
+         * - String
+         * -- Boolean
+         * -- DateTime
+         * -- ID
          * --- Float
          * ---- Int
-         * - Boolean
          */
-        $this->withDefinition($id = new IdScalar($this));
-        $this->withDefinition($bool = new BooleanScalar($this));
-        $this->withDefinition($string = (new StringScalar($this))->extends($id));
+        $this->withDefinition($string = new StringScalar($this));
+        $this->withDefinition($id = (new IdScalar($this))->extends($string));
+        $this->withDefinition($bool = (new BooleanScalar($this))->extends($string));
         $this->withDefinition($date = (new DateTimeScalar($this))->extends($string));
-        $this->withDefinition($float = (new FloatScalar($this))->extends($string));
+        $this->withDefinition($float = (new FloatScalar($this))->extends($id));
         $this->withDefinition($int = (new IntScalar($this))->extends($float));
 
         $this->withDefinition($any = new AnyType($this));

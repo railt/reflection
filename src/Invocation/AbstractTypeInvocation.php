@@ -13,6 +13,7 @@ use Railt\Reflection\AbstractDefinition;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Invocation\TypeInvocation;
 use Railt\Reflection\Document;
+use Railt\Reflection\Contracts\Document as DocumentInterface;
 
 /**
  * Class AbstractTypeInvocation
@@ -26,7 +27,7 @@ abstract class AbstractTypeInvocation extends AbstractDefinition implements Type
 
     /**
      * AbstractTypeInvocation constructor.
-     * @param Document $document
+     * @param Document|DocumentInterface $document
      * @param string $name
      */
     public function __construct(Document $document, string $name)

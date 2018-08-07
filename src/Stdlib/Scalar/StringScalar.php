@@ -50,7 +50,7 @@ class StringScalar extends ScalarDefinition
             throw new TypeConflictException(\sprintf('Could not parse %s type', \gettype($value)));
         }
 
-        return (string)parent::parse($value);
+        return (string)$value;
     }
 
     /**
@@ -64,7 +64,7 @@ class StringScalar extends ScalarDefinition
             throw new TypeConflictException(\sprintf('Could not serialize %s type', \gettype($value)));
         }
 
-        return (string)parent::serialize($value);
+        return (string)$value;
     }
 
     /**
