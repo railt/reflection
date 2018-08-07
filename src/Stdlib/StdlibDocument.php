@@ -61,16 +61,23 @@ class StdlibDocument extends Document
 
     /**
      * @return void
-     * @throws \Railt\Reflection\Exception\TypeConflictException
      * @throws \Railt\Io\Exception\ExternalFileException
      */
     private function boot(): void
     {
-        $this->withDefinition($string = new StringScalar($this));
+        /**
+         * - ID
+         * -- String
+         * --- DateTime
+         * --- Float
+         * ---- Int
+         * - Boolean
+         */
+        $this->withDefinition($id = new IdScalar($this));
+        $this->withDefinition($bool = new BooleanScalar($this));
+        $this->withDefinition($string = (new StringScalar($this))->extends($id));
         $this->withDefinition($date = (new DateTimeScalar($this))->extends($string));
-        $this->withDefinition($bool = (new BooleanScalar($this))->extends($string));
         $this->withDefinition($float = (new FloatScalar($this))->extends($string));
-        $this->withDefinition($id = (new IdScalar($this))->extends($string));
         $this->withDefinition($int = (new IntScalar($this))->extends($float));
 
         $this->withDefinition($any = new AnyType($this));
