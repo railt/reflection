@@ -12,14 +12,14 @@ namespace Railt\Reflection\Invocation;
 use Railt\Reflection\Contracts\Invocation\DirectiveInvocation as DirectiveInvocationInterface;
 use Railt\Reflection\Contracts\Type;
 use Railt\Reflection\Definition\DirectiveDefinition;
-use Railt\Reflection\Invocation\Behaviour\HasPassedArguments;
+use Railt\Reflection\Invocation\Behaviour\HasArguments;
 
 /**
  * Class DirectiveInvocation
  */
 class DirectiveInvocation extends AbstractTypeInvocation implements DirectiveInvocationInterface
 {
-    use HasPassedArguments;
+    use HasArguments;
 
     /**
      * @return Type

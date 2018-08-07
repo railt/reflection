@@ -7,13 +7,14 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Reflection\Contracts\Invocation\Dependent;
+namespace Railt\Reflection\Contracts\Invocation;
 
-use Railt\Reflection\Contracts\Invocation\Behaviour\ProvidesPassedArguments;
+use Railt\Reflection\Contracts\Invocation\Behaviour\ProvidesArguments;
 
 /**
  * Interface InputInvocation
  */
-interface InputInvocation extends DependentTypeInvocation, ProvidesPassedArguments
+interface InputInvocation extends TypeInvocation, ProvidesArguments
 {
+
 }

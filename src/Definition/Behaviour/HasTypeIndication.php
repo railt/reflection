@@ -103,6 +103,18 @@ trait HasTypeIndication
             $parent = '?<?>';
         }
 
+        if ($this->isNonNull()) {
+            $parent .= '!';
+        }
+
+        if ($this->isList()) {
+            $parent = '[' . $parent . ']';
+        }
+
+        if ($this->isListOfNonNulls()) {
+            $parent .= '!';
+        }
+
         return \sprintf('%s<%s>: %s', $this->getName(), static::getType(), $parent);
 
     }
