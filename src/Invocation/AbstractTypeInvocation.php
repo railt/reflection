@@ -59,6 +59,6 @@ abstract class AbstractTypeInvocation extends AbstractDefinition implements Type
      */
     public function __toString(): string
     {
-        return \sprintf('%s()<%s>', $this->getName(), static::getType());
+        return \sprintf('%s<%s>()', $this->getName(), static::getType());
     }
 }
