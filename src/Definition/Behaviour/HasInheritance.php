@@ -70,7 +70,7 @@ trait HasInheritance
 
         if ($definition instanceof ProvidesInheritance) {
             /** @var HasInheritance $definition */
-            $definition->extendedBy[] = $this->extends;
+            $definition->extendedBy[] = $this->getName();
         }
 
         return $this;
