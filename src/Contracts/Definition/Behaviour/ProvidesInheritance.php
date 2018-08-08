@@ -17,24 +17,39 @@ use Railt\Reflection\Contracts\Definition\TypeDefinition;
 interface ProvidesInheritance
 {
     /**
+     * Returns parent type definition.
+     *
      * @return TypeDefinition|null
      */
-    public function getParentInheritance(): ?TypeDefinition;
+    public function getInheritedParent(): ?TypeDefinition;
 
     /**
+     * Returns all children type definitions.
+     *
      * @return iterable|TypeDefinition[]
      */
-    public function getChildrenInheritance(): iterable;
+    public function inheritedBy(): iterable;
 
     /**
-     * @param string $name
+     * Returns true when type has parent type definition or false otherwise.
+     *
      * @return bool
      */
-    public function hasParent(): bool;
+    public function hasInheritance(): bool;
 
     /**
+     * Direct inheritance checking.
+     *
      * @param string|TypeDefinition $name
      * @return bool
      */
-    public function isExtends($name): bool;
+    public function extendsOf($name): bool;
+
+    /**
+     * Recursive inheritance checking.
+     *
+     * @param TypeDefinition|string $definition
+     * @return bool
+     */
+    public function instanceOf($definition): bool;
 }

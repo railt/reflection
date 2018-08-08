@@ -85,23 +85,6 @@ abstract class AbstractTypeDefinition extends AbstractDefinition implements Type
     }
 
     /**
-     * @param TypeDefinition $definition
-     * @return bool
-     */
-    public function instanceOf(TypeDefinition $definition): bool
-    {
-        if ($definition::getType()->is(Type::ANY)) {
-            return true;
-        }
-
-        if ($this->getName() === $definition->getName()) {
-            return true;
-        }
-
-        return $this->isExtends($definition);
-    }
-
-    /**
      * @return string
      */
     public function getName(): string

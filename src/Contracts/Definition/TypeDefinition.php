@@ -35,12 +35,6 @@ interface TypeDefinition extends Deprecatable, ProvidesDirectives, ProvidesInher
     public function getDescription(): string;
 
     /**
-     * @param TypeDefinition $definition
-     * @return bool
-     */
-    public function instanceOf(TypeDefinition $definition): bool;
-
-    /**
      * @return Dictionary
      */
     public function getDictionary(): Dictionary;

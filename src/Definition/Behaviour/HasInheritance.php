@@ -36,7 +36,7 @@ trait HasInheritance
     /**
      * @return iterable|TypeDefinition[]
      */
-    public function getChildrenInheritance(): iterable
+    public function inheritedBy(): iterable
     {
         foreach ($this->extendedBy as $parent) {
             yield $this->fetch($parent);
@@ -46,16 +46,15 @@ trait HasInheritance
     /**
      * @return null|TypeDefinition
      */
-    public function getParentInheritance(): ?TypeDefinition
+    public function getInheritedParent(): ?TypeDefinition
     {
         return $this->extends ? $this->fetch($this->extends) : null;
     }
 
     /**
-     * @param string $name
      * @return bool
      */
-    public function hasParent(): bool
+    public function hasInheritance(): bool
     {
         return $this->extends !== null;
     }
@@ -69,30 +68,53 @@ trait HasInheritance
         $this->extends = $this->nameOf($definition);
 
         if ($definition instanceof ProvidesInheritance) {
-            $definition->extendsBy($this);
+            /** @var HasInheritance $definition */
+            $definition->extendedBy[] = $this->extends;
         }
 
         return $this;
     }
 
     /**
-     * @param string|TypeDefinition $definition
+     * @param TypeDefinition|string $definition
+     * @return ProvidesInheritance|$this
      */
-    private function extendsBy($definition): void
+    public function extendsBy($definition): ProvidesInheritance
     {
-        $this->extendedBy[] = $this->nameOf($definition);
+        /** @var HasInheritance $definition */
+        $definition = $this->fetch($definition);
+
+        $definition->extends($this);
+
+        return $this;
     }
 
     /**
-     * @param string|TypeDefinition $type
+     * @param TypeDefinition|string $type
      * @return bool
      */
-    public function isExtends($type): bool
+    public function extendsOf($type): bool
     {
-        $definition = $this->fetch($type);
+        return $this->extends === $this->nameOf($type);
+    }
 
-        if ($parent = $this->getParentInheritance()) {
-            return $parent->instanceOf($definition);
+    /**
+     * @param TypeDefinition|string $type
+     * @return bool
+     */
+    public function instanceOf($type): bool
+    {
+        $context = $this->extends;
+
+        while ($context) {
+            /** @var TypeDefinition $context */
+            $context = $this->fetch($context);
+
+            if ($context->extendsOf($type)) {
+                return true;
+            }
+
+            $context = $context->getInheritedParent();
         }
 
         return false;
