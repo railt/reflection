@@ -11,6 +11,7 @@ namespace Railt\Reflection\Definition\Behaviour;
 
 use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesInheritance;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
+use Railt\Reflection\Type;
 
 /**
  * Trait HasInheritance
@@ -104,7 +105,19 @@ trait HasInheritance
      */
     public function instanceOf($type): bool
     {
-        $context = $this->extends;
+        /**
+         * @var TypeDefinition $type
+         * @var TypeDefinition $context
+         */
+        [$type, $context] = [$this->fetch($type), $this];
+
+        if ($type::getType()->is(Type::ANY)) {
+            return true;
+        }
+
+        if ($type === $context) {
+            return true;
+        }
 
         while ($context) {
             /** @var TypeDefinition $context */

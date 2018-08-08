@@ -22,8 +22,8 @@ interface ProvidesType
     public static function getType(): Type;
 
     /**
-     * @param Type $type
+     * @param Type|string $type
      * @return bool
      */
-    public static function typeOf(Type $type): bool;
+    public static function typeOf($type): bool;
 }

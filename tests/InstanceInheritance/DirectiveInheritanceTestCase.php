@@ -30,6 +30,7 @@ class DirectiveInheritanceTestCase extends InstanceInheritanceTestCase
     /**
      * @return array
      * @throws \Railt\Reflection\Exception\ReflectionException
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public function inheritanceDataProvider(): array
     {

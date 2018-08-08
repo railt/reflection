@@ -58,11 +58,22 @@ abstract class AbstractDefinition implements Definition, \JsonSerializable
     }
 
     /**
-     * @param TypeInterface $type
+     * @param TypeInterface|string $type
      * @return bool
+     * @throws ReflectionException
      */
-    public static function typeOf(TypeInterface $type): bool
+    public static function typeOf($type): bool
     {
+        switch (true) {
+            case $type instanceof TypeInterface:
+                break;
+            case \is_string($type):
+                $type = Type::of($type);
+                break;
+            default:
+                throw new ReflectionException('Unsupported argument');
+        }
+
         return static::getType()->instanceOf($type);
     }
 

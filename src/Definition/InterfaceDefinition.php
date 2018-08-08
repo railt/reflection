@@ -37,7 +37,7 @@ class InterfaceDefinition extends AbstractTypeDefinition implements InterfaceDef
      * @param TypeDefinition $definition
      * @return bool
      */
-    public function instanceOf(TypeDefinition $definition): bool
+    public function instanceOf($definition): bool
     {
         return $this->isImplements($definition) || parent::instanceOf($definition);
     }
