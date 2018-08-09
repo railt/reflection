@@ -49,7 +49,6 @@ abstract class InstanceInheritanceTestCase extends TestCase
      * @param Def $extends
      * @param bool $valid
      * @throws \PHPUnit\Framework\SkippedTestError
-     * @throws TypeConflictException
      * @throws \PHPUnit\Framework\AssertionFailedError
      */
     public function testInheritanceInstanceOf(Def $original, Def $extends, bool $valid): void

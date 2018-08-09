@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Railt\Reflection\Common;
 
 use Railt\Io\Readable;
+use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Document;
 
 /**
@@ -25,17 +26,55 @@ trait Jsonable
         $result = [];
 
         foreach ($this->getObjectFields() as $field => $value) {
-            if ($value instanceof Readable || $value instanceof Document) {
-                continue;
+            foreach ($this->jsonNonRenderableTypes() as $type) {
+                if ($value instanceof $type) {
+                    continue 2;
+                }
             }
 
-            if ($field === 'parent' || $field === 'dictionary') {
-                continue;
+            foreach ($this->jsonNonRenderableFields() as $name) {
+                if ($field === $name) {
+                    continue 2;
+                }
             }
 
             $result[$field] = $value;
         }
 
+        // Additional information about type
+        if ($this instanceof Definition) {
+            $result['__typename'] = $this::getType()->getName();
+        }
+
         return $result;
+    }
+
+    /**
+     * @return iterable|string[]
+     */
+    private function jsonNonRenderableTypes(): iterable
+    {
+        yield Readable::class;
+        yield Document::class;
+    }
+
+    /**
+     * @return iterable|string[]
+     */
+    private function jsonNonRenderableFields(): iterable
+    {
+        // Recursive relation exclusion
+        yield 'parent';
+
+        // Dictionary relation exclusion
+        yield 'dictionary';
+
+        // File information exclusion
+        yield 'offset';
+        yield 'line';
+        yield 'column';
+
+        // Reverse superfluous inheritance information
+        yield 'extendedBy';
     }
 }
