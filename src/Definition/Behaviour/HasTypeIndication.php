@@ -82,8 +82,7 @@ trait HasTypeIndication
             $parent .= '!';
         }
 
-        return \sprintf('%s<%s>: %s', $this->getName(), static::getType(), $parent);
-
+        return \sprintf('%s: %s', $this->getName(), $parent);
     }
 
     /**

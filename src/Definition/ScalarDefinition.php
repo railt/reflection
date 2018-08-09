@@ -33,7 +33,7 @@ class ScalarDefinition extends AbstractTypeDefinition implements ScalarDefinitio
      */
     public function parse($value)
     {
-        if ($parent = $this->getParentInheritance()) {
+        if ($parent = $this->getInheritedParent()) {
             $value = $parent->parse($value);
         }
 
