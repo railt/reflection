@@ -11,6 +11,7 @@ namespace Railt\Reflection\Definition\Behaviour;
 
 use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesTypeIndication;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
+use Railt\Reflection\Contracts\Dictionary;
 
 /**
  * Trait HasTypeIndication
@@ -64,11 +65,7 @@ trait HasTypeIndication
      */
     public function __toString(): string
     {
-        try {
-            $parent = (string)$this->getDefinition();
-        } catch (\Throwable $e) {
-            $parent = '?<?>';
-        }
+        $parent = $this->getDictionary()->find($this->definition) ?: $this->definition . '<?>';
 
         if ($this->isNonNull()) {
             $parent .= '!';
@@ -82,7 +79,7 @@ trait HasTypeIndication
             $parent .= '!';
         }
 
-        return \sprintf('%s: %s', $this->getName(), $parent);
+        return \sprintf('%s:%s', $this->getName(), $parent);
     }
 
     /**

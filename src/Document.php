@@ -102,7 +102,9 @@ class Document extends AbstractDefinition implements DocumentInterface
      */
     public function getName(): string
     {
-        return $this->file->isFile() ? $this->file->getPathname() : $this->file->getHash();
+        return $this->file->isFile()
+            ? \basename($this->file->getPathname())
+            : $this->file->getPathname();
     }
 
     /**
@@ -116,5 +118,29 @@ class Document extends AbstractDefinition implements DocumentInterface
         }
 
         return $this->__withDefinition($type);
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return \sprintf('%s<%s>', $this->getName(), static::getType());
+    }
+
+    /**
+     * @return int
+     */
+    public function getLine(): int
+    {
+        return 0;
+    }
+
+    /**
+     * @return int
+     */
+    public function getColumn(): int
+    {
+        return 0;
     }
 }
