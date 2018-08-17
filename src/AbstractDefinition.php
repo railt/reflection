@@ -15,6 +15,7 @@ use Railt\Reflection\Common\Jsonable;
 use Railt\Reflection\Common\Serializable;
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
+use Railt\Reflection\Contracts\Dictionary;
 use Railt\Reflection\Contracts\Document as DocumentInterface;
 use Railt\Reflection\Contracts\Invocation\TypeInvocation;
 use Railt\Reflection\Contracts\Type as TypeInterface;
@@ -121,35 +122,11 @@ abstract class AbstractDefinition implements Definition, \JsonSerializable
     }
 
     /**
-     * @return int
+     * @return Dictionary
      */
-    public function getLine(): int
+    public function getDictionary(): Dictionary
     {
-        if ($this->line === null) {
-            $this->line = $this->getFile()->getPosition($this->offset)->getLine();
-        }
-
-        return $this->line;
-    }
-
-    /**
-     * @return Readable
-     */
-    public function getFile(): Readable
-    {
-        return $this->document->getFile();
-    }
-
-    /**
-     * @return int
-     */
-    public function getColumn(): int
-    {
-        if ($this->column === null) {
-            $this->column = $this->getFile()->getPosition($this->offset)->getColumn();
-        }
-
-        return $this->column;
+        return $this->document->getDictionary();
     }
 
     /**
@@ -158,25 +135,6 @@ abstract class AbstractDefinition implements Definition, \JsonSerializable
     public function __toString(): string
     {
         return \sprintf('?<%s>', static::getType());
-    }
-
-    /**
-     * @param string|TypeDefinition $type
-     * @return TypeDefinition
-     * @throws ExternalFileException
-     */
-    protected function fetch($type): TypeDefinition
-    {
-        switch (true) {
-            case \is_string($type):
-                return $this->document->getDictionary()->get($type, $this);
-
-            case $type instanceof TypeDefinition:
-                return $type;
-        }
-
-        throw (new ReflectionException('Unsupported argument'))
-            ->throwsIn($this->getFile(), $this->getLine(), $this->getColumn());
     }
 
     /**
@@ -194,8 +152,40 @@ abstract class AbstractDefinition implements Definition, \JsonSerializable
                 return $type->getName();
         }
 
-        throw (new ReflectionException('Unsupported argument'))
-            ->throwsIn($this->getFile(), $this->getLine(), $this->getColumn());
+        throw (new ReflectionException('Unsupported argument'))->throwsIn($this->getFile(), $this->getLine(),
+                $this->getColumn());
+    }
+
+    /**
+     * @return Readable
+     */
+    public function getFile(): Readable
+    {
+        return $this->document->getFile();
+    }
+
+    /**
+     * @return int
+     */
+    public function getLine(): int
+    {
+        if ($this->line === null) {
+            $this->line = $this->getFile()->getPosition($this->offset)->getLine();
+        }
+
+        return $this->line;
+    }
+
+    /**
+     * @return int
+     */
+    public function getColumn(): int
+    {
+        if ($this->column === null) {
+            $this->column = $this->getFile()->getPosition($this->offset)->getColumn();
+        }
+
+        return $this->column;
     }
 
     /**
@@ -206,6 +196,25 @@ abstract class AbstractDefinition implements Definition, \JsonSerializable
     protected function fetchOrNull($type): ?TypeDefinition
     {
         return $type === null ? $this->fetch($type) : null;
+    }
+
+    /**
+     * @param string|TypeDefinition $type
+     * @return TypeDefinition
+     * @throws ExternalFileException
+     */
+    protected function fetch($type): TypeDefinition
+    {
+        switch (true) {
+            case \is_string($type):
+                return $this->document->getDictionary()->get($type, $this);
+
+            case $type instanceof TypeDefinition:
+                return $type;
+        }
+
+        throw (new ReflectionException('Unsupported argument'))->throwsIn($this->getFile(), $this->getLine(),
+                $this->getColumn());
     }
 
     /**

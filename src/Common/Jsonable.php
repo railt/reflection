@@ -71,7 +71,7 @@ trait Jsonable
 
         // File information exclusion
         yield 'offset';
-        yield 'line';
+        //yield 'line';
         yield 'column';
 
         // Reverse superfluous inheritance information

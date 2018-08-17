@@ -27,6 +27,11 @@ interface Definition extends PositionInterface, ProvidesType
      * @return Document
      */
     public function getDocument(): Document;
+    
+    /**
+     * @return Dictionary
+     */
+    public function getDictionary(): Dictionary;
 
     /**
      * @return string

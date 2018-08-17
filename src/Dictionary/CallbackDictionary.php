@@ -64,8 +64,6 @@ class CallbackDictionary extends SimpleDictionary
      */
     public function find(string $name): ?TypeDefinition
     {
-        $this->invoke($name);
-
         return parent::find($name);
     }
 }

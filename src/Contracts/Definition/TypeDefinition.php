@@ -33,9 +33,4 @@ interface TypeDefinition extends Deprecatable, ProvidesDirectives, ProvidesInher
      * @return string
      */
     public function getDescription(): string;
-
-    /**
-     * @return Dictionary
-     */
-    public function getDictionary(): Dictionary;
 }

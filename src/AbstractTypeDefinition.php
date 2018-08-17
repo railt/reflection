@@ -77,14 +77,6 @@ abstract class AbstractTypeDefinition extends AbstractDefinition implements Type
     }
 
     /**
-     * @return Dictionary
-     */
-    public function getDictionary(): Dictionary
-    {
-        return $this->document->getDictionary();
-    }
-
-    /**
      * @return string
      */
     public function getName(): string
