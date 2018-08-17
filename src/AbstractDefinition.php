@@ -85,7 +85,7 @@ abstract class AbstractDefinition implements Definition, \JsonSerializable
     {
         $this->offset = $offset;
 
-        [$this->line, $this->column] = null;
+        $this->line = $this->column = null;
 
         return $this;
     }
