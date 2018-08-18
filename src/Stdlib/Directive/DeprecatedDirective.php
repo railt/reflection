@@ -17,7 +17,7 @@ use Railt\Reflection\Document;
 /**
  * Class DeprecatedDirective
  */
-class DeprecatedDirective extends DirectiveDefinition
+final class DeprecatedDirective extends DirectiveDefinition
 {
     /**
      * @var string[]
@@ -52,7 +52,6 @@ Description;
     /**
      * BooleanScalar constructor.
      * @param Document $document
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public function __construct(Document $document)
     {
@@ -73,5 +72,13 @@ Description;
     public function getLine(): int
     {
         return 39;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBuiltin(): bool
+    {
+        return true;
     }
 }

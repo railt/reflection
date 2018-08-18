@@ -15,7 +15,7 @@ use Railt\Reflection\Document;
 /**
  * Class DirectiveLocationEnum
  */
-class DirectiveLocationEnum extends EnumDefinition
+final class DirectiveLocationEnum extends EnumDefinition
 {
     /**
      * @var string
@@ -43,5 +43,13 @@ a __DirectiveLocation describes one such possible adjacencies.';
 
         $this->withDescription(self::TYPE_DESCRIPTION);
         $this->withLine(self::TYPE_LINE);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBuiltin(): bool
+    {
+        return true;
     }
 }

@@ -17,7 +17,7 @@ use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Dictionary;
 use Railt\Reflection\Contracts\Document as DocumentInterface;
 use Railt\Reflection\Contracts\Reflection as ReflectionInterface;
-use Railt\Reflection\Contracts\Type as TypeInterface;
+use Railt\Reflection\Contracts\TypeInterface as TypeInterface;
 use Railt\Reflection\Definition\Behaviour\HasDefinitions;
 use Railt\Reflection\Invocation\Behaviour\HasDirectives;
 

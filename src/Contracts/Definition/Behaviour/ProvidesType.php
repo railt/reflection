@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Railt\Reflection\Contracts\Definition\Behaviour;
 
-use Railt\Reflection\Contracts\Type;
+use Railt\Reflection\Contracts\TypeInterface;
 
 /**
  * Interface ProvidesType
@@ -17,12 +17,12 @@ use Railt\Reflection\Contracts\Type;
 interface ProvidesType
 {
     /**
-     * @return Type
+     * @return TypeInterface
      */
-    public static function getType(): Type;
+    public static function getType(): TypeInterface;
 
     /**
-     * @param Type|string $type
+     * @param TypeInterface|string $type
      * @return bool
      */
     public static function typeOf($type): bool;

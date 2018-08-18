@@ -18,10 +18,10 @@ use Railt\Reflection\Exception\TypeNotFoundException;
 interface Dictionary
 {
     /**
-     * @param Type|null $of
+     * @param TypeInterface|null $of
      * @return iterable|TypeDefinition[]
      */
-    public function all(Type $of = null): iterable;
+    public function all(TypeInterface $of = null): iterable;
 
     /**
      * @param string $name

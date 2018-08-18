@@ -10,8 +10,7 @@ declare(strict_types=1);
 namespace Railt\Reflection\Definition\Dependent;
 
 use Railt\Reflection\Contracts\Definition\Dependent\DirectiveLocation as DirectiveLocationInterface;
-use Railt\Reflection\Contracts\Type as TypeInterface;
-use Railt\Reflection\Exception\TypeConflictException;
+use Railt\Reflection\Contracts\TypeInterface;
 use Railt\Reflection\Type;
 
 /**
@@ -19,6 +18,14 @@ use Railt\Reflection\Type;
  */
 class DirectiveLocation extends AbstractDependentTypeDefinition implements DirectiveLocationInterface
 {
+    /**
+     * @return TypeInterface
+     */
+    public static function getType(): TypeInterface
+    {
+        return Type::of(Type::DIRECTIVE_LOCATION);
+    }
+
     /**
      * @return bool
      */
@@ -38,20 +45,11 @@ class DirectiveLocation extends AbstractDependentTypeDefinition implements Direc
     /**
      * @param TypeInterface $type
      * @return bool
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public function isAllowedFor(TypeInterface $type): bool
     {
         $location = static::LOCATION_TO_TYPES[$this->getName()] ?? Type::ANY;
 
         return $type->instanceOf(Type::of($location));
-    }
-
-    /**
-     * @return TypeInterface
-     */
-    public static function getType(): TypeInterface
-    {
-        return Type::of(Type::DIRECTIVE_LOCATION);
     }
 }

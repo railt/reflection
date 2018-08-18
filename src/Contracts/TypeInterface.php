@@ -12,7 +12,7 @@ namespace Railt\Reflection\Contracts;
 /**
  * Interface Type
  */
-interface Type
+interface TypeInterface
 {
     /**
      * @var string
@@ -192,10 +192,10 @@ interface Type
     public function getName(): string;
 
     /**
-     * @param Type $type
+     * @param TypeInterface $type
      * @return bool
      */
-    public function instanceOf(Type $type): bool;
+    public function instanceOf(TypeInterface $type): bool;
 
     /**
      * @param string $type

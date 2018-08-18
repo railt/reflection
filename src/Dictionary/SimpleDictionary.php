@@ -14,7 +14,7 @@ use Railt\Reflection\Common\Serializable;
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Dictionary;
-use Railt\Reflection\Contracts\Type;
+use Railt\Reflection\Contracts\TypeInterface;
 use Railt\Reflection\Exception\TypeNotFoundException;
 
 /**
@@ -31,10 +31,10 @@ class SimpleDictionary implements Dictionary, \JsonSerializable
     protected $types = [];
 
     /**
-     * @param Type|null $of
+     * @param TypeInterface|null $of
      * @return iterable|TypeDefinition[]
      */
-    public function all(Type $of = null): iterable
+    public function all(TypeInterface $of = null): iterable
     {
         foreach ($this->types as $definition) {
             if ($of === null || $definition::typeOf($of)) {

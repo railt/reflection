@@ -16,7 +16,7 @@ use Railt\Reflection\Exception\TypeConflictException;
 /**
  * Class DateTimeScalar
  */
-class DateTimeScalar extends ScalarDefinition
+final class DateTimeScalar extends ScalarDefinition
 {
     /**
      * @var string
@@ -98,5 +98,13 @@ class DateTimeScalar extends ScalarDefinition
     public function getLine(): int
     {
         return 31;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBuiltin(): bool
+    {
+        return true;
     }
 }

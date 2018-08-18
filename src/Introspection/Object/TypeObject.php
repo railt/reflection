@@ -15,7 +15,7 @@ use Railt\Reflection\Document;
 /**
  * Class TypeObject
  */
-class TypeObject extends ObjectDefinition
+final class TypeObject extends ObjectDefinition
 {
     /**
      * @var string
@@ -50,5 +50,13 @@ List and NonNull types compose other types.';
 
         $this->withDescription(self::TYPE_DESCRIPTION);
         $this->withLine(self::TYPE_LINE);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBuiltin(): bool
+    {
+        return true;
     }
 }

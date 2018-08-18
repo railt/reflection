@@ -17,7 +17,7 @@ use Railt\Reflection\Document;
 /**
  * Class IncludeDirective
  */
-class IncludeDirective extends DirectiveDefinition
+final class IncludeDirective extends DirectiveDefinition
 {
     /**
      * @var string[]
@@ -45,7 +45,6 @@ Description;
     /**
      * BooleanScalar constructor.
      * @param Document $document
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public function __construct(Document $document)
     {
@@ -66,5 +65,13 @@ Description;
     public function getLine(): int
     {
         return 56;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBuiltin(): bool
+    {
+        return true;
     }
 }

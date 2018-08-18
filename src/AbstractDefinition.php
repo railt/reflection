@@ -18,7 +18,7 @@ use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Dictionary;
 use Railt\Reflection\Contracts\Document as DocumentInterface;
 use Railt\Reflection\Contracts\Invocation\TypeInvocation;
-use Railt\Reflection\Contracts\Type as TypeInterface;
+use Railt\Reflection\Contracts\TypeInterface as TypeInterface;
 use Railt\Reflection\Exception\ReflectionException;
 
 /**

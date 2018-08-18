@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Railt\Reflection;
 
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
-use Railt\Reflection\Contracts\Dictionary;
 use Railt\Reflection\Definition\Behaviour\HasDeprecation;
 use Railt\Reflection\Definition\Behaviour\HasInheritance;
 use Railt\Reflection\Invocation\Behaviour\HasDirectives;
@@ -85,10 +84,34 @@ abstract class AbstractTypeDefinition extends AbstractDefinition implements Type
     }
 
     /**
+     * @return bool
+     */
+    public function isBuiltin(): bool
+    {
+        return false;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string
     {
         return \sprintf('%s<%s>', $this->name ?? '?', static::getType());
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRenderable(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInputable(): bool
+    {
+        return false;
     }
 }

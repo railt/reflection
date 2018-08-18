@@ -10,14 +10,14 @@ declare(strict_types=1);
 namespace Railt\Reflection\Stdlib;
 
 use Railt\Reflection\AbstractTypeDefinition;
-use Railt\Reflection\Contracts\Type as TypeInterface;
+use Railt\Reflection\Contracts\TypeInterface;
 use Railt\Reflection\Document;
 use Railt\Reflection\Type;
 
 /**
  * Class AnyType
  */
-class AnyType extends AbstractTypeDefinition
+final class AnyType extends AbstractTypeDefinition
 {
     /**
      * @var string
@@ -46,5 +46,29 @@ class AnyType extends AbstractTypeDefinition
     public static function getType(): TypeInterface
     {
         return Type::of(Type::ANY);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRenderable(): bool
+    {
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInputable(): bool
+    {
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBuiltin(): bool
+    {
+        return true;
     }
 }

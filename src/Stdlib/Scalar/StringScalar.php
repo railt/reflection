@@ -16,7 +16,7 @@ use Railt\Reflection\Exception\TypeConflictException;
 /**
  * Class StringScalar
  */
-class StringScalar extends ScalarDefinition
+final class StringScalar extends ScalarDefinition
 {
     /**
      * @var string
@@ -73,5 +73,13 @@ class StringScalar extends ScalarDefinition
     public function getLine(): int
     {
         return 12;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBuiltin(): bool
+    {
+        return true;
     }
 }

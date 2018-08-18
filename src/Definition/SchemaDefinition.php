@@ -14,7 +14,7 @@ use Railt\Reflection\Contracts\Definition\ObjectDefinition;
 use Railt\Reflection\Contracts\Definition\SchemaDefinition as SchemaDefinitionInterface;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Document;
-use Railt\Reflection\Contracts\Type as TypeInterface;
+use Railt\Reflection\Contracts\TypeInterface as TypeInterface;
 use Railt\Reflection\Type;
 
 /**

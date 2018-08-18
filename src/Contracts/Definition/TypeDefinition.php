@@ -50,4 +50,11 @@ interface TypeDefinition extends Deprecatable, ProvidesDirectives, ProvidesInher
      * @return bool
      */
     public function isInputable(): bool;
+
+    /**
+     * Returns true if the type definition is built-in.
+     *
+     * @return bool
+     */
+    public function isBuiltin(): bool;
 }

@@ -27,7 +27,7 @@ use Railt\Reflection\Stdlib\Scalar\StringScalar;
 /**
  * Class GraphQLDocument
  */
-class StdlibDocument extends Document
+final class StdlibDocument extends Document
 {
     /**
      * @var string
@@ -37,8 +37,6 @@ class StdlibDocument extends Document
     /**
      * GraphQLDocument constructor.
      * @param Reflection $parent
-     * @throws \Railt\Reflection\Exception\TypeConflictException
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public function __construct(Reflection $parent)
     {
@@ -61,7 +59,6 @@ class StdlibDocument extends Document
 
     /**
      * @return void
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     private function boot(): void
     {

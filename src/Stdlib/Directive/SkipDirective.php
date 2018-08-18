@@ -17,7 +17,7 @@ use Railt\Reflection\Document;
 /**
  * Class SkipDirective
  */
-class SkipDirective extends DirectiveDefinition
+final class SkipDirective extends DirectiveDefinition
 {
     /**
      * @var string[]
@@ -44,7 +44,6 @@ Description;
     /**
      * BooleanScalar constructor.
      * @param Document $document
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public function __construct(Document $document)
     {
@@ -65,5 +64,13 @@ Description;
     public function getLine(): int
     {
         return 48;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBuiltin(): bool
+    {
+        return true;
     }
 }

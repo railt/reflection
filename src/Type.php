@@ -11,10 +11,7 @@ namespace Railt\Reflection;
 
 use Railt\Reflection\Common\Serializable;
 use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesType;
-use Railt\Reflection\Contracts\Definition\TypeDefinition;
-use Railt\Reflection\Contracts\Type as TypeInterface;
-use Railt\Reflection\Exception\ReflectionException;
-use Railt\Reflection\Exception\TypeConflictException;
+use Railt\Reflection\Contracts\TypeInterface;
 
 /**
  * Class Type
@@ -32,16 +29,14 @@ class Type implements TypeInterface
      * @var array[]|string[][]
      */
     private static $inheritance = [];
-
-    /**
-     * @var array|string[]
-     */
-    private $parent;
-
     /**
      * @var string
      */
     protected $name;
+    /**
+     * @var array|string[]
+     */
+    private $parent;
 
     /**
      * BaseType constructor.
@@ -49,24 +44,8 @@ class Type implements TypeInterface
      */
     private function __construct(string $name)
     {
-        $this->name = $name;
+        $this->name   = $name;
         $this->parent = $this->getInheritanceSequence($name);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isInputable(): bool
-    {
-        return \in_array($this->name, static::ALLOWS_TO_INPUT, true);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isReturnable(): bool
-    {
-        return \in_array($this->name, static::ALLOWS_TO_OUTPUT, true);
     }
 
     /**
@@ -89,7 +68,7 @@ class Type implements TypeInterface
     private function bootInheritance(\SplStack $stack, array $children = []): void
     {
         $push = function (string $type) use ($stack): void {
-            self::$inheritance[$type] = \array_values(\iterator_to_array($stack));
+            self::$inheritance[$type]   = \array_values(\iterator_to_array($stack));
             self::$inheritance[$type][] = static::ROOT_TYPE;
 
             $stack->push($type);
@@ -113,7 +92,7 @@ class Type implements TypeInterface
 
     /**
      * @param string|ProvidesType $type
-     * @return Type|\Railt\Reflection\Contracts\Type
+     * @return Type|\Railt\Reflection\Contracts\TypeInterface
      */
     public static function of($type): Type
     {
@@ -126,6 +105,22 @@ class Type implements TypeInterface
         }
 
         return static::of(static::ANY);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInputable(): bool
+    {
+        return \in_array($this->name, static::ALLOWS_TO_INPUT, true);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isReturnable(): bool
+    {
+        return \in_array($this->name, static::ALLOWS_TO_OUTPUT, true);
     }
 
     /**

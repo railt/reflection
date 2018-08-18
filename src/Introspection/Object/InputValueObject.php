@@ -15,7 +15,7 @@ use Railt\Reflection\Document;
 /**
  * Class InputValueObject
  */
-class InputValueObject extends ObjectDefinition
+final class InputValueObject extends ObjectDefinition
 {
     /**
      * @var string
@@ -44,5 +44,13 @@ type and optionally a default value.';
 
         $this->withDescription(self::TYPE_DESCRIPTION);
         $this->withLine(self::TYPE_LINE);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBuiltin(): bool
+    {
+        return true;
     }
 }

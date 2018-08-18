@@ -15,7 +15,7 @@ use Railt\Reflection\Document;
 /**
  * Class FieldObject
  */
-class FieldObject extends ObjectDefinition
+final class FieldObject extends ObjectDefinition
 {
     /**
      * @var string
@@ -43,5 +43,13 @@ which has a name, potentially a list of arguments, and a return type.';
 
         $this->withDescription(self::TYPE_DESCRIPTION);
         $this->withLine(self::TYPE_LINE);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBuiltin(): bool
+    {
+        return true;
     }
 }

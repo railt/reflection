@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Railt\Reflection\Definition\Dependent;
 
 use Railt\Reflection\Contracts\Definition\Dependent\EnumValueDefinition as EnumValueDefinitionInterface;
-use Railt\Reflection\Contracts\Type as TypeInterface;
+use Railt\Reflection\Contracts\TypeInterface as TypeInterface;
 use Railt\Reflection\Type;
 
 /**

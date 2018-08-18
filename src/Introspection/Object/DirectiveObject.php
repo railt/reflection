@@ -15,7 +15,7 @@ use Railt\Reflection\Document;
 /**
  * Class DirectiveObject
  */
-class DirectiveObject extends ObjectDefinition
+final class DirectiveObject extends ObjectDefinition
 {
     /**
      * @var string
@@ -48,5 +48,13 @@ this by describing additional information to the executor.';
 
         $this->withDescription(self::TYPE_DESCRIPTION);
         $this->withLine(self::TYPE_LINE);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBuiltin(): bool
+    {
+        return true;
     }
 }

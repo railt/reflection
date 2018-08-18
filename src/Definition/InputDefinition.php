@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Railt\Reflection\Definition;
 
 use Railt\Reflection\AbstractTypeDefinition;
-use Railt\Reflection\Contracts\Type as TypeInterface;
+use Railt\Reflection\Contracts\TypeInterface as TypeInterface;
 use Railt\Reflection\Contracts\Definition\InputDefinition as InputDefinitionInterface;
 use Railt\Reflection\Definition\Behaviour\HasInputFields;
 use Railt\Reflection\Type;

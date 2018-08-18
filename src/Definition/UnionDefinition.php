@@ -11,7 +11,7 @@ namespace Railt\Reflection\Definition;
 
 use Railt\Reflection\AbstractTypeDefinition;
 use Railt\Reflection\Contracts\Definition\InputUnionDefinition as InputUnionDefinitionInterface;
-use Railt\Reflection\Contracts\Type as TypeInterface;
+use Railt\Reflection\Contracts\TypeInterface as TypeInterface;
 use Railt\Reflection\Definition\Behaviour\HasDefinitions;
 use Railt\Reflection\Type;
 

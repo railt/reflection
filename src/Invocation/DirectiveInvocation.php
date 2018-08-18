@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Railt\Reflection\Invocation;
 
 use Railt\Reflection\Contracts\Invocation\DirectiveInvocation as DirectiveInvocationInterface;
-use Railt\Reflection\Contracts\Type;
+use Railt\Reflection\Contracts\TypeInterface;
 use Railt\Reflection\Definition\DirectiveDefinition;
 use Railt\Reflection\Invocation\Behaviour\HasArguments;
 
@@ -22,9 +22,9 @@ class DirectiveInvocation extends AbstractTypeInvocation implements DirectiveInv
     use HasArguments;
 
     /**
-     * @return Type
+     * @return TypeInterface
      */
-    public static function getType(): Type
+    public static function getType(): TypeInterface
     {
         return DirectiveDefinition::getType();
     }

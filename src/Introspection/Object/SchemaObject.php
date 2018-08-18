@@ -15,7 +15,7 @@ use Railt\Reflection\Document;
 /**
  * Class SchemaObject
  */
-class SchemaObject extends ObjectDefinition
+final class SchemaObject extends ObjectDefinition
 {
     /**
      * @var string
@@ -44,5 +44,13 @@ as the entry points for query, mutation, and subscription operations.';
 
         $this->withDescription(self::TYPE_DESCRIPTION);
         $this->withLine(self::TYPE_LINE);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBuiltin(): bool
+    {
+        return true;
     }
 }

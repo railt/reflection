@@ -26,7 +26,7 @@ use Railt\Reflection\Reflection;
 /**
  * Class IntrospectionDocument
  */
-class IntrospectionDocument extends Document
+final class IntrospectionDocument extends Document
 {
     /**
      * @var string

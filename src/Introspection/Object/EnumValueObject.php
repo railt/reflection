@@ -15,7 +15,7 @@ use Railt\Reflection\Document;
 /**
  * Class EnumValueObject
  */
-class EnumValueObject extends ObjectDefinition
+final class EnumValueObject extends ObjectDefinition
 {
     /**
      * @var string
@@ -44,5 +44,13 @@ value is returned in a JSON response as a string.';
 
         $this->withDescription(self::TYPE_DESCRIPTION);
         $this->withLine(self::TYPE_LINE);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBuiltin(): bool
+    {
+        return true;
     }
 }

@@ -15,7 +15,7 @@ use Railt\Reflection\Document;
 /**
  * Class TypeKindEnum
  */
-class TypeKindEnum extends EnumDefinition
+final class TypeKindEnum extends EnumDefinition
 {
     /**
      * @var string
@@ -42,5 +42,13 @@ class TypeKindEnum extends EnumDefinition
 
         $this->withDescription(self::TYPE_DESCRIPTION);
         $this->withLine(self::TYPE_LINE);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBuiltin(): bool
+    {
+        return true;
     }
 }

@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Railt\Reflection\Contracts\Definition\Dependent;
 
-use Railt\Reflection\Contracts\Type;
+use Railt\Reflection\Contracts\TypeInterface;
 
 /**
  * Interface DirectiveLocation
@@ -178,19 +178,19 @@ interface DirectiveLocation
      * @var string[]
      */
     public const LOCATION_TO_TYPES = [
-        self::SCALAR                 => Type::SCALAR,
-        self::OBJECT                 => Type::OBJECT,
-        self::INTERFACE              => Type::INTERFACE,
-        self::UNION                  => Type::UNION,
-        self::ENUM                   => Type::ENUM,
-        self::INPUT_OBJECT           => Type::INPUT_OBJECT,
-        self::INPUT_UNION            => Type::INPUT_UNION,
-        self::SCHEMA                 => Type::SCHEMA,
-        self::ENUM_VALUE             => Type::ENUM_VALUE,
-        self::FIELD_DEFINITION       => Type::FIELD,
-        self::ARGUMENT_DEFINITION    => Type::ARGUMENT,
-        self::INPUT_FIELD_DEFINITION => Type::INPUT_FIELD_DEFINITION,
-        self::DOCUMENT               => Type::DOCUMENT,
+        self::SCALAR                 => TypeInterface::SCALAR,
+        self::OBJECT                 => TypeInterface::OBJECT,
+        self::INTERFACE              => TypeInterface::INTERFACE,
+        self::UNION                  => TypeInterface::UNION,
+        self::ENUM                   => TypeInterface::ENUM,
+        self::INPUT_OBJECT           => TypeInterface::INPUT_OBJECT,
+        self::INPUT_UNION            => TypeInterface::INPUT_UNION,
+        self::SCHEMA                 => TypeInterface::SCHEMA,
+        self::ENUM_VALUE             => TypeInterface::ENUM_VALUE,
+        self::FIELD_DEFINITION       => TypeInterface::FIELD,
+        self::ARGUMENT_DEFINITION    => TypeInterface::ARGUMENT,
+        self::INPUT_FIELD_DEFINITION => TypeInterface::INPUT_FIELD_DEFINITION,
+        self::DOCUMENT               => TypeInterface::DOCUMENT,
     ];
 
     /**
@@ -204,10 +204,10 @@ interface DirectiveLocation
     public function isPrivate(): bool;
 
     /**
-     * @param Type $type
+     * @param TypeInterface $type
      * @return bool
      */
-    public function isAllowedFor(Type $type): bool;
+    public function isAllowedFor(TypeInterface $type): bool;
 
     /**
      * @return string

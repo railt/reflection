@@ -14,7 +14,7 @@ use Railt\Reflection\Common\Serializable;
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Dictionary;
-use Railt\Reflection\Contracts\Type;
+use Railt\Reflection\Contracts\TypeInterface;
 
 /**
  * Class ProxyDictionary
@@ -47,10 +47,10 @@ class ProxyDictionary implements Dictionary, \JsonSerializable
     }
 
     /**
-     * @param Type|null $of
+     * @param TypeInterface|null $of
      * @return iterable|TypeDefinition[]
      */
-    public function all(Type $of = null): iterable
+    public function all(TypeInterface $of = null): iterable
     {
         foreach ($this->proxy->all($of) as $definition) {
             yield $definition;

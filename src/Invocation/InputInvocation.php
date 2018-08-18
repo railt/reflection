@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Railt\Reflection\Invocation;
 
 use Railt\Reflection\Contracts\Invocation\InputInvocation as InputInvocationInterface;
-use Railt\Reflection\Contracts\Type as TypeInterface;
+use Railt\Reflection\Contracts\TypeInterface as TypeInterface;
 use Railt\Reflection\Invocation\Behaviour\HasArguments;
 use Railt\Reflection\Type;
 
