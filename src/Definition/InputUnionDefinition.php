@@ -29,4 +29,20 @@ class InputUnionDefinition extends AbstractTypeDefinition implements InputUnionD
     {
         return Type::of(Type::INPUT_UNION);
     }
+    
+    /**
+     * @return bool
+     */
+    public function isRenderable(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInputable(): bool
+    {
+        return true;
+    }
 }

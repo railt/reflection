@@ -33,4 +33,21 @@ interface TypeDefinition extends Deprecatable, ProvidesDirectives, ProvidesInher
      * @return string
      */
     public function getDescription(): string;
+
+    /**
+     * Returns true when a type can be rendered as a JSON
+     * value or a structure, and they can also be operated
+     * on in the GraphQL query.
+     *
+     * @return bool
+     */
+    public function isRenderable(): bool;
+
+    /**
+     * Returns true in the event that the type can be represented
+     * as a value and passed as an argument to the GraphQL request.
+     *
+     * @return bool
+     */
+    public function isInputable(): bool;
 }
