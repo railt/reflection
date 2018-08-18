@@ -172,7 +172,6 @@ interface DirectiveLocation
         self::ARGUMENT_DEFINITION,
         self::INPUT_FIELD_DEFINITION,
         self::DOCUMENT,
-        self::ANY,
     ];
 
     /**
