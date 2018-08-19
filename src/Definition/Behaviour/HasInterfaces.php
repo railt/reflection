@@ -38,7 +38,11 @@ trait HasInterfaces
         $definition = $this->fetch($interface);
 
         foreach ($this->getInterfaces() as $impl) {
-            if ($impl->instanceOf($definition)) {
+            if ($impl->hasInterface($this->nameOf($definition))) {
+                return true;
+            }
+
+            if ($impl->isImplements($definition)) {
                 return true;
             }
         }
