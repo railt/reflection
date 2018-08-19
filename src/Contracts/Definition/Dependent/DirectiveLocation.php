@@ -14,7 +14,7 @@ use Railt\Reflection\Contracts\TypeInterface;
 /**
  * Interface DirectiveLocation
  */
-interface DirectiveLocation
+interface DirectiveLocation extends DependentTypeDefinition
 {
     /**
      * @version SDL June 2018
@@ -208,14 +208,4 @@ interface DirectiveLocation
      * @return bool
      */
     public function isAllowedFor(TypeInterface $type): bool;
-
-    /**
-     * @return string
-     */
-    public function getName(): string;
-
-    /**
-     * @return string
-     */
-    public function __toString(): string;
 }

@@ -12,7 +12,6 @@ namespace Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Definition\Behaviour\Deprecatable;
 use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesInheritance;
-use Railt\Reflection\Contracts\Dictionary;
 use Railt\Reflection\Contracts\Invocation\Behaviour\ProvidesDirectives;
 
 /**

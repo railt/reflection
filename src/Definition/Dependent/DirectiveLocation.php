@@ -52,4 +52,12 @@ class DirectiveLocation extends AbstractDependentTypeDefinition implements Direc
 
         return $type->instanceOf(Type::of($location));
     }
+
+    /**
+     * @return bool
+     */
+    public function isBuiltin(): bool
+    {
+        return true;
+    }
 }
