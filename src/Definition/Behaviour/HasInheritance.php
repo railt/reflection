@@ -10,6 +10,8 @@ declare(strict_types=1);
 namespace Railt\Reflection\Definition\Behaviour;
 
 use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesInheritance;
+use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesInterfaces;
+use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesTypeDefinitions;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Type;
 
@@ -111,14 +113,31 @@ trait HasInheritance
          */
         [$type, $context] = [$this->fetch($type), $this];
 
+        // Return a positive response if the child is an Any type implementation.
         if ($type::getType()->is(Type::ANY)) {
             return true;
         }
 
+        // Return a positive response if the desired child is the same type from
+        // which the search is performed.
         if ($type === $context) {
             return true;
         }
 
+        // Return a positive response if the parent type (like Object or Interface)
+        // can implement the desired type.
+        if ($this instanceof ProvidesInterfaces && $this->isImplements($type->getName())) {
+            return true;
+        }
+
+        // Return a positive response if the parent type (like Union) contains a
+        // reference to the desired child type.
+        if ($this instanceof ProvidesTypeDefinitions && $this->hasDefinition($type->getName())) {
+            return true;
+        }
+
+        // Return a positive response if the parent type contains a reference
+        // to the desired child when using inheritance.
         while ($context) {
             /** @var TypeDefinition $context */
             $context = $this->fetch($context);
