@@ -30,7 +30,7 @@ class ObjectDefinition extends AbstractTypeDefinition implements ObjectDefinitio
      */
     public static function getType(): TypeInterface
     {
-        return Type::of(Type::INTERFACE);
+        return Type::of(Type::OBJECT);
     }
 
     /**
