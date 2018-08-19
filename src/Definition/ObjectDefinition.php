@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace Railt\Reflection\Definition;
 
-use Railt\Reflection\Contracts\TypeInterface as TypeInterface;
-use Railt\Reflection\Type;
 use Railt\Reflection\Contracts\Definition\ObjectDefinition as ObjectDefinitionInterface;
+use Railt\Reflection\Contracts\TypeInterface;
+use Railt\Reflection\Type;
 
 /**
  * Class ObjectDefinition

@@ -9,10 +9,13 @@ declare(strict_types=1);
 
 namespace Railt\Reflection\Contracts\Definition;
 
+use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesFields;
+use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesInterfaces;
+
 /**
  * Interface ObjectDefinition
  */
-interface ObjectDefinition extends InterfaceDefinition
+interface ObjectDefinition extends ProvidesFields, ProvidesInterfaces, TypeDefinition
 {
 
 }
