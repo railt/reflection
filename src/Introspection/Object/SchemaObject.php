@@ -25,14 +25,16 @@ final class SchemaObject extends ObjectDefinition
     /**
      * @var string
      */
-    public const TYPE_DESCRIPTION = 'A GraphQL Schema defines the capabilities of a GraphQL server.
-It exposes all available types and directives on the server, as well
-as the entry points for query, mutation, and subscription operations.';
+    public const TYPE_DESCRIPTION = <<<Description
+        A GraphQL Schema defines the capabilities of a GraphQL server.
+        It exposes all available types and directives on the server, as well
+        as the entry points for query, mutation, and subscription operations.
+Description;
 
     /**
      * @var int
      */
-    public const TYPE_LINE = 7;
+    private const DEFINITION_LINE = 7;
 
     /**
      * SchemaObject constructor.
@@ -43,7 +45,7 @@ as the entry points for query, mutation, and subscription operations.';
         parent::__construct($document, static::TYPE_NAME);
 
         $this->withDescription(self::TYPE_DESCRIPTION);
-        $this->withLine(self::TYPE_LINE);
+        $this->withLine(self::DEFINITION_LINE);
     }
 
     /**

@@ -11,19 +11,15 @@ namespace Railt\Reflection\Contracts\Invocation;
 
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
+use Railt\Reflection\Contracts\Definition\Behaviour\Nameable;
 
 /**
  * Interface TypeInvocation
  */
-interface TypeInvocation extends Definition
+interface TypeInvocation extends Definition, Nameable
 {
     /**
      * @return TypeDefinition
      */
     public function getDefinition(): TypeDefinition;
-
-    /**
-     * @return string
-     */
-    public function getName(): string;
 }

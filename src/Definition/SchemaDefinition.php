@@ -132,20 +132,4 @@ class SchemaDefinition extends AbstractTypeDefinition implements SchemaDefinitio
     {
         return $this->subscription !== null;
     }
-
-    /**
-     * @return bool
-     */
-    public function isRenderable(): bool
-    {
-        return false;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isInputable(): bool
-    {
-        return false;
-    }
 }

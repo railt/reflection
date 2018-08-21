@@ -25,14 +25,16 @@ final class EnumValueObject extends ObjectDefinition
     /**
      * @var string
      */
-    public const TYPE_DESCRIPTION = 'One possible value for a given Enum. Enum values are unique values,
-not a placeholder for a string or numeric value. However an Enum
-value is returned in a JSON response as a string.';
+    public const TYPE_DESCRIPTION = <<<Description
+        One possible value for a given Enum. Enum values are unique values,
+        not a placeholder for a string or numeric value. However an Enum
+        value is returned in a JSON response as a string.
+Description;
 
     /**
      * @var int
      */
-    public const TYPE_LINE = 83;
+    private const DEFINITION_LINE = 83;
 
     /**
      * SchemaObject constructor.
@@ -43,7 +45,7 @@ value is returned in a JSON response as a string.';
         parent::__construct($document, static::TYPE_NAME);
 
         $this->withDescription(self::TYPE_DESCRIPTION);
-        $this->withLine(self::TYPE_LINE);
+        $this->withLine(self::DEFINITION_LINE);
     }
 
     /**

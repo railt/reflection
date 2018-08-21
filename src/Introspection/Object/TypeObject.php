@@ -25,20 +25,22 @@ final class TypeObject extends ObjectDefinition
     /**
      * @var string
      */
-    public const TYPE_DESCRIPTION = 'The fundamental unit of any GraphQL Schema is the type. There are
-many kinds of types in GraphQL as represented by the __TypeKind enum.
-
-Depending on the kind of a type, certain fields describe information
-about that type. Scalar types provide no information beyond a name
-and description, while Enum types provide their values. Object and
-Interface types provide the fields they describe. Abstract types,
-Union and Interface, provide the Object types possible at runtime.
-List and NonNull types compose other types.';
+    public const TYPE_DESCRIPTION = <<<Description
+        The fundamental unit of any GraphQL Schema is the type. There are
+        many kinds of types in GraphQL as represented by the __TypeKind enum.
+        
+        Depending on the kind of a type, certain fields describe information
+        about that type. Scalar types provide no information beyond a name
+        and description, while Enum types provide their values. Object and
+        Interface types provide the fields they describe. Abstract types,
+        Union and Interface, provide the Object types possible at runtime.
+        List and NonNull types compose other types.
+Description;
 
     /**
      * @var int
      */
-    public const TYPE_LINE = 36;
+    private const DEFINITION_LINE = 36;
 
     /**
      * SchemaObject constructor.
@@ -49,7 +51,7 @@ List and NonNull types compose other types.';
         parent::__construct($document, static::TYPE_NAME);
 
         $this->withDescription(self::TYPE_DESCRIPTION);
-        $this->withLine(self::TYPE_LINE);
+        $this->withLine(self::DEFINITION_LINE);
     }
 
     /**

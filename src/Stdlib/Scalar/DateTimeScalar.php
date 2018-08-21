@@ -26,7 +26,15 @@ final class DateTimeScalar extends ScalarDefinition
     /**
      * @var string
      */
-    public const TYPE_DESCRIPTION = 'The DateTime scalar conforms to the RFC 3339 profile of the ISO 8601 standard.';
+    public const TYPE_DESCRIPTION = <<<Description
+            The DateTime scalar conforms to the **RFC 3339** 
+            profile of the **ISO 8601** standard.
+Description;
+
+    /**
+     * @var int
+     */
+    private const DEFINITION_LINE = 31;
 
     /**
      * BooleanScalar constructor.
@@ -37,6 +45,7 @@ final class DateTimeScalar extends ScalarDefinition
         parent::__construct($document, self::TYPE_NAME);
 
         $this->withDescription(self::TYPE_DESCRIPTION);
+        $this->withLine(self::DEFINITION_LINE);
     }
 
     /**
@@ -90,14 +99,6 @@ final class DateTimeScalar extends ScalarDefinition
 
             throw new TypeConflictException($message, $e->getCode());
         }
-    }
-
-    /**
-     * @return int
-     */
-    public function getLine(): int
-    {
-        return 31;
     }
 
     /**

@@ -30,7 +30,7 @@ final class TypeKindEnum extends EnumDefinition
     /**
      * @var int
      */
-    public const TYPE_LINE = 94;
+    private const DEFINITION_LINE = 94;
 
     /**
      * SchemaObject constructor.
@@ -41,7 +41,7 @@ final class TypeKindEnum extends EnumDefinition
         parent::__construct($document, static::TYPE_NAME);
 
         $this->withDescription(self::TYPE_DESCRIPTION);
-        $this->withLine(self::TYPE_LINE);
+        $this->withLine(self::DEFINITION_LINE);
     }
 
     /**

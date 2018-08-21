@@ -25,13 +25,15 @@ final class DirectiveLocationEnum extends EnumDefinition
     /**
      * @var string
      */
-    public const TYPE_DESCRIPTION = 'A Directive can be adjacent to many parts of the GraphQL language,
-a __DirectiveLocation describes one such possible adjacencies.';
+    public const TYPE_DESCRIPTION = <<<Description
+        A Directive can be adjacent to many parts of the GraphQL language,
+        a __DirectiveLocation describes one such possible adjacencies.
+Description;
 
     /**
      * @var int
      */
-    public const TYPE_LINE = 149;
+    private const DEFINITION_LINE = 149;
 
     /**
      * SchemaObject constructor.
@@ -42,7 +44,7 @@ a __DirectiveLocation describes one such possible adjacencies.';
         parent::__construct($document, static::TYPE_NAME);
 
         $this->withDescription(self::TYPE_DESCRIPTION);
-        $this->withLine(self::TYPE_LINE);
+        $this->withLine(self::DEFINITION_LINE);
     }
 
     /**

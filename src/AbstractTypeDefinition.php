@@ -12,6 +12,7 @@ namespace Railt\Reflection;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Definition\Behaviour\HasDeprecation;
 use Railt\Reflection\Definition\Behaviour\HasInheritance;
+use Railt\Reflection\Definition\Behaviour\HasName;
 use Railt\Reflection\Invocation\Behaviour\HasDirectives;
 
 /**
@@ -19,14 +20,10 @@ use Railt\Reflection\Invocation\Behaviour\HasDirectives;
  */
 abstract class AbstractTypeDefinition extends AbstractDefinition implements TypeDefinition
 {
+    use HasName;
     use HasDirectives;
     use HasDeprecation;
     use HasInheritance;
-
-    /**
-     * @var string
-     */
-    protected $name;
 
     /**
      * @var string|null
@@ -40,8 +37,7 @@ abstract class AbstractTypeDefinition extends AbstractDefinition implements Type
      */
     public function __construct(Document $document, string $name)
     {
-        $this->name = $name;
-
+        $this->renameTo($name);
         parent::__construct($document);
     }
 
@@ -65,25 +61,6 @@ abstract class AbstractTypeDefinition extends AbstractDefinition implements Type
     }
 
     /**
-     * @param string $name
-     * @return TypeDefinition|$this
-     */
-    public function renameTo(string $name): TypeDefinition
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
      * @return bool
      */
     public function isBuiltin(): bool
@@ -97,21 +74,5 @@ abstract class AbstractTypeDefinition extends AbstractDefinition implements Type
     public function __toString(): string
     {
         return \sprintf('%s<%s>', $this->name ?? '?', static::getType());
-    }
-
-    /**
-     * @return bool
-     */
-    public function isRenderable(): bool
-    {
-        return false;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isInputable(): bool
-    {
-        return false;
     }
 }

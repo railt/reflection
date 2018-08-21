@@ -29,6 +29,11 @@ final class FloatScalar extends ScalarDefinition
     public const TYPE_DESCRIPTION = 'A signed double-precision floating-point value.';
 
     /**
+     * @var int
+     */
+    private const DEFINITION_LINE = 8;
+
+    /**
      * BooleanScalar constructor.
      * @param Document $document
      */
@@ -37,6 +42,7 @@ final class FloatScalar extends ScalarDefinition
         parent::__construct($document, self::TYPE_NAME);
 
         $this->withDescription(self::TYPE_DESCRIPTION);
+        $this->withLine(self::DEFINITION_LINE);
     }
 
     /**
@@ -65,14 +71,6 @@ final class FloatScalar extends ScalarDefinition
         }
 
         return (float)parent::serialize($value);
-    }
-
-    /**
-     * @return int
-     */
-    public function getLine(): int
-    {
-        return 8;
     }
 
     /**

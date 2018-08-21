@@ -29,6 +29,11 @@ final class StringScalar extends ScalarDefinition
     public const TYPE_DESCRIPTION = 'A UTF‐8 character sequence.';
 
     /**
+     * @var int
+     */
+    private const DEFINITION_LINE = 12;
+
+    /**
      * BooleanScalar constructor.
      * @param Document $document
      */
@@ -37,6 +42,7 @@ final class StringScalar extends ScalarDefinition
         parent::__construct($document, self::TYPE_NAME);
 
         $this->withDescription(self::TYPE_DESCRIPTION);
+        $this->withLine(self::DEFINITION_LINE);
     }
 
     /**
@@ -65,14 +71,6 @@ final class StringScalar extends ScalarDefinition
         }
 
         return (string)$value;
-    }
-
-    /**
-     * @return int
-     */
-    public function getLine(): int
-    {
-        return 12;
     }
 
     /**

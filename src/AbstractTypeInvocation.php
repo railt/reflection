@@ -7,33 +7,28 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Reflection\Invocation;
+namespace Railt\Reflection;
 
-use Railt\Reflection\AbstractDefinition;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
-use Railt\Reflection\Contracts\Invocation\TypeInvocation;
-use Railt\Reflection\Document;
 use Railt\Reflection\Contracts\Document as DocumentInterface;
+use Railt\Reflection\Contracts\Invocation\TypeInvocation;
+use Railt\Reflection\Definition\Behaviour\HasName;
 
 /**
  * Class AbstractTypeInvocation
  */
 abstract class AbstractTypeInvocation extends AbstractDefinition implements TypeInvocation
 {
-    /**
-     * @var string
-     */
-    protected $name;
+    use HasName;
 
     /**
      * AbstractTypeInvocation constructor.
      * @param Document|DocumentInterface $document
-     * @param string $name
+     * @param string|null $name
      */
-    public function __construct(Document $document, string $name)
+    public function __construct(Document $document, ?string $name)
     {
-        $this->name = $name;
-
+        $this->renameTo($name);
         parent::__construct($document);
     }
 
@@ -43,15 +38,7 @@ abstract class AbstractTypeInvocation extends AbstractDefinition implements Type
      */
     public function getDefinition(): TypeDefinition
     {
-        return $this->fetch($this->name);
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
+        return $this->fetch($this->getName());
     }
 
     /**

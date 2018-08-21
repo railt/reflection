@@ -11,7 +11,7 @@ namespace Railt\Reflection\Definition;
 
 use Railt\Reflection\AbstractTypeDefinition;
 use Railt\Reflection\Contracts\Definition\ScalarDefinition as ScalarDefinitionInterface;
-use Railt\Reflection\Contracts\TypeInterface as TypeInterface;
+use Railt\Reflection\Contracts\TypeInterface;
 use Railt\Reflection\Type;
 
 /**
@@ -33,6 +33,7 @@ class ScalarDefinition extends AbstractTypeDefinition implements ScalarDefinitio
      */
     public function parse($value)
     {
+        /** @var ScalarDefinitionInterface $parent */
         if ($parent = $this->getInheritedParent()) {
             $value = $parent->parse($value);
         }
@@ -46,26 +47,11 @@ class ScalarDefinition extends AbstractTypeDefinition implements ScalarDefinitio
      */
     public function serialize($value)
     {
-        if ($parent = $this->getParentInheritance()) {
+        /** @var ScalarDefinitionInterface $parent */
+        if ($parent = $this->getInheritedParent()) {
             $value = $parent->serialize($value);
         }
 
         return $value;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isRenderable(): bool
-    {
-        return true;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isInputable(): bool
-    {
-        return true;
     }
 }

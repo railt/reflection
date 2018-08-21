@@ -29,20 +29,4 @@ class InputDefinition extends AbstractTypeDefinition implements InputDefinitionI
     {
         return Type::of(Type::INPUT_OBJECT);
     }
-
-    /**
-     * @return bool
-     */
-    public function isRenderable(): bool
-    {
-        return false;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isInputable(): bool
-    {
-        return true;
-    }
 }

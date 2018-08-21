@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Railt\Reflection\Invocation;
 
+use Railt\Reflection\AbstractTypeInvocation;
 use Railt\Reflection\Contracts\Invocation\DirectiveInvocation as DirectiveInvocationInterface;
 use Railt\Reflection\Contracts\TypeInterface;
 use Railt\Reflection\Definition\DirectiveDefinition;

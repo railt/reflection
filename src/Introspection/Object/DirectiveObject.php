@@ -25,18 +25,20 @@ final class DirectiveObject extends ObjectDefinition
     /**
      * @var string
      */
-    public const TYPE_DESCRIPTION = 'A Directive provides a way to describe alternate runtime execution
-and type validation behavior in a GraphQL document.
-
-In some cases, you need to provide options to alter GraphQL\'s
-execution behavior in ways field arguments will not suffice, such
-as conditionally including or skipping a field. Directives provide
-this by describing additional information to the executor.';
+    public const TYPE_DESCRIPTION = <<<Description
+        A Directive provides a way to describe alternate runtime execution
+        and type validation behavior in a GraphQL document.
+        
+        In some cases, you need to provide options to alter GraphQL's
+        execution behavior in ways field arguments will not suffice, such
+        as conditionally including or skipping a field. Directives provide
+        this by describing additional information to the executor.
+Description;
 
     /**
      * @var int
      */
-    public const TYPE_LINE = 133;
+    private const DEFINITION_LINE = 133;
 
     /**
      * SchemaObject constructor.
@@ -47,7 +49,7 @@ this by describing additional information to the executor.';
         parent::__construct($document, static::TYPE_NAME);
 
         $this->withDescription(self::TYPE_DESCRIPTION);
-        $this->withLine(self::TYPE_LINE);
+        $this->withLine(self::DEFINITION_LINE);
     }
 
     /**

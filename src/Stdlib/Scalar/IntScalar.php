@@ -29,6 +29,11 @@ final class IntScalar extends ScalarDefinition
     public const TYPE_DESCRIPTION = 'A signed 32‐bit integer.';
 
     /**
+     * @var int
+     */
+    private const DEFINITION_LINE = 4;
+
+    /**
      * BooleanScalar constructor.
      * @param Document $document
      */
@@ -37,6 +42,7 @@ final class IntScalar extends ScalarDefinition
         parent::__construct($document, self::TYPE_NAME);
 
         $this->withDescription(self::TYPE_DESCRIPTION);
+        $this->withLine(self::DEFINITION_LINE);
     }
 
     /**
@@ -65,14 +71,6 @@ final class IntScalar extends ScalarDefinition
         }
 
         return (int)parent::serialize($value);
-    }
-
-    /**
-     * @return int
-     */
-    public function getLine(): int
-    {
-        return 4;
     }
 
     /**

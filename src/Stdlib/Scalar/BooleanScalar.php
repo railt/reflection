@@ -29,6 +29,11 @@ final class BooleanScalar extends ScalarDefinition
     public const TYPE_DESCRIPTION = 'Rebel or Empire? Nope! true or false.';
 
     /**
+     * @var int
+     */
+    private const DEFINITION_LINE = 16;
+
+    /**
      * BooleanScalar constructor.
      * @param Document $document
      */
@@ -37,6 +42,7 @@ final class BooleanScalar extends ScalarDefinition
         parent::__construct($document, self::TYPE_NAME);
 
         $this->withDescription(self::TYPE_DESCRIPTION);
+        $this->withLine(self::DEFINITION_LINE);
     }
 
     /**
@@ -65,14 +71,6 @@ final class BooleanScalar extends ScalarDefinition
         }
 
         return (bool)parent::serialize($value);
-    }
-
-    /**
-     * @return int
-     */
-    public function getLine(): int
-    {
-        return 16;
     }
 
     /**

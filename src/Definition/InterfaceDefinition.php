@@ -44,20 +44,4 @@ class InterfaceDefinition extends AbstractTypeDefinition implements InterfaceDef
         return $this->isImplements($definition) ||
             parent::instanceOf($definition);
     }
-
-    /**
-     * @return bool
-     */
-    public function isRenderable(): bool
-    {
-        return true;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isInputable(): bool
-    {
-        return false;
-    }
 }

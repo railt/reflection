@@ -17,7 +17,7 @@ interface SchemaDefinition extends TypeDefinition
     /**
      * @var string
      */
-    public const DEFAULT_SCHEMA_NAME = 'Schema';
+    public const DEFAULT_SCHEMA_NAME = ':schema';
 
     /**
      * @return ObjectDefinition

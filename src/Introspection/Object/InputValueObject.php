@@ -25,14 +25,16 @@ final class InputValueObject extends ObjectDefinition
     /**
      * @var string
      */
-    public const TYPE_DESCRIPTION = 'Arguments provided to Fields or Directives and the input fields of an
-InputObject are represented as Input Values which describe their
-type and optionally a default value.';
+    public const TYPE_DESCRIPTION = <<<Description
+        Arguments provided to Fields or Directives and the input fields of an
+        InputObject are represented as Input Values which describe their
+        type and optionally a default value.
+Description;
 
     /**
      * @var int
      */
-    public const TYPE_LINE = 68;
+    private const DEFINITION_LINE = 68;
 
     /**
      * SchemaObject constructor.
@@ -43,7 +45,7 @@ type and optionally a default value.';
         parent::__construct($document, static::TYPE_NAME);
 
         $this->withDescription(self::TYPE_DESCRIPTION);
-        $this->withLine(self::TYPE_LINE);
+        $this->withLine(self::DEFINITION_LINE);
     }
 
     /**

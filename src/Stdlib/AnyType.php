@@ -30,6 +30,11 @@ final class AnyType extends AbstractTypeDefinition
     public const TYPE_DESCRIPTION = 'Abstract type, representing any data type';
 
     /**
+     * @var int
+     */
+    private const DEFINITION_LINE = 0;
+
+    /**
      * AnyScalar constructor.
      * @param Document $document
      */
@@ -38,6 +43,7 @@ final class AnyType extends AbstractTypeDefinition
         parent::__construct($document, self::TYPE_NAME);
 
         $this->withDescription(self::TYPE_DESCRIPTION);
+        $this->withLine(self::DEFINITION_LINE);
     }
 
     /**
@@ -46,22 +52,6 @@ final class AnyType extends AbstractTypeDefinition
     public static function getType(): TypeInterface
     {
         return Type::of(Type::ANY);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isRenderable(): bool
-    {
-        return true;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isInputable(): bool
-    {
-        return true;
     }
 
     /**

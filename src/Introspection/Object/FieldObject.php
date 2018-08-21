@@ -25,13 +25,15 @@ final class FieldObject extends ObjectDefinition
     /**
      * @var string
      */
-    public const TYPE_DESCRIPTION = 'Object and Interface types are described by a list of Fields, each of
-which has a name, potentially a list of arguments, and a return type.';
+    public const TYPE_DESCRIPTION = <<<Description
+        Object and Interface types are described by a list of Fields, each of
+        which has a name, potentially a list of arguments, and a return type.
+Description;
 
     /**
      * @var int
      */
-    public const TYPE_LINE = 53;
+    private const DEFINITION_LINE = 53;
 
     /**
      * SchemaObject constructor.
@@ -42,7 +44,7 @@ which has a name, potentially a list of arguments, and a return type.';
         parent::__construct($document, static::TYPE_NAME);
 
         $this->withDescription(self::TYPE_DESCRIPTION);
-        $this->withLine(self::TYPE_LINE);
+        $this->withLine(self::DEFINITION_LINE);
     }
 
     /**

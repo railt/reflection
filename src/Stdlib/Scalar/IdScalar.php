@@ -34,6 +34,11 @@ is not intended to be human‐readable.
 Description;
 
     /**
+     * @var int
+     */
+    private const DEFINITION_LINE = 25;
+
+    /**
      * BooleanScalar constructor.
      * @param Document $document
      */
@@ -42,6 +47,7 @@ Description;
         parent::__construct($document, self::TYPE_NAME);
 
         $this->withDescription(self::TYPE_DESCRIPTION);
+        $this->withLine(self::DEFINITION_LINE);
     }
 
     /**
@@ -70,14 +76,6 @@ Description;
         }
 
         return (string)parent::serialize($value);
-    }
-
-    /**
-     * @return int
-     */
-    public function getLine(): int
-    {
-        return 25;
     }
 
     /**
