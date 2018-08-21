@@ -9,8 +9,10 @@ declare(strict_types=1);
 
 namespace Railt\Reflection\Invocation;
 
+use Railt\Reflection\Contracts\Document as DocumentInterface;
 use Railt\Reflection\Contracts\Invocation\InputInvocation as InputInvocationInterface;
 use Railt\Reflection\Contracts\TypeInterface as TypeInterface;
+use Railt\Reflection\Document;
 use Railt\Reflection\Invocation\Behaviour\HasArguments;
 use Railt\Reflection\Type;
 
@@ -20,7 +22,26 @@ use Railt\Reflection\Type;
 class InputInvocation extends AbstractTypeInvocation implements InputInvocationInterface
 {
     use HasArguments;
-    
+
+    /**
+     * InputInvocation constructor.
+     * @param Document|DocumentInterface $document
+     * @param string|null $name
+     */
+    public function __construct(Document $document, string $name = null)
+    {
+        $this->document = $document;
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return (string)($this->name ?? ':anonymous');
+    }
+
     /**
      * @return TypeInterface
      */
