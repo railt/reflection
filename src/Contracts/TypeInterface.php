@@ -172,39 +172,64 @@ interface TypeInterface
     ];
 
     /**
+     * Returns true if the type is dependent on another
+     * independent type definition and false instead.
+     *
      * @return bool
      */
     public function isDependent(): bool;
 
     /**
+     * Returns true in the event that the type can be represented
+     * as a value and passed as an argument to the GraphQL request.
+     *
      * @return bool
      */
     public function isInputable(): bool;
 
     /**
+     * Returns true when a type can be rendered as a JSON
+     * value or a structure, and they can also be operated
+     * on in the GraphQL query.
+     *
      * @return bool
      */
     public function isReturnable(): bool;
 
     /**
+     * Returns a generic constant type name.
+     *
      * @return string
      */
     public function getName(): string;
 
     /**
+     * Returns true if the selection type is the
+     * one of child of the current type.
+     *
      * @param TypeInterface $type
      * @return bool
      */
     public function instanceOf(TypeInterface $type): bool;
 
     /**
+     * Returns true if the type is the same as the current type.
+     *
      * @param string $type
      * @return bool
      */
     public function is(string $type): bool;
 
     /**
+     * Returns the type name available for output.
+     *
      * @return string
      */
     public function __toString(): string;
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public static function isValid(string $name): bool;
 }

@@ -21,6 +21,11 @@ class Type implements TypeInterface
     use Serializable;
 
     /**
+     * @var array|string[]
+     */
+    private const TYPES_LIST = self::DEPENDENT_TYPES + self::ROOT_TYPES;
+
+    /**
      * @var Type[]
      */
     private static $instances = [];
@@ -29,10 +34,12 @@ class Type implements TypeInterface
      * @var array[]|string[][]
      */
     private static $inheritance = [];
+
     /**
      * @var string
      */
     protected $name;
+
     /**
      * @var array|string[]
      */
@@ -108,7 +115,7 @@ class Type implements TypeInterface
     }
 
     /**
-     * @return bool
+     * {@inheritDoc}
      */
     public function isInputable(): bool
     {
@@ -116,7 +123,7 @@ class Type implements TypeInterface
     }
 
     /**
-     * @return bool
+     * {@inheritDoc}
      */
     public function isReturnable(): bool
     {
@@ -124,7 +131,7 @@ class Type implements TypeInterface
     }
 
     /**
-     * @return bool
+     * {@inheritDoc}
      */
     public function isDependent(): bool
     {
@@ -132,8 +139,7 @@ class Type implements TypeInterface
     }
 
     /**
-     * @param TypeInterface $type
-     * @return bool
+     * {@inheritDoc}
      */
     public function instanceOf(TypeInterface $type): bool
     {
@@ -143,8 +149,7 @@ class Type implements TypeInterface
     }
 
     /**
-     * @param string $type
-     * @return bool
+     * {@inheritDoc}
      */
     public function is(string $type): bool
     {
@@ -152,7 +157,7 @@ class Type implements TypeInterface
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function getName(): string
     {
@@ -160,10 +165,18 @@ class Type implements TypeInterface
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function __toString(): string
     {
         return $this->getName();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function isValid(string $name): bool
+    {
+        return \in_array($name, self::TYPES_LIST, true);
     }
 }
