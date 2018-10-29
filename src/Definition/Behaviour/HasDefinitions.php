@@ -61,12 +61,29 @@ trait HasDefinitions
     }
 
     /**
-     * @param string|TypeDefinition $type
+     * @param string|TypeDefinition ...$types
      * @return ProvidesTypeDefinitions|$this
      */
-    public function withDefinition($type): ProvidesTypeDefinitions
+    public function withDefinition(...$types): ProvidesTypeDefinitions
     {
-        $this->types[] = $this->nameOf($type);
+        foreach ($types as $type) {
+            $this->types[] = $this->nameOf($type);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param string|TypeDefinition ...$types
+     * @return ProvidesTypeDefinitions|$this
+     */
+    public function withoutDefinition(...$types): ProvidesTypeDefinitions
+    {
+        foreach ($types as $type) {
+            if ($this->hasDefinition($this->nameOf($type))) {
+                array_splice($this->types, array_search($this->types, $this->nameOf($type)), 1);
+            }
+        }
 
         return $this;
     }

@@ -60,4 +60,17 @@ trait HasInputFields
 
         return $this;
     }
+
+    /**
+     * @param string|InputFieldDefinition ...$fields
+     * @return ProvidesInputFields|$this
+     */
+    public function withoutField(...$fields): ProvidesInputFields
+    {
+        foreach ($fields as $field) {
+            unset($this->fields[$this->nameOf($field)]);
+        }
+
+        return $this;
+    }
 }
