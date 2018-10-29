@@ -90,5 +90,17 @@ trait HasInterfaces
 
         return $this;
     }
-}
 
+    /**
+     * @param string|TypeDefinition ...$interfaces
+     * @return ProvidesInterfaces|$this
+     */
+    public function withoutInterface(...$interfaces): ProvidesInterfaces
+    {
+        foreach ($interfaces as $interface) {
+            unset($this->interfaces[$this->nameOf($interface)]);
+        }
+
+        return $this;
+    }
+}

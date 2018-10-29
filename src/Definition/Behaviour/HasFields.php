@@ -60,4 +60,17 @@ trait HasFields
 
         return $this;
     }
+
+    /**
+     * @param string|FieldDefinition ...$fields
+     * @return ProvidesFields|$this
+     */
+    public function withoutField(...$fields): ProvidesFields
+    {
+        foreach ($fields as $field) {
+            unset($this->fields[$this->nameOf($field)]);
+        }
+
+        return $this;
+    }
 }

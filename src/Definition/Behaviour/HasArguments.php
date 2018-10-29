@@ -61,4 +61,17 @@ trait HasArguments
 
         return $this;
     }
+
+    /**
+     * @param string|ArgumentDefinitionInterface ...$arguments
+     * @return ProvidesArguments|$this
+     */
+    public function withoutArgument(...$arguments)
+    {
+        foreach ($arguments as $argument) {
+            unset($this->arguments[$this->nameOf($argument)]);
+        }
+
+        return $this;
+    }
 }

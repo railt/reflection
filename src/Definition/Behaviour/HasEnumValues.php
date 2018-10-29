@@ -60,4 +60,17 @@ trait HasEnumValues
 
         return $this;
     }
+
+    /**
+     * @param string|EnumValueDefinition ...$values
+     * @return $this
+     */
+    public function withoutValue(...$values)
+    {
+        foreach ($values as $value) {
+            unset($this->values[$this->nameOf($value)]);
+        }
+
+        return $this;
+    }
 }
