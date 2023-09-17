@@ -11,6 +11,8 @@
     <a href="https://raw.githubusercontent.com/railt/reflection/master/LICENSE.md"><img src="https://poser.pugx.org/railt/reflection/license" alt="License MIT"></a>
 </p>
 
+> This package is **deprecated**. Please use https://github.com/railt/reflection instead
+
 # Reflection
 
 > Note: All questions and issues please send 
